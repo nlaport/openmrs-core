@@ -34,7 +34,7 @@ import org.openmrs.test.StartModule;
 @StartModule( { "org/openmrs/api/db/include/serialization.xstream-0.2.8-SNAPSHOT.omod" })
 public class SerializedObjectDAOTest extends BaseContextSensitiveTest {
 	
-	private SerializedObjectDAO dao = null;
+	private SerializedObjectDAO dao;
 	
 	/**
 	 * Run this before each unit test in this class. The "@Before" method in

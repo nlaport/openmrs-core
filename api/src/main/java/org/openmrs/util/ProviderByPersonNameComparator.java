@@ -9,6 +9,7 @@
  */
 package org.openmrs.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -24,14 +25,15 @@ import org.openmrs.Provider;
  */
 public class ProviderByPersonNameComparator implements Comparator<Provider>, Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Override
 	public int compare(Provider provider1, Provider provider2) {
 		
 		// test for null cases (sorting them to be last in a list)
-		boolean provider1IsNull = (provider1 == null || provider1.getPerson() == null);
-		boolean provider2IsNull = (provider2 == null || provider2.getPerson() == null);
+		boolean provider1IsNull = provider1 == null || provider1.getPerson() == null;
+		boolean provider2IsNull = provider2 == null || provider2.getPerson() == null;
 		
 		if (provider1IsNull && provider2IsNull) {
 			return 0;

@@ -13,8 +13,8 @@ package org.openmrs.api.context;
  * Test credentials limited to just the username.
  */
 public class TestUsernameCredentials implements Credentials {
-	
-	private String username;
+
+	private final String username;
 	
 	public TestUsernameCredentials(String username) {
 		this.username = username;

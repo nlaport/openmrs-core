@@ -32,7 +32,7 @@ import org.springframework.util.StringUtils;
 /**
  * OpenMRS's security class deals with the hashing of passwords.
  */
-public class Security {
+public final class Security {
 
 	/**
 	 * encryption settings
@@ -122,8 +122,8 @@ public class Security {
 		int high;
 		int low;
 		for (byte aBlock : block) {
-			high = ((aBlock & 0xf0) >> 4);
-			low = (aBlock & 0x0f);
+			high = (aBlock & 0xf0) >> 4;
+			low = aBlock & 0x0f;
 			buf.append(hexChars[high]);
 			buf.append(hexChars[low]);
 		}

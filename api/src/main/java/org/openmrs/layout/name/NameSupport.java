@@ -9,7 +9,7 @@
  */
 package org.openmrs.layout.name;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class NameSupport extends LayoutSupport<NameTemplate> implements GlobalPr
 
 	private static final Logger log = LoggerFactory.getLogger(NameSupport.class);
 	private static NameSupport singleton;
-	private boolean initialized = false;
+	private boolean initialized;
 	
 	public NameSupport() {
 		if (singleton == null) {
@@ -107,7 +107,7 @@ public class NameSupport extends LayoutSupport<NameTemplate> implements GlobalPr
 	@Override
 	public String getDefaultLayoutFormat() {
 		String ret = Context.getAdministrationService().getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_LAYOUT_NAME_FORMAT);
-		return (ret != null && ret.length() > 0) ? ret : defaultLayoutFormat;
+		return ret != null && ret.length() > 0 ? ret : defaultLayoutFormat;
 	}
 
 	/**

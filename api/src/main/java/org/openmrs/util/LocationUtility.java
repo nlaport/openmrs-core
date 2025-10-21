@@ -25,7 +25,7 @@ public class LocationUtility implements GlobalPropertyListener {
 	 * Cached version of the system default location. This is cached so that we don't have to look
 	 * it up in the global property table every time it is requested for
 	 */
-	private static Location defaultLocation = null;
+	private static Location defaultLocation;
 	
 	/**
 	 * Gets the system default location specified as a global property.

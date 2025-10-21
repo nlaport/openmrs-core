@@ -53,7 +53,6 @@ import org.openmrs.ConceptStopWord;
 import org.openmrs.Drug;
 import org.openmrs.DrugIngredient;
 import org.openmrs.Obs;
-import org.openmrs.Patient;
 import org.openmrs.Person;
 import org.openmrs.api.APIException;
 import org.openmrs.api.AdministrationService;
@@ -2105,10 +2104,7 @@ public class ConceptServiceImpl extends BaseOpenmrsService implements ConceptSer
 	 * in length, since the uuid data field is 38 characters long)
 	 */
 	public static boolean isValidUuidFormat(String uuid) {
-		if (uuid.length() < 36 || uuid.length() > 38 || uuid.contains(" ") || uuid.contains(".")) {
-			return false;
-		}
-		return true;
+		return !(uuid.length() < 36 || uuid.length() > 38 || uuid.contains(" ") || uuid.contains("."));
 	}
 
 	/**

@@ -54,7 +54,7 @@ public class PersonSearchCriteria {
 		AdministrationService adminService = Context.getAdministrationService();
 		String matchModeProperty = adminService.getGlobalProperty(
 		    OpenmrsConstants.GLOBAL_PROPERTY_PERSON_ATTRIBUTE_SEARCH_MATCH_MODE, "");
-		return (matchModeProperty.equals(OpenmrsConstants.GLOBAL_PROPERTY_PERSON_ATTRIBUTE_SEARCH_MATCH_ANYWHERE)) ? MatchMode.ANYWHERE
+		return matchModeProperty.equals(OpenmrsConstants.GLOBAL_PROPERTY_PERSON_ATTRIBUTE_SEARCH_MATCH_ANYWHERE) ? MatchMode.ANYWHERE
 		        : MatchMode.EXACT;
 	}
 	

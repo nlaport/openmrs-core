@@ -833,7 +833,7 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		visit.addEncounter(e);
 		visitService.saveVisit(visit);
 		//sanity check
-		assertTrue(Context.getEncounterService().getEncountersByVisit(visit, false).size() > 0);
+		assertTrue(!Context.getEncounterService().getEncountersByVisit(visit, false).isEmpty());
 		
 		assertThrows(APIException.class, () -> visitService.purgeVisit(visit));
 	}
@@ -860,7 +860,7 @@ public class VisitServiceTest extends BaseContextSensitiveTest {
 		Visit visit = visitService.getVisit(1);
 		VisitAttributeType attrType = visitService.getVisitAttributeType(1);
 		List<VisitAttribute> attributes = visit.getActiveAttributes(attrType);
-		assertTrue(attributes.size() > 0);
+		assertTrue(!attributes.isEmpty());
 		VisitAttribute attribute = attributes.get(0);
 		attribute.setVoided(true);
 		visitService.saveVisit(visit);

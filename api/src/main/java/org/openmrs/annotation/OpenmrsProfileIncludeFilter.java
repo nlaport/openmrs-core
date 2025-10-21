@@ -20,8 +20,8 @@ import org.springframework.core.type.filter.TypeFilter;
  * Creates a bean if profile is matched. It returns true if a bean should be created.
  */
 public class OpenmrsProfileIncludeFilter implements TypeFilter {
-	
-	private OpenmrsProfileExcludeFilter openmrsProfileExcludeFilter = new OpenmrsProfileExcludeFilter();
+
+	private final OpenmrsProfileExcludeFilter openmrsProfileExcludeFilter = new OpenmrsProfileExcludeFilter();
 	
 	/**
 	 * <strong>Should</strong> create bean for openmrs 1_8 and later

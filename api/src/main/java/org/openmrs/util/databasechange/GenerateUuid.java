@@ -52,7 +52,7 @@ public class GenerateUuid implements CustomTaskChange {
 	 * The "tableNames" parameter defined in the liquibase xml changeSet element that is calling this
 	 * class (whitespace separated).
 	 */
-	private String tableNames = null;
+	private String tableNames;
 	
 	/**
 	 * The "columnName" parameter defined in the liquibase xml changeSet element that is calling this
@@ -70,12 +70,12 @@ public class GenerateUuid implements CustomTaskChange {
 	/**
 	 * Set by the {@link #setUp()} method from the value of the {@link #idExceptions} parameter
 	 */
-	private Map<String, String> idExceptionsMap = null;
+	private Map<String, String> idExceptionsMap;
 	
 	/**
 	 * Set by the {@link #setUp()} method from the value of the {@link #tableNames} parameter
 	 */
-	private String[] tableNamesArray = null;
+	private String[] tableNamesArray;
 	
 	/**
 	 * The sql statement to select out the ids. Generated in the {@link #setUp()} method.
@@ -105,7 +105,7 @@ public class GenerateUuid implements CustomTaskChange {
 			if ("mysql".equals(database.getShortName()) || "mariadb".equals(database.getShortName())) {
 				String updateSql = "update %s set " + columnName + " = uuid() where " + columnName + " is null";
 				for (String tablename : tableNamesArray) {
-					String rawSql = String.format(updateSql, tablename);
+					String rawSql = updateSql.formatted(tablename);
 					
 					Statement statement = null;
 					try {

@@ -18,7 +18,7 @@ import java.util.Date;
  * 
  * @since 2.0
  */
-public class DateUtil {
+public final class DateUtil {
 	
 	private DateUtil() {
 	}

@@ -37,10 +37,11 @@ public class SkipBaseSetupAnnotationExecutionListener extends AbstractTestExecut
 		Method testMethod = testContext.getTestMethod();
 		
 		Annotation skipBaseSetup = testMethod.getAnnotation(SkipBaseSetup.class);
-		
+
 		// if the method doesn't have the annotation, check the class
-		if (skipBaseSetup == null)
+		if (skipBaseSetup == null) {
 			skipBaseSetup = testContext.getTestClass().getAnnotation(SkipBaseSetup.class);
+		}
 		
 		// if the annotation exists, call BaseContextSensitiveTest#skipBaseSetup()
 		// so that the method calls in baseSetupWithStandardDataAndAuthentication()

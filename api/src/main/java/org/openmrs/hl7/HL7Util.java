@@ -30,7 +30,7 @@ import ca.uhn.hl7v2.HL7Exception;
  * 
  * @version 1.0
  */
-public class HL7Util {
+public final class HL7Util {
 	
 	private HL7Util() {
 	}
@@ -163,7 +163,7 @@ public class HL7Util {
 		String timeZoneOffset;
 		int tzPlus = fullString.indexOf('+');
 		int tzMinus = fullString.indexOf('-');
-		boolean timeZoneFlag = (tzPlus > 0 || tzMinus > 0);
+		boolean timeZoneFlag = tzPlus > 0 || tzMinus > 0;
 		if (timeZoneFlag) {
 			int tzIndex;
 			if (tzPlus > 0) {

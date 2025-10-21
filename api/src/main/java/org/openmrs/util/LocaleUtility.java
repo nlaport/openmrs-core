@@ -34,13 +34,13 @@ public class LocaleUtility implements GlobalPropertyListener {
 	 * Cached version of the default locale. This is cached so that we don't have to look it up in
 	 * the global property table every page load
 	 */
-	private static volatile Locale defaultLocaleCache = null;
+	private static volatile Locale defaultLocaleCache;
 	
 	/**
 	 * Cached version of the localeAllowedList. This is cached so that we don't have to look it up
 	 * in the global property table every page load
 	 */
-	private static List<Locale> localesAllowedListCache = null;
+	private static List<Locale> localesAllowedListCache;
 	
 	/**
 	 * Gets the default locale specified as a global property.

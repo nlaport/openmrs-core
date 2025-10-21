@@ -13,7 +13,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.openmrs.api.db.ClobDatatypeStorage;
 import org.openmrs.api.db.DatatypeDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -28,7 +27,6 @@ public class HibernateDatatypeDAO implements DatatypeDAO {
 	
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateDatatypeDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

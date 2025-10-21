@@ -12,7 +12,7 @@ package org.openmrs.module;
 /**
  * Constants used by the module system in openmrs
  */
-public class ModuleConstants {
+public final class ModuleConstants {
 	
 	private ModuleConstants() {
 	}

@@ -9,10 +9,12 @@
  */
 package org.openmrs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Cacheable;
+
+import java.io.Serial;
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -29,7 +31,8 @@ import org.openmrs.customdatatype.SingleCustomValue;
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class GlobalProperty extends BaseOpenmrsObject implements CustomValueDescriptor, SingleCustomValue<GlobalProperty> {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private String property = "";
@@ -39,7 +42,7 @@ public class GlobalProperty extends BaseOpenmrsObject implements CustomValueDesc
 	private transient Object typedValue;
 	
 	// if true, indicates that setValue has been called, and we need to invoke CustomDatatype's save
-	private boolean dirty = false;
+	private boolean dirty;
 	
 	private String description = "";
 	

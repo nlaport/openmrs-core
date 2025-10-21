@@ -87,11 +87,12 @@ public class SchedulerServiceTest extends BaseContextSensitiveTest {
 	public void shouldResolveValidTaskClass() throws Exception {
 		String className = "org.openmrs.scheduler.tasks.TestTask";
 		Class<?> c = OpenmrsClassLoader.getInstance().loadClass(className);
-		Object o = c.newInstance();
-		if (o instanceof Task)
+		Object o = c.getDeclaredConstructor().newInstance();
+		if (o instanceof Task) {
 			assertTrue(true, "Class " + className + " is a valid Task");
-		else
+		} else {
 			fail("Class " + className + " is not a valid Task");
+		}
 	}
 	
 	@Test
@@ -269,8 +270,8 @@ public class SchedulerServiceTest extends BaseContextSensitiveTest {
 		SchedulerService service = Context.getSchedulerService();
 		
 		TaskDefinition def = new TaskDefinition();
-		final String TASK_NAME = "This is my test! 123459876";
-		def.setName(TASK_NAME);
+		final String taskName = "This is my test! 123459876";
+		def.setName(taskName);
 		def.setStartOnStartup(false);
 		def.setRepeatInterval(10000000L);
 		def.setTaskClass(LatchExecuteTask.class.getName());
@@ -289,7 +290,7 @@ public class SchedulerServiceTest extends BaseContextSensitiveTest {
 			assertEquals(size + 1, tasks.size());
 		}
 		
-		def = service.getTaskByName(TASK_NAME);
+		def = service.getTaskByName(taskName);
 		assertEquals(Context.getAuthenticatedUser().getUserId(), def.getCreator().getUserId());
 		log.debug("saveTask_shouldSaveTaskToTheDatabase end");
 	}
@@ -370,11 +371,11 @@ public class SchedulerServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void shouldSaveLastExecutionTime() throws Exception {
 		log.debug("shouldSaveLastExecutionTime start");
-		final String NAME = "StoreExecutionTime Task";
+		final String name = "StoreExecutionTime Task";
 		SchedulerService service = Context.getSchedulerService();
 		
 		TaskDefinition td = new TaskDefinition();
-		td.setName(NAME);
+		td.setName(name);
 		td.setStartOnStartup(false);
 		td.setTaskClass(StoreExecutionTimeTask.class.getName());
 		td.setStartTime(null);
@@ -393,7 +394,7 @@ public class SchedulerServiceTest extends BaseContextSensitiveTest {
 		// wait for the SchedulerService to update the execution time
 		for (int x = 0; x < 100; x++) {
 			// refetch the task
-			td = service.getTaskByName(NAME);
+			td = service.getTaskByName(name);
 			if (td.getLastExecutionTime() != null) {
 				log.debug("shouldSaveLastExecutionTime wait done");
 				break;

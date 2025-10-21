@@ -909,7 +909,8 @@ public class LocationServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getLocationByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "f08ba64b-ea57-4a41-b33c-9dfc59b0c60a";
+		String uuid = System.getenv("uuid");
+
 		Location location = Context.getLocationService().getLocationByUuid(uuid);
 		assertEquals(1, (int) location.getLocationId());
 	}

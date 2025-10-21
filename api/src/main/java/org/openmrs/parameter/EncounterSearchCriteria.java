@@ -28,28 +28,28 @@ import org.openmrs.VisitType;
  * @see EncounterSearchCriteriaBuilder
  */
 public class EncounterSearchCriteria {
-	
-	private Patient patient;
-	
-	private Location location;
-	
-	private Date fromDate;
-	
-	private Date toDate;
-	
-	private Date dateChanged;
-	
-	private Collection<Form> enteredViaForms;
-	
-	private Collection<EncounterType> encounterTypes;
-	
-	private Collection<Provider> providers;
-	
-	private Collection<VisitType> visitTypes;
-	
-	private Collection<Visit> visits;
-	
-	private boolean includeVoided;
+
+	private final Patient patient;
+
+	private final Location location;
+
+	private final Date fromDate;
+
+	private final Date toDate;
+
+	private final Date dateChanged;
+
+	private final Collection<Form> enteredViaForms;
+
+	private final Collection<EncounterType> encounterTypes;
+
+	private final Collection<Provider> providers;
+
+	private final Collection<VisitType> visitTypes;
+
+	private final Collection<Visit> visits;
+
+	private final boolean includeVoided;
 
 	/**
 	 * Instead of calling this constructor directly, it is recommended to use {@link EncounterSearchCriteriaBuilder}.

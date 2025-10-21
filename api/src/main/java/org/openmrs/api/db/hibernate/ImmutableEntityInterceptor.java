@@ -12,6 +12,7 @@ package org.openmrs.api.db.hibernate;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.hibernate.EmptyInterceptor;
+import org.hibernate.Interceptor;
 import org.hibernate.type.Type;
 import org.openmrs.Retireable;
 import org.openmrs.Voidable;
@@ -36,7 +37,7 @@ import java.util.List;
  * 
  * @since 1.10
  */
-public abstract class ImmutableEntityInterceptor extends EmptyInterceptor {
+public abstract class ImmutableEntityInterceptor implements Interceptor {
 	
 	private static final Logger log = LoggerFactory.getLogger(ImmutableEntityInterceptor.class);
 	
@@ -98,8 +99,8 @@ public abstract class ImmutableEntityInterceptor extends EmptyInterceptor {
 					continue;
 				}
 				
-				Object previousValue = (previousState != null) ? previousState[i] : null;
-				Object currentValue = (currentState != null) ? currentState[i] : null;
+				Object previousValue = previousState != null ? previousState[i] : null;
+				Object currentValue = currentState != null ? currentState[i] : null;
 				if (!OpenmrsUtil.nullSafeEquals(currentValue, previousValue)) {
 					if (changedProperties == null) {
 						changedProperties = new ArrayList<>();
@@ -126,10 +127,7 @@ public abstract class ImmutableEntityInterceptor extends EmptyInterceptor {
 			return true;
 		}
 		String[] threadMutable = additionalMutableProperties.get();
-		if (threadMutable != null && ArrayUtils.contains(threadMutable, property)) {
-			return true;
-		}
-		return false;
+		return threadMutable != null && ArrayUtils.contains(threadMutable, property);
 	}
 
 	/**

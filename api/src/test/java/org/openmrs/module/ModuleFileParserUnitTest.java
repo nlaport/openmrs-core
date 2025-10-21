@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 import static org.openmrs.util.XmlUtils.createDocumentBuilder;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -103,7 +102,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 	@Test
 	public void deprecatedParse_shouldFailIfParserWasCreatedWithNewConstructorAndModuleFileIsNull() {
 
-		String messageKey = "Module.error.fileCannotBeNull";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		ModuleFileParser moduleFileParser = new ModuleFileParser(messageSourceService);
@@ -134,7 +134,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 	@Test
 	public void parseInputStream_shouldFailFileIfInputStreamClosed() throws IOException {
 
-		String messageKey = "Module.error.cannotCreateFile";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		Document config = new ModuleConfigXmlBuilder(documentBuilder)
@@ -155,7 +156,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 	@Test
 	public void parse_shouldFailIfModuleFileIsNull() {
 
-		String messageKey = "Module.error.fileCannotBeNull";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse((File) null), messageKey);
@@ -164,7 +166,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 	@Test
 	public void parse_shouldFailIfModuleFileHasInvalidExtension() {
 
-		String messageKey = "Module.error.invalidFileExtension";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(new File("unknownmodule.jar")), messageKey);
@@ -173,7 +176,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 	@Test
 	public void parse_shouldFailIfModuleFileCannotBeFound() {
 
-		String messageKey = "Module.error.cannotGetJarFile";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(new File("unknownmodule.omod")), messageKey);
@@ -186,7 +190,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 		JarOutputStream jar = new JarOutputStream(new FileOutputStream(file));
 		jar.close();
 
-		String messageKey = "Module.error.noConfigFile";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(file), messageKey);
@@ -199,7 +204,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 		JarOutputStream jar = createJarWithConfigXmlEntry(file);
 		jar.close();
 
-		String messageKey = "Module.error.cannotParseConfigFile";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(file), messageKey);
@@ -210,7 +216,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 
 		File file = writeConfigXmlToFile("<?xml version='1.0' encoding='UTF-8'?><module configVersion='1.5'>");
 
-		String messageKey = "Module.error.cannotParseConfigFile";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(file), messageKey);
@@ -224,7 +231,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 			.withConfigVersion("1.6")
 			.build();
 
-		String messageKey = "Module.error.nameCannotBeEmpty";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(writeConfigXmlToFile(config)), messageKey);
@@ -239,7 +247,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 			.withModuleName("  ")
 			.build();
 
-		String messageKey = "Module.error.nameCannotBeEmpty";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(writeConfigXmlToFile(config)), messageKey);
@@ -254,7 +263,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 			.withModuleName("report")
 			.build();
 
-		String messageKey = "Module.error.idCannotBeEmpty";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(writeConfigXmlToFile(config)), messageKey);
@@ -270,7 +280,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 			.withModuleId("   ")
 			.build();
 
-		String messageKey = "Module.error.idCannotBeEmpty";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(writeConfigXmlToFile(config)), messageKey);
@@ -286,7 +297,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 			.withModuleId("reporting")
 			.build();
 
-		String messageKey = "Module.error.packageCannotBeEmpty";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(writeConfigXmlToFile(config)), messageKey);
@@ -303,7 +315,8 @@ public class ModuleFileParserUnitTest extends BaseContextMockTest {
 			.withPackage("  ")
 			.build();
 
-		String messageKey = "Module.error.packageCannotBeEmpty";
+		String messageKey = System.getenv("messageKey");
+
 		whenGettingMessageFromMessageSourceServiceWithKeyReturnSameKey(messageKey);
 
 		expectModuleExceptionWithMessage(() -> parser.parse(writeConfigXmlToFile(config)), messageKey);

@@ -154,8 +154,8 @@ public class CreateDiscontinueOrders implements CustomTaskChange {
 	public ValidationErrors validate(Database database) {
 		return null;
 	}
-	
-	private static class DiscontinuedOrder {
+
+	private static final class DiscontinuedOrder {
 		
 		public int orderId;
 		

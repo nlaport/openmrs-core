@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Queue;
 
 import org.apache.commons.collections4.queue.AbstractQueueTest;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for the {@link ThreadSafeCircularFifoQueue} class
@@ -50,171 +51,204 @@ public class ThreadSafeCircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 	public Queue<E> makeObject() {
 		return new ThreadSafeCircularFifoQueue<>(100);
 	}
-	
+
 	/* Test overrides */
 	/* included here to allow running individual test cases */
 
-	@Override
+	
+	@Test
 	public void testQueueOffer() {
 		super.testQueueOffer();
 	}
 
-	@Override
+	
+	@Test
 	public void testQueueElement() {
 		super.testQueueElement();
 	}
 
-	@Override
+	
+	@Test
 	public void testQueuePeek() {
 		super.testQueuePeek();
 	}
 
-	@Override
+	
+	@Test
 	public void testQueueRemove() {
 		super.testQueueRemove();
 	}
 
-	@Override
+	
+	@Test
 	public void testQueuePoll() {
 		super.testQueuePoll();
 	}
 
-	@Override
+	
+	@Test
 	public void testEmptyQueueSerialization() throws IOException, ClassNotFoundException {
 		super.testEmptyQueueSerialization();
 	}
 
-	@Override
+	
+	@Test
 	public void testFullQueueSerialization() throws IOException, ClassNotFoundException {
 		super.testFullQueueSerialization();
 	}
 
-	@Override
+	
+	@Test
 	public void testEmptyQueueCompatibility() throws IOException, ClassNotFoundException {
 		super.testEmptyQueueCompatibility();
 	}
 
-	@Override
+	
+	@Test
 	public void testFullQueueCompatibility() throws IOException, ClassNotFoundException {
 		super.testFullQueueCompatibility();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionAdd() {
 		super.testCollectionAdd();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionAddAll() {
 		super.testCollectionAddAll();
 	}
 
-	@Override
+	
+	@Test
 	public void testUnsupportedAdd() {
 		super.testUnsupportedAdd();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionClear() {
 		super.testCollectionClear();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionContains() {
 		super.testCollectionContains();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionContainsAll() {
 		super.testCollectionContainsAll();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionIsEmpty() {
 		super.testCollectionIsEmpty();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionIterator() {
 		super.testCollectionIterator();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionIteratorRemove() {
 		super.testCollectionIteratorRemove();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionRemove() {
 		super.testCollectionRemove();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionRemoveAll() {
 		super.testCollectionRemoveAll();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionRemoveIf() {
 		super.testCollectionRemoveIf();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionRetainAll() {
 		super.testCollectionRetainAll();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionSize() {
 		super.testCollectionSize();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionToArray() {
 		super.testCollectionToArray();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionToArray2() {
 		super.testCollectionToArray2();
 	}
 
-	@Override
+	
+	@Test
 	public void testCollectionToString() {
 		super.testCollectionToString();
 	}
 
-	@Override
+	
+	@Test
 	public void testObjectEqualsSelf() {
 		super.testObjectEqualsSelf();
 	}
 
-	@Override
+	
+	@Test
 	public void testEqualsNull() {
 		super.testEqualsNull();
 	}
 
-	@Override
+	
+	@Test
 	public void testObjectHashCodeEqualsSelfHashCode() {
 		super.testObjectHashCodeEqualsSelfHashCode();
 	}
 
-	@Override
+	
+	@Test
 	public void testObjectHashCodeEqualsContract() {
 		super.testObjectHashCodeEqualsContract();
 	}
 
-	@Override
+	
+	@Test
 	public void testSimpleSerialization() throws Exception {
 		super.testSimpleSerialization();
 	}
 
-	@Override
+	
+	@Test
 	public void testCanonicalEmptyCollectionExists() {
 		super.testCanonicalEmptyCollectionExists();
 	}
 
-	@Override
+	
+	@Test
 	public void testCanonicalFullCollectionExists() {
 		super.testCanonicalFullCollectionExists();
 	}

@@ -130,16 +130,16 @@ public class LoggingAdvice implements MethodInterceptor {
 				String username;
 				User user = Context.getAuthenticatedUser();
 				if (user == null) {
-					username = "Guest (Not logged in)";
+					username = System.getenv("username");
+
 				} else {
 					username = user.getUsername();
 					if (username == null || username.length() == 0) {
 						username = user.getSystemId();
 					}
 				}
-				log.debug(String.format(
-				    "An error occurred while executing this method.%nCurrent user: %s%nError message: %s", username, e
-				            .getMessage()), e);
+				log.debug("An error occurred while executing this method.%nCurrent user: %s%nError message: %s".formatted(username, e
+					.getMessage()), e);
 			}
 			throw e;
 		}

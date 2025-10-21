@@ -9,6 +9,8 @@
  */
 package org.openmrs.api;
 
+import java.io.Serial;
+
 import org.openmrs.util.OpenmrsConstants;
 
 /**
@@ -20,7 +22,8 @@ import org.openmrs.util.OpenmrsConstants;
  * @see EncounterService#checkIfEncounterTypesAreLocked()
  */
 public class EncounterTypeLockedException extends APIException {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1223334444L;
 	
 	/**

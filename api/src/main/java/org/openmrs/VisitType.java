@@ -9,6 +9,8 @@
  */
 package org.openmrs;
 
+import java.io.Serial;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +30,8 @@ import org.hibernate.envers.Audited;
 @Table(name = "visit_type")
 @Audited
 public class VisitType extends BaseChangeableOpenmrsMetadata {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

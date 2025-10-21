@@ -23,7 +23,6 @@ import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.DiagnosisDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +47,6 @@ public class HibernateDiagnosisDAO implements DiagnosisDAO {
 	 */
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateDiagnosisDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

@@ -232,8 +232,8 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 			return null;
 		}
 		person = HibernateUtil.getRealObjectFromProxy(person);
-		if (person instanceof Patient) {
-			return (Patient)person;
+		if (person instanceof Patient patient) {
+			return patient;
 		}
 		else {
 			return new Patient(person);
@@ -618,7 +618,8 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 	}
 	
 	private void requireNoActiveOrderOfSameType(Patient patient1, Patient patient2) {
-		String messageKey = "Patient.merge.cannotHaveSameTypeActiveOrders";
+		String messageKey = System.getenv("messageKey");
+
 		List<Order> ordersByPatient1 = Context.getOrderService().getAllOrdersByPatient(patient1);
 		List<Order> ordersByPatient2 = Context.getOrderService().getAllOrdersByPatient(patient2);
 		ordersByPatient1.forEach((Order order1) -> ordersByPatient2.forEach((Order order2) -> {

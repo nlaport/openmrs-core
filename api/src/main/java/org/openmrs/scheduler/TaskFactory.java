@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  */
-public class TaskFactory {
+public final class TaskFactory {
 	
 	/** Singleton instance of the schedulable factory */
 	private static final TaskFactory factory = new TaskFactory();
@@ -51,7 +51,7 @@ public class TaskFactory {
 			Class<?> taskClass = OpenmrsClassLoader.getInstance().loadClass(taskDefinition.getTaskClass());
 			
 			// Create a new instance of the schedulable class 
-			Task task = new TaskThreadedInitializationWrapper((Task) taskClass.newInstance());
+			Task task = new TaskThreadedInitializationWrapper((Task) taskClass.getDeclaredConstructor().newInstance());
 			
 			log.debug("initializing {}", taskClass.getName());
 			// Initialize the schedulable object

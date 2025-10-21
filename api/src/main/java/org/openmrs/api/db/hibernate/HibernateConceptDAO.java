@@ -79,7 +79,6 @@ import org.openmrs.util.ConceptMapTypeComparator;
 import org.openmrs.util.OpenmrsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
@@ -99,7 +98,6 @@ public class HibernateConceptDAO implements ConceptDAO {
 	
 	private final SearchSessionFactory searchSessionFactory;
 	
-	@Autowired
 	public HibernateConceptDAO(SessionFactory sessionFactory, SearchSessionFactory searchSessionFactory) {
 		this.sessionFactory = sessionFactory;
 		this.searchSessionFactory = searchSessionFactory;
@@ -1045,7 +1043,7 @@ public class HibernateConceptDAO implements ConceptDAO {
 	 */
 	private class ConceptIterator implements Iterator<Concept> {
 		
-		Concept currentConcept = null;
+		Concept currentConcept;
 		
 		Concept nextConcept;
 		
@@ -1343,7 +1341,7 @@ public class HibernateConceptDAO implements ConceptDAO {
 	@Override
 	public List<String> getConceptStopWords(Locale locale) throws DAOException {
 
-		locale = (locale == null ? Context.getLocale() : locale);
+		locale = locale == null ? Context.getLocale() : locale;
 
 		Session session = sessionFactory.getCurrentSession();
 		CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -1485,7 +1483,7 @@ public class HibernateConceptDAO implements ConceptDAO {
 				b.should(f.match().field("concept.conceptId").matching(concept.getId()).boost(0.1f));
 			}
 			if (!conceptIds.isEmpty()) {
-				float boost = 0.1f;
+				float boost = 0.1F;
 				int boostItems = 10; // boost first items in order
 				int i = 0;
 				for (Object conceptId : conceptIds) {
@@ -1953,7 +1951,7 @@ public class HibernateConceptDAO implements ConceptDAO {
 			locales.add(locale);
 		}
 		
-		boolean searchExactLocale = (exactLocale == null) ? false : exactLocale;
+		boolean searchExactLocale = exactLocale == null ? false : exactLocale;
 		
 		return SearchQueryUnique.search(searchSessionFactory, SearchQueryUnique.newQuery(ConceptName.class, f -> 
 			newConceptNamePredicate(f, name, true, locales, searchExactLocale, false,

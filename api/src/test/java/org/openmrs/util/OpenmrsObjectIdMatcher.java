@@ -12,13 +12,10 @@ package org.openmrs.util;
 import org.hamcrest.Description;
 import org.junit.internal.matchers.TypeSafeMatcher;
 import org.openmrs.OpenmrsObject;
-import org.openmrs.PersonName;
-
-import java.util.Set;
 
 public class OpenmrsObjectIdMatcher extends TypeSafeMatcher<OpenmrsObject> {
-	
-	private Integer id;
+
+	private final Integer id;
 	
 	public OpenmrsObjectIdMatcher(Integer id) {
 		this.id = id;

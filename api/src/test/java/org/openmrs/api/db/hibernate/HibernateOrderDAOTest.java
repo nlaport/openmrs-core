@@ -9,9 +9,6 @@
  */
 package org.openmrs.api.db.hibernate;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -25,7 +22,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
-import org.openmrs.OrderAttribute;
 import org.openmrs.OrderAttributeType;
 import org.openmrs.OrderGroup;
 import org.openmrs.OrderGroupAttributeType;
@@ -179,7 +175,8 @@ public class HibernateOrderDAOTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void deleteOrderGroupAttributeType_shouldDeleteOrderGroupAttributeTypeFromDatabase() {
-		final String UUID = "9cf1bdb2-d18e-11ea-87d0-0242ac130003";
+		final String UUID = System.getenv("UUID");
+
 		OrderGroupAttributeType orderGroupAttributeType = dao.getOrderGroupAttributeTypeByUuid(UUID);
 		assertNotNull(orderGroupAttributeType);
 		dao.deleteOrderGroupAttributeType(orderGroupAttributeType);
@@ -231,7 +228,8 @@ public class HibernateOrderDAOTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void deleteOrderAttributeType_shouldDeleteTheProvidedOrderAttributeTypeFromDatabase() {
-		final String UUID = "9a9e852b-868a-4c78-8e4d-805b52d4b33f";
+		final String UUID = System.getenv("UUID");
+
 		final int ORIGINAL_COUNT = dao.getAllOrderAttributeTypes().size();
 		OrderAttributeType orderAttributeType = dao.getOrderAttributeTypeByUuid(UUID);
 		assertNotNull(orderAttributeType);

@@ -99,9 +99,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 import org.xml.sax.InputSource;
 
@@ -116,8 +115,8 @@ import org.xml.sax.InputSource;
  * 
  * @since 2.4.0
  */
-@ContextConfiguration(locations = { "classpath:applicationContext-service.xml",
-        "classpath*:moduleApplicationContext.xml", "classpath*:TestingApplicationContext.xml" })
+@SpringJUnitConfig(locations = {"classpath:applicationContext-service.xml",
+	"classpath*:moduleApplicationContext.xml", "classpath*:TestingApplicationContext.xml"})
 @TestExecutionListeners(
 	listeners = { SkipBaseSetupAnnotationExecutionListener.class,
 		StartModuleExecutionListener.class },
@@ -125,7 +124,6 @@ import org.xml.sax.InputSource;
 )
 @Transactional
 @Rollback
-@ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
 public abstract class BaseContextSensitiveTest {
 	
@@ -205,9 +203,10 @@ public abstract class BaseContextSensitiveTest {
 		}
 		
 		Properties props = getRuntimeProperties();
-		
-		if (log.isDebugEnabled())
+
+		if (log.isDebugEnabled()) {
 			log.debug("props: {}", props);
+		}
 		
 		Context.setRuntimeProperties(props);
 		
@@ -307,10 +306,11 @@ public abstract class BaseContextSensitiveTest {
 	 * @return Properties runtime
 	 */
 	public Properties getRuntimeProperties() {
-		
+
 		// cache the properties for subsequent calls
-		if (runtimeProperties == null)
+		if (runtimeProperties == null) {
 			runtimeProperties = TestUtil.getRuntimeProperties(getWebappName());
+		}
 		
 		// if we're using the in-memory hypersonic database, add those
 		// connection properties here to override what is in the runtime
@@ -441,11 +441,13 @@ public abstract class BaseContextSensitiveTest {
 				} else {
 					credentials = askForUsernameAndPassword(message);
 					// credentials are null if the user clicked "cancel" in popup
-					if (credentials == null)
+					if (credentials == null) {
 						return;
+					}
 				}
-			} else
-				credentials = new String[] { junitusername, junitpassword };
+			} else {
+				credentials = new String[]{junitusername, junitpassword};
+			}
 			
 			// try to authenticate to the Context with either the runtime
 			// defined credentials or the user supplied credentials from the
@@ -481,9 +483,10 @@ public abstract class BaseContextSensitiveTest {
 		catch (Exception e) {
 
 		}
-		
-		if (message == null || "".equals(message))
+
+		if (message == null || "".equals(message)) {
 			message = "Enter username/password to authenticate to OpenMRS...";
+		}
 		
 		JPanel panel = new JPanel(new GridBagLayout());
 		JLabel usernameLabel = new JLabel("Username");
@@ -551,8 +554,8 @@ public abstract class BaseContextSensitiveTest {
 		
 		// response of 2 is the cancel button, response of -1 is the little red
 		// X in the top right
-		return (response == 2 || response == -1 ? null : new String[] { usernameField.getText(),
-		        String.valueOf(passwordField.getPassword()) });
+		return response == 2 || response == -1 ? null : new String[] { usernameField.getText(),
+		        String.valueOf(passwordField.getPassword()) };
 	}
 	
 	/**
@@ -589,9 +592,10 @@ public abstract class BaseContextSensitiveTest {
 	 */
 	public void initializeInMemoryDatabase() throws SQLException {
 		//Don't allow the user to overwrite data
-		if (!useInMemoryDatabase())
+		if (!useInMemoryDatabase()) {
 			throw new RuntimeException(
-			        "You shouldn't be initializing a NON in-memory database. Consider unoverriding useInMemoryDatabase");
+				"You shouldn't be initializing a NON in-memory database. Consider unoverriding useInMemoryDatabase");
+		}
 
 		//Because creator property in the superclass is mapped with optional set to false, the autoddl tool marks the 
 		//column as not nullable but for person it is actually nullable, we need to first drop the constraint from 
@@ -704,8 +708,9 @@ public abstract class BaseContextSensitiveTest {
 						fileInInputStreamFormat = new FileInputStream(datasetFilename);
 					} else {
 						fileInInputStreamFormat = getClass().getClassLoader().getResourceAsStream(datasetFilename);
-						if (fileInInputStreamFormat == null)
+						if (fileInInputStreamFormat == null) {
 							throw new FileNotFoundException("Unable to find '" + datasetFilename + "' in the classpath");
+						}
 					}
 					
 					reader = new InputStreamReader(fileInInputStreamFormat, StandardCharsets.UTF_8);
@@ -748,8 +753,9 @@ public abstract class BaseContextSensitiveTest {
 				inputStream = new FileInputStream(datasetFilename);
 			} else {
 				inputStream = getClass().getClassLoader().getResourceAsStream(datasetFilename);
-				if (inputStream == null)
+				if (inputStream == null) {
 					throw new FileNotFoundException("Unable to find '" + datasetFilename + "' in the classpath");
+				}
 			}
 			
 			final FlatXmlProducer flatXmlProducer = new FlatXmlProducer(new InputSource(inputStream));
@@ -796,12 +802,13 @@ public abstract class BaseContextSensitiveTest {
 			try {
 				// try to load the file if its a straight up path to the file or
 				// if its a classpath path to the file
-				if (file.exists())
+				if (file.exists()) {
 					fileInInputStreamFormat = new FileInputStream(datasetFilename);
-				else {
+				} else {
 					fileInInputStreamFormat = getClass().getClassLoader().getResourceAsStream(datasetFilename);
-					if (fileInInputStreamFormat == null)
+					if (fileInInputStreamFormat == null) {
 						throw new FileNotFoundException("Unable to find '" + datasetFilename + "' in the classpath");
+					}
 				}
 				
 				XmlDataSet xmlDataSet = null;
@@ -1005,11 +1012,12 @@ public abstract class BaseContextSensitiveTest {
 		// clear the session to make sure nothing is cached, etc
 		Context.clearSession();
 		Context.clearEntireCache();
-		
+
 		// needed because the authenticatedUser is the only object that sticks
 		// around after tests and the clearSession call
-		if (Context.isSessionOpen())
+		if (Context.isSessionOpen()) {
 			Context.logout();
+		}
 	}
 	
 	/**
@@ -1036,7 +1044,7 @@ public abstract class BaseContextSensitiveTest {
 	 * @see SkipBaseSetupAnnotationExecutionListener
 	 * @see #baseSetupWithStandardDataAndAuthentication()
 	 */
-	private boolean skipBaseSetup = false;
+	private boolean skipBaseSetup;
 	
 	/**
 	 * Don't run the {@link #setupDatabaseWithStandardData()} method. This means that the associated

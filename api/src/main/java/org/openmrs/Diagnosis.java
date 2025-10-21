@@ -35,6 +35,7 @@ import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import org.hibernate.type.SqlTypes;
 
+import java.io.Serial;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -49,7 +50,8 @@ import java.util.Set;
 @Table(name = "encounter_diagnosis")
 @Audited
 public class Diagnosis extends BaseCustomizableData<DiagnosisAttribute> implements FormRecordable {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

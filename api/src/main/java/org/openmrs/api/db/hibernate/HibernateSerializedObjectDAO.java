@@ -31,7 +31,6 @@ import org.openmrs.serialization.OpenmrsSerializer;
 import org.openmrs.serialization.SerializationException;
 import org.openmrs.util.ExceptionUtil;
 import org.springframework.stereotype.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Hibernate specific database access methods for serialized objects
@@ -41,7 +40,6 @@ public class HibernateSerializedObjectDAO implements SerializedObjectDAO {
 	private final SessionFactory sessionFactory;
 	private final List<Class<? extends OpenmrsObject>> supportedTypes;
 
-	@Autowired
 	public HibernateSerializedObjectDAO(SessionFactory sessionFactory, List<Class<? extends OpenmrsObject>> supportedTypes) {
 		this.sessionFactory = sessionFactory;
 		this.supportedTypes = supportedTypes != null ? supportedTypes : new ArrayList<>();
@@ -206,8 +204,7 @@ public class HibernateSerializedObjectDAO implements SerializedObjectDAO {
 			serializer = getSerializer(serializedObject);
 		}
 		
-		if (object instanceof Auditable) {
-			Auditable auditableObj = (Auditable) object;
+		if (object instanceof Auditable auditableObj) {
 			if (auditableObj.getCreator() == null) {
 				auditableObj.setCreator(Context.getAuthenticatedUser());
 			}
@@ -235,8 +232,7 @@ public class HibernateSerializedObjectDAO implements SerializedObjectDAO {
 		serializedObject.setSerializationClass(serializer.getClass());
 		serializedObject.setSerializedData(data);
 		
-		if (object instanceof OpenmrsMetadata) {
-			OpenmrsMetadata metaObj = (OpenmrsMetadata) object;
+		if (object instanceof OpenmrsMetadata metaObj) {
 			serializedObject.setName(metaObj.getName());
 			serializedObject.setDescription(metaObj.getDescription());
 			serializedObject.setRetired(metaObj.getRetired());
@@ -245,8 +241,7 @@ public class HibernateSerializedObjectDAO implements SerializedObjectDAO {
 			serializedObject.setRetireReason(metaObj.getRetireReason());
 		}
 		
-		if (object instanceof OpenmrsData) {
-			OpenmrsData dataObj = (OpenmrsData) object;
+		if (object instanceof OpenmrsData dataObj) {
 			serializedObject.setRetired(dataObj.getVoided());
 			serializedObject.setRetiredBy(dataObj.getVoidedBy());
 			serializedObject.setDateRetired(dataObj.getDateVoided());

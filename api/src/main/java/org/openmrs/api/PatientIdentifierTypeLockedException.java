@@ -9,6 +9,8 @@
  */
 package org.openmrs.api;
 
+import java.io.Serial;
+
 import org.openmrs.util.OpenmrsConstants;
 
 /**
@@ -19,7 +21,8 @@ import org.openmrs.util.OpenmrsConstants;
  * @see PatientService#checkIfPatientIdentifierTypesAreLocked()
  */
 public class PatientIdentifierTypeLockedException extends APIException {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	/**

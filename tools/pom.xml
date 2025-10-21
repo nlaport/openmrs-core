@@ -21,6 +21,9 @@
     <packaging>jar</packaging>
     <name>openmrs-tools</name>
     <description>The resources for openmrs plugins and tools</description>
+ <properties>
+  <maven.compiler.release>17</maven.compiler.release>
+ </properties>
 
     <profiles>
 		<!-- Note that ${java.home} must point to JDK not JRE -->

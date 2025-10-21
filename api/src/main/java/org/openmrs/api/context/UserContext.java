@@ -9,6 +9,7 @@
  */
 package org.openmrs.api.context;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +44,8 @@ import org.slf4j.LoggerFactory;
  * @see org.openmrs.api.context.Context
  */
 public class UserContext implements Serializable {
-	
+
+	@Serial
 	private static final long serialVersionUID = -806631231941890648L;
 	
 	/**
@@ -54,27 +56,27 @@ public class UserContext implements Serializable {
 	/**
 	 * User object containing details about the authenticated user
 	 */
-	private User user = null;
-	
+	private User user;
+
 	/**
 	 * User's permission proxies
 	 */
-	private List<String> proxies = Collections.synchronizedList(new ArrayList<>());
+	private final List<String> proxies = Collections.synchronizedList(new ArrayList<>());
 	
 	/**
 	 * User's locale
 	 */
-	private Locale locale = null;
+	private Locale locale;
 	
 	/**
 	 * Cached Role given to all authenticated users
 	 */
-	private Role authenticatedRole = null;
+	private Role authenticatedRole;
 	
 	/**
 	 * Cache Role given to all users
 	 */
-	private Role anonymousRole = null;
+	private Role anonymousRole;
 	
 	/**
 	 * User's defined location

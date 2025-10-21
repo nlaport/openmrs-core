@@ -223,7 +223,7 @@ public class DaemonTest extends BaseContextSensitiveTest {
 	 */
 	private static class PrivateTask extends AbstractTask {
 		
-		public volatile boolean wasRun = false;
+		public volatile boolean wasRun;
 		
 		@Override
 		public void execute() throws InterruptedException, ExecutionException {

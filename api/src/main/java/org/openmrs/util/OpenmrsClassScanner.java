@@ -32,7 +32,7 @@ import org.springframework.core.type.filter.TypeFilter;
  * 
  * @since 1.10
  */
-public class OpenmrsClassScanner {
+public final class OpenmrsClassScanner {
 	
 	private static final Logger log = LoggerFactory.getLogger(OpenmrsClassScanner.class);
 	
@@ -111,17 +111,17 @@ public class OpenmrsClassScanner {
 		
 		return types;
 	}
-	
+
 	/**
 	 * Private class to hold the one class scanner used throughout openmrs. This is an alternative
 	 * to storing the instance object on {@link OpenmrsClassScanner} itself so that garbage
 	 * collection can happen correctly.
 	 */
-	private static class OpenmrsClassScannerHolder {
+	private static final class OpenmrsClassScannerHolder {
 
 		private OpenmrsClassScannerHolder() {
 		}
 		
-		private static OpenmrsClassScanner INSTANCE = null;
+		private static OpenmrsClassScanner INSTANCE;
 	}
 }

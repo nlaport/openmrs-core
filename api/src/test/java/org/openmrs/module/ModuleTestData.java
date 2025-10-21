@@ -13,31 +13,31 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModuleTestData {
-	
-	private Map<String, Integer> willRefreshContextCallCount = new HashMap<>();
-	
-	private Map<String, Integer> contextRefreshedCallCount = new HashMap<>();
-	
-	private Map<String, Integer> willStartCallCount = new HashMap<>();
-	
-	private Map<String, Integer> startedCallCount = new HashMap<>();
-	
-	private Map<String, Integer> willStopCallCount = new HashMap<>();
-	
-	private Map<String, Integer> stoppedCallCount = new HashMap<>();
-	
-	private Map<String, Long> willRefreshContextCallTime = new HashMap<>();
-	
-	private Map<String, Long> contextRefreshedCallTime = new HashMap<>();
-	
-	private Map<String, Long> willStartCallTime = new HashMap<>();
-	
-	private Map<String, Long> startedCallTime = new HashMap<>();
-	
-	private Map<String, Long> willStopCallTime = new HashMap<>();
-	
-	private Map<String, Long> stoppedCallTime = new HashMap<>();
+public final class ModuleTestData {
+
+	private final Map<String, Integer> willRefreshContextCallCount = new HashMap<>();
+
+	private final Map<String, Integer> contextRefreshedCallCount = new HashMap<>();
+
+	private final Map<String, Integer> willStartCallCount = new HashMap<>();
+
+	private final Map<String, Integer> startedCallCount = new HashMap<>();
+
+	private final Map<String, Integer> willStopCallCount = new HashMap<>();
+
+	private final Map<String, Integer> stoppedCallCount = new HashMap<>();
+
+	private final Map<String, Long> willRefreshContextCallTime = new HashMap<>();
+
+	private final Map<String, Long> contextRefreshedCallTime = new HashMap<>();
+
+	private final Map<String, Long> willStartCallTime = new HashMap<>();
+
+	private final Map<String, Long> startedCallTime = new HashMap<>();
+
+	private final Map<String, Long> willStopCallTime = new HashMap<>();
+
+	private final Map<String, Long> stoppedCallTime = new HashMap<>();
 	
 	private ModuleTestData() {
 		

@@ -436,7 +436,8 @@ public class ProgramWorkflowServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptStateConversionByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "6c72b064-506d-11de-80cb-001e378eb67e";
+		String uuid = System.getenv("uuid");
+
 		ConceptStateConversion conceptStateConversion = Context.getProgramWorkflowService().getConceptStateConversionByUuid(
 		    uuid);
 		assertEquals(1, (int) conceptStateConversion.getConceptStateConversionId());
@@ -455,7 +456,8 @@ public class ProgramWorkflowServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPatientProgramByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "2edf272c-bf05-4208-9f93-2fa213ed0415";
+		String uuid = System.getenv("uuid");
+
 		PatientProgram patientProgram = Context.getProgramWorkflowService().getPatientProgramByUuid(uuid);
 		assertEquals(2, (int) patientProgram.getPatientProgramId());
 	}
@@ -473,7 +475,8 @@ public class ProgramWorkflowServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPatientStateByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "ea89deaa-23cc-4840-92fe-63d199c37e4c";
+		String uuid = System.getenv("uuid");
+
 		PatientState patientState = Context.getProgramWorkflowService().getPatientStateByUuid(uuid);
 		assertEquals(1, (int) patientState.getPatientStateId());
 	}
@@ -491,7 +494,8 @@ public class ProgramWorkflowServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getProgramByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "eae98b4c-e195-403b-b34a-82d94103b2c0";
+		String uuid = System.getenv("uuid");
+
 		Program program = Context.getProgramWorkflowService().getProgramByUuid(uuid);
 		assertEquals(1, (int) program.getProgramId());
 	}
@@ -526,7 +530,8 @@ public class ProgramWorkflowServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getStateByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "92584cdc-6a20-4c84-a659-e035e45d36b0";
+		String uuid = System.getenv("uuid");
+
 		ProgramWorkflowState state = Context.getProgramWorkflowService().getStateByUuid(uuid);
 		assertEquals(1, (int) state.getProgramWorkflowStateId());
 	}
@@ -561,7 +566,8 @@ public class ProgramWorkflowServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getWorkflowByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "84f0effa-dd73-46cb-b931-7cd6be6c5f81";
+		String uuid = System.getenv("uuid");
+
 		ProgramWorkflow programWorkflow = Context.getProgramWorkflowService().getWorkflowByUuid(uuid);
 		assertEquals(1, (int) programWorkflow.getProgramWorkflowId());
 	}
@@ -697,7 +703,8 @@ public class ProgramWorkflowServiceTest extends BaseContextSensitiveTest {
 	public void retireProgram_shouldSaveTheRetiredProgramWithReason() throws APIException {
 		String reason = "Feeling well.";
 		
-		String uuid = "eae98b4c-e195-403b-b34a-82d94103b2c0";
+		String uuid = System.getenv("uuid");
+
 		Program program = Context.getProgramWorkflowService().getProgramByUuid(uuid);
 		
 		Program retireProgram = pws.retireProgram(program, reason);

@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TestTask extends AbstractTask {
 	
-	private static int executionCount = 0;
+	private static int executionCount;
 	
 	// Logger 
 	private static final Logger log = LoggerFactory.getLogger(TestTask.class);

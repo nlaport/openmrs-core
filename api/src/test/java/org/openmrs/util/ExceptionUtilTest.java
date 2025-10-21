@@ -85,7 +85,7 @@ public class ExceptionUtilTest {
 		} else {
 			// length should be 1
 			Class<? extends Exception> classToThrow = classesInChain.get(0);
-			throw classToThrow.newInstance();
+			throw classToThrow.getDeclaredConstructor().newInstance();
 		}
 	}
 }

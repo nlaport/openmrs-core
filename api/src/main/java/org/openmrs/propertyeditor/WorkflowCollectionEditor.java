@@ -34,7 +34,7 @@ public class WorkflowCollectionEditor extends PropertyEditorSupport {
 	public WorkflowCollectionEditor() {
 	}
 	
-	private Program program = null;
+	private Program program;
 	
 	/**
 	 * @param program

@@ -9,6 +9,8 @@
  */
 package org.openmrs.web;
 
+import java.io.Serial;
+
 import jakarta.servlet.ServletException;
 
 import org.openmrs.module.web.WebModuleUtil;
@@ -25,7 +27,8 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * webApplicationContext is refreshed, this dispatcher servlet needs to be refreshed too.
  */
 public class StaticDispatcherServlet extends org.springframework.web.servlet.DispatcherServlet {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger log = LoggerFactory.getLogger(StaticDispatcherServlet.class);

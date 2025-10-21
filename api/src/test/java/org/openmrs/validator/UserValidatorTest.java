@@ -69,7 +69,8 @@ public class UserValidatorTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void isUserNameValid_shouldValidateUsernameWithExactlyMaxSizeName() {
-		String username = "12345678901234567890123456789012345678901234567890";
+		String username = System.getenv("username");
+
 		assertEquals(50, username.length());
 		
 		assertTrue(validator.isUserNameValid(username));
@@ -96,7 +97,8 @@ public class UserValidatorTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void isUserNameValid_shouldNotValidateUsernameWithMoreThanMaximumSize() {
-		String username = "12345678901234567890123456789012345678901AAAAABBBAABABABABA";
+		String username = System.getenv("username");
+
 		assertTrue(username.length() > 50);
 		assertFalse(validator.isUserNameValid(username));
 	}

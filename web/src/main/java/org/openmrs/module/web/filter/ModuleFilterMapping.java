@@ -213,7 +213,7 @@ public class ModuleFilterMapping implements Serializable {
 			int patLen = patternToCheck.length();
 			
 			if (slash >= 0 && period > slash && period != reqLen - 1 && reqLen - period == patLen - 1) {
-				return (patternToCheck.regionMatches(2, requestPath, period + 1, patLen - 2));
+				return patternToCheck.regionMatches(2, requestPath, period + 1, patLen - 2);
 			}
 		}
 		
@@ -242,7 +242,7 @@ public class ModuleFilterMapping implements Serializable {
 		log.debug("Checking servlet <" + servletName + "> against pattern <" + patternToCheck + ">");
 		
 		// Match exact or full wildcard
-		return ("*").equals(patternToCheck) || servletName.equals(patternToCheck);
+		return "*".equals(patternToCheck) || servletName.equals(patternToCheck);
 		
 		// If none found, return false
 	}

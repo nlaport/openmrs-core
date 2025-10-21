@@ -34,7 +34,6 @@ import org.openmrs.hl7.HL7InQueue;
 import org.openmrs.hl7.HL7Source;
 import org.openmrs.hl7.Hl7InArchivesMigrateThread;
 import org.openmrs.hl7.db.HL7DAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -49,7 +48,6 @@ public class HibernateHL7DAO implements HL7DAO {
 
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateHL7DAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
-import org.hibernate.EmptyInterceptor;
+import org.hibernate.Interceptor;
 import org.hibernate.type.Type;
 import org.openmrs.util.DateUtil;
 import org.springframework.stereotype.Component;
@@ -43,7 +43,7 @@ import org.springframework.stereotype.Component;
  * @since 2.0
  */
 @Component
-public class DropMillisecondsHibernateInterceptor extends EmptyInterceptor {
+public class DropMillisecondsHibernateInterceptor implements Interceptor {
 
 	@Override
 	public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
@@ -66,8 +66,8 @@ public class DropMillisecondsHibernateInterceptor extends EmptyInterceptor {
 		boolean anyChanges = false;
 		for (int i = fieldValues.length - 1; i >= 0; --i) {
 			Object candidate = fieldValues[i];
-			if (!(candidate instanceof Time || candidate instanceof java.sql.Date) && candidate instanceof Date) {
-				Date noMilliseconds = DateUtil.truncateToSeconds((Date) candidate);
+			if (!(candidate instanceof Time || candidate instanceof java.sql.Date) && candidate instanceof Date date) {
+				Date noMilliseconds = DateUtil.truncateToSeconds(date);
 				if (!noMilliseconds.equals(candidate)) {
 					fieldValues[i] = noMilliseconds;
 					anyChanges = true;

@@ -36,7 +36,7 @@ public class UpdateFilterModel {
 	// automatically given to the .vm files and used there
 	public static final String FOOTER_TEMPLATE = "org/openmrs/web/filter/footer.vm";
 		
-	public List<OpenMRSChangeSet> changes = null;
+	public List<OpenMRSChangeSet> changes;
 	
 	public String superuserrole = RoleConstants.SUPERUSER;
 

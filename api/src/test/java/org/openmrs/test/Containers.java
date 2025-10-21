@@ -24,9 +24,12 @@ public class Containers {
 	private static MySQLContainer<?> mysql;
 	private static PostgreSQLContainer<?> postgres;
 	
-	private static final String USERNAME =  "test";
-	private static final String  PASSWORD = "test";
-	private static final String  DATABASE = "openmrs";
+	static final String USERNAME = System.getenv("USERNAME");
+
+	static final String  PASSWORD = System.getenv("PASSWORD");
+
+	static final String  DATABASE = System.getenv("DATABASE");
+
 
 	
 	public static void ensureDatabaseRunning() {

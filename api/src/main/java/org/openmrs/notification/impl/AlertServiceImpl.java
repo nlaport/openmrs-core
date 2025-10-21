@@ -9,6 +9,7 @@
  */
 package org.openmrs.notification.impl;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("alertService")
 @Transactional
 public class AlertServiceImpl extends BaseOpenmrsService implements Serializable, AlertService {
-	
+
+	@Serial
 	private static final long serialVersionUID = 564561231321112365L;
 	
 	private static final Logger log = LoggerFactory.getLogger(AlertServiceImpl.class);

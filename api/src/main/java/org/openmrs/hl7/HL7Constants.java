@@ -44,7 +44,8 @@ public class HL7Constants {
 	
 	public static final String HL7_BOOLEAN = "BIT";
 	
-	public static final String HL7_AUTHORITY_UUID = "UUID";
+	public static final String HL7_AUTHORITY_UUID = System.getenv("HL7_AUTHORITY_UUID");
+
 	
 	public static final String HL7_AUTHORITY_LOCAL = "L";
 	
@@ -87,21 +88,24 @@ public class HL7Constants {
 	 */
 	public static final String HL7_FORM_ID = "AMRS.ELD.FORMID";
 	
-	public static final String HL7_FORM_UUID = "AMRS.ELD.FORMUUID";
+	public static final String HL7_FORM_UUID = System.getenv("HL7_FORM_UUID");
+
 	
 	/**
 	 * the key to be used for numberTransferred archives in the progressStatusMap
 	 * 
 	 * @since 1.7
 	 */
-	public static final String NUMBER_TRANSFERRED_KEY = "transferred";
+	public static final String NUMBER_TRANSFERRED_KEY = System.getenv("NUMBER_TRANSFERRED_KEY");
+
 	
 	/**
 	 * the key to be used for numberOfFailedTransfers in the progressStatusMap
 	 * 
 	 * @since 1.7
 	 */
-	public static final String NUMBER_OF_FAILED_TRANSFERS_KEY = "failures";
+	public static final String NUMBER_OF_FAILED_TRANSFERS_KEY = System.getenv("NUMBER_OF_FAILED_TRANSFERS_KEY");
+
 	
 	/**
 	 * time taken before static/state properties of an instance of the hl7 in archive migration
@@ -148,5 +152,6 @@ public class HL7Constants {
 	 * Assigning authority for an id for a provider in an HL7 message that specifies that it is a
 	 * provider uuid
 	 */
-	public static final String PROVIDER_ASSIGNING_AUTH_PROV_UUID = "PROVIDER.UUID";
+	public static final String PROVIDER_ASSIGNING_AUTH_PROV_UUID = System.getenv("PROVIDER_ASSIGNING_AUTH_PROV_UUID");
+
 }

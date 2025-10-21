@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
  *
  * @since 1.6
  */
-public class DatabaseUtil {
+public final class DatabaseUtil {
 
 	private DatabaseUtil() {
 	}

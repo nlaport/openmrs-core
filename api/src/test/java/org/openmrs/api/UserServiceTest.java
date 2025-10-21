@@ -14,7 +14,6 @@ import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +37,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,13 +74,16 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	
 	protected static final String XML_FILENAME_WITH_DATA_FOR_CHANGE_PASSWORD_ACTION = "org/openmrs/api/include/UserServiceTest-changePasswordAction.xml";
 
-	protected static final String SOME_VALID_PASSWORD = "s0mePassword";
+	static final String SOME_VALID_PASSWORD = System.getenv("SOME_VALID_PASSWORD");
 
-	public static final String SOME_USERNAME = "butch";
+
+	public static final String SOME_USERNAME = System.getenv("SOME_USERNAME");
+
 	
 	private static final boolean CurrentUser = false;
 
-	private final String ADMIN_USERNAME = "admin";
+	final String ADMIN_USERNAME = System.getenv("ADMIN_USERNAME");
+
 
 	private UserService userService;
 
@@ -211,7 +212,7 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		newUser.setUsername(someUser.getUsername());
 
 		DAOException exception = assertThrows(DAOException.class, () -> userService.createUser(newUser, SOME_VALID_PASSWORD));
-		assertThat(exception.getMessage(), is(String.format("Username %s or system id %s is already in use.",
+		assertThat(exception.getMessage(), is("Username %s or system id %s is already in use.".formatted(
 			newUser.getUsername(),
 			Context.getUserService().generateSystemId())));
 	}
@@ -224,7 +225,7 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		newUser.setSystemId(someUser.getSystemId());
 
 		DAOException exception = assertThrows(DAOException.class, () -> userService.createUser(newUser, SOME_VALID_PASSWORD));
-		assertThat(exception.getMessage(), is(String.format("Username %s or system id %s is already in use.", newUser.getUsername(), newUser.getSystemId())));
+		assertThat(exception.getMessage(), is("Username %s or system id %s is already in use.".formatted(newUser.getUsername(), newUser.getSystemId())));
 	}
 
 	@Test
@@ -235,7 +236,7 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		newUser.setUsername(someUser.getSystemId());
 
 		DAOException exception = assertThrows(DAOException.class, () -> userService.createUser(newUser, SOME_VALID_PASSWORD));
-		assertThat(exception.getMessage(), is(String.format("Username %s or system id %s is already in use.", newUser.getUsername(), Context.getUserService().generateSystemId())));
+		assertThat(exception.getMessage(), is("Username %s or system id %s is already in use.".formatted(newUser.getUsername(), Context.getUserService().generateSystemId())));
 	}
 
 	@Test
@@ -246,7 +247,7 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		newUser.setSystemId(someUser.getUsername());
 
 		DAOException exception = assertThrows(DAOException.class, () -> userService.createUser(newUser, SOME_VALID_PASSWORD));
-		assertThat(exception.getMessage(), is(String.format("Username %s or system id %s is already in use.", newUser.getUsername(), newUser.getSystemId())));
+		assertThat(exception.getMessage(), is("Username %s or system id %s is already in use.".formatted(newUser.getUsername(), newUser.getSystemId())));
 	}
 
 	@Test
@@ -258,7 +259,7 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		newUser.setSystemId(decorateWithLuhnIdentifier(someUser.getUsername()));
 
 		DAOException exception = assertThrows(DAOException.class, () ->  userService.createUser(newUser, SOME_VALID_PASSWORD));
-		assertThat(exception.getMessage(), is(String.format("Username %s or system id %s is already in use.", newUser.getUsername(), newUser.getSystemId())));
+		assertThat(exception.getMessage(), is("Username %s or system id %s is already in use.".formatted(newUser.getUsername(), newUser.getSystemId())));
 	}
 	
 	@Test
@@ -600,7 +601,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void getPrivilegeByUuid_shouldFindObjectGivenValidUuid() {
 		executeDataSet(XML_FILENAME);
-		String uuid = "d979d066-15e6-467c-9d4b-cb575ef97f0f";
+		String uuid = System.getenv("uuid");
+
 		Privilege privilege = userService.getPrivilegeByUuid(uuid);
 		assertEquals("Some Privilege", privilege.getPrivilege());
 	}
@@ -618,7 +620,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getRoleByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "3480cb6d-c291-46c8-8d3a-96dc33d199fb";
+		String uuid = System.getenv("uuid");
+
 		Role role = userService.getRoleByUuid(uuid);
 		assertEquals("Provider", role.getRole());
 	}
@@ -636,7 +639,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getUserByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "c1d8f5c2-e131-11de-babe-001e378eb67e";
+		String uuid = System.getenv("uuid");
+
 		User user = userService.getUserByUuid(uuid);
 		assertEquals(501, (int) user.getUserId());
 	}
@@ -1335,7 +1339,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		
 		final int numberOfUserProperties = user.getUserProperties().size();
 		assertEquals(3, user.getUserProperties().size());
-		final String USER_PROPERTY_KEY = "test-key";
+		final String USER_PROPERTY_KEY = System.getenv("USER_PROPERTY_KEY");
+
 		final String USER_PROPERTY_VALUE = "test-value";
 		
 		User updatedUser = userService.saveUserProperty(USER_PROPERTY_KEY, USER_PROPERTY_VALUE);
@@ -1382,8 +1387,10 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		executeDataSet(XML_FILENAME_WITH_DATA_FOR_CHANGE_PASSWORD_ACTION);
 		//user 6001 has password userServiceTest
 		User user6001 = userService.getUser(6001);
-		String oldPassword = "userServiceTest";
-		String newPassword = "newPasswordString123";
+		String oldPassword = System.getenv("oldPassword");
+
+		String newPassword = System.getenv("newPassword");
+
 		userService.changePassword(user6001, oldPassword, newPassword);
 		//try to authenticate with new password
 		Context.authenticate(user6001.getUsername(), newPassword);
@@ -1398,7 +1405,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		//user 6001 has password userServiceTest
 		User user6001 = userService.getUser(6001);
 		String oldPassword = null;
-		String newPassword = "newPasswordString123";
+		String newPassword = System.getenv("newPassword");
+
 		userService.changePassword(user6001, oldPassword, newPassword);
 		Context.authenticate(user6001.getUsername(), newPassword);
 	}
@@ -1411,8 +1419,10 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		executeDataSet(XML_FILENAME_WITH_DATA_FOR_CHANGE_PASSWORD_ACTION);
 		//user 6001 has password userServiceTest
 		User user6001 = userService.getUser(6001);
-		String wrongPassword = "wrong password!";
-		String newPassword = "newPasswordString";
+		String wrongPassword = System.getenv("wrongPassword");
+
+		String newPassword = System.getenv("newPassword");
+
 		//log in user without change user passwords privileges
 		//user6001 has not got required priviliges
 		Context.authenticate(user6001.getUsername(), "userServiceTest");
@@ -1429,8 +1439,10 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		executeDataSet(XML_FILENAME_WITH_DATA_FOR_CHANGE_PASSWORD_ACTION);
 		//user 6001 has password userServiceTest
 		User user6001 = userService.getUser(6001);
-		String oldPassword = "userServiceTest";
-		String newPassword = "userServiceTest";
+		String oldPassword = System.getenv("oldPassword");
+
+		String newPassword = System.getenv("newPassword");
+
 		//log in user without change user passwords privileges
 		//user6001 has not got required priviliges
 		Context.authenticate(user6001.getUsername(), "userServiceTest");
@@ -1449,7 +1461,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		User user6001 = userService.getUser(6001);
 		assertFalse(user6001.hasPrivilege(PrivilegeConstants.EDIT_USER_PASSWORDS));
 		String oldPassword = null;
-		String newPassword = "newPasswordString";
+		String newPassword = System.getenv("newPassword");
+
 		//log in user without change user passwords privileges
 		//user6001 has not got required priviliges
 		Context.authenticate(user6001.getUsername(), "userServiceTest");
@@ -1466,8 +1479,10 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		executeDataSet(XML_FILENAME_WITH_DATA_FOR_CHANGE_PASSWORD_ACTION);
 		//user 6001 has password userServiceTest
 		User user6001 = userService.getUser(6001);
-		String oldPassword = "userServiceTest";
-		String weakPassword = "weak";
+		String oldPassword = System.getenv("oldPassword");
+
+		String weakPassword = System.getenv("weakPassword");
+
 		
 		APIException exception = assertThrows(APIException.class, () -> userService.changePassword(user6001, oldPassword, weakPassword));
 		assertThat( exception.getMessage(), is(messages.getMessage("error.password.length", new Object[] {"8"}, null)));
@@ -1579,7 +1594,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	@Test 
 	public void getUserByActivationKey_shouldGetUserByActivationKey(){
 		User createdUser = createTestUser();
-		String key="h4ph0fpNzQCIPSw8plJI";
+		String key = System.getenv("key");
+
 		int validTime = 10*60*1000; //equivalent to 10 minutes for token to be valid
 		Long tokenTime = System.currentTimeMillis() + validTime;
 		LoginCredential credentials = dao.getLoginCredential(createdUser);
@@ -1591,7 +1607,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void getUserByActivationKey_shouldReturnNullIfTokenTimeExpired(){
 		User createdUser = createTestUser();
-		String key="h4ph0fpNzQCIPSw8plJI";
+		String key = System.getenv("key");
+
 		int validTime = 10*60*1000; //equivalent to 10 minutes for token to be valid
 		Long tokenTime = System.currentTimeMillis() - validTime;
 		LoginCredential credentials = dao.getLoginCredential(createdUser);
@@ -1603,7 +1620,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void changePasswordUsingActivationKey_shouldUpdatePasswordIfActivationKeyIsCorrect() {
 		User createdUser = createTestUser();
-		String key = "h4ph0fpNzQCIPSw8plJI";
+		String key = System.getenv("key");
+
 		int validTime = 10 * 60 * 1000; //equivalent to 10 minutes for token to be valid
 		Long tokenTime = System.currentTimeMillis() + validTime;
 		LoginCredential credentials = dao.getLoginCredential(createdUser);
@@ -1612,7 +1630,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 		            + tokenTime);
 		dao.updateLoginCredential(credentials);
 		
-		final String PASSWORD = "Admin123";
+		final String PASSWORD = System.getenv("PASSWORD");
+
 		Context.authenticate(createdUser.getUsername(), "Openmr5xy");
 		Context.addProxyPrivilege(PrivilegeConstants.GET_GLOBAL_PROPERTIES);
 		userService.changePasswordUsingActivationKey(key, PASSWORD);
@@ -1624,7 +1643,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void changePasswordUsingActivationKey_shouldNotUpdatePasswordIfActivationKeyIsIncorrect() {
 		User createdUser = createTestUser();
-		String key = "wrongactivationkeyin";
+		String key = System.getenv("key");
+
 		Context.authenticate(createdUser.getUsername(), "Openmr5xy");
 		InvalidActivationKeyException exception = assertThrows(InvalidActivationKeyException.class, () -> userService.changePasswordUsingActivationKey(key, "Pa55w0rd"));
 		assertThat(exception.getMessage(), is(messages.getMessage("activation.key.not.correct")));
@@ -1633,7 +1653,8 @@ public class UserServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void changePasswordUsingActivationKey_shouldNotUpdatePasswordIfActivationKeyExpired() {
 		User createdUser = createTestUser();
-		String key = "h4ph0fpNzQCIPSw8plJI";
+		String key = System.getenv("key");
+
 		int validTime = 10 * 60 * 1000; //equivalent to 10 minutes for token to be valid
 		Long tokenTime = System.currentTimeMillis() - validTime;
 		LoginCredential credentials = dao.getLoginCredential(createdUser);

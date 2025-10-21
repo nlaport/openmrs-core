@@ -9,6 +9,7 @@
  */
 package org.openmrs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Cacheable;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -230,7 +230,7 @@ public class Concept extends BaseOpenmrsObject implements Auditable, Retireable,
 				//find largest sort weight
 				ConceptAnswer a = Collections.max(answers);
 				//a.sortWeight can be NULL
-				Double sortWeight = (a == null) ? 1d : ((a.getSortWeight() == null) ? 1d : a.getSortWeight() + 1d);
+				Double sortWeight = a == null ? 1d : (a.getSortWeight() == null ? 1d : a.getSortWeight() + 1d);
 				conceptAnswer.setSortWeight(sortWeight);
 			}
 		}

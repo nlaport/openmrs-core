@@ -125,7 +125,7 @@ public class AdministrationServiceImpl extends BaseOpenmrsService implements Adm
 	 * a module is loaded or removed the variable is destroyed (along with the administration
 	 * service) and recreated the next time it is called
 	 */
-	protected SortedMap<String, String> systemVariables = null;
+	protected SortedMap<String, String> systemVariables;
 	
 	/**
 	 * Set of locales which can be used to present messages in the user interface. Created lazily as
@@ -149,7 +149,7 @@ public class AdministrationServiceImpl extends BaseOpenmrsService implements Adm
 			catch (UnknownHostException e) {
 				systemVariables.put("OPENMRS_HOSTNAME", "Unknown host: " + e.getMessage());
 			}
-			systemVariables.put("OPENMRS_VERSION", String.valueOf(OpenmrsConstants.OPENMRS_VERSION));
+			systemVariables.put("OPENMRS_VERSION", OpenmrsConstants.OPENMRS_VERSION);
 			systemVariables.put("DATABASE_NAME", OpenmrsConstants.DATABASE_NAME);
 			systemVariables.put("DATABASE_BUSINESS_NAME", OpenmrsConstants.DATABASE_BUSINESS_NAME);
 			systemVariables.put("OBSCURE_PATIENTS", String.valueOf(OpenmrsConstants.OBSCURE_PATIENTS));
@@ -157,8 +157,8 @@ public class AdministrationServiceImpl extends BaseOpenmrsService implements Adm
 			systemVariables.put("OBSCURE_PATIENTS_GIVEN_NAME", OpenmrsConstants.OBSCURE_PATIENTS_GIVEN_NAME);
 			systemVariables.put("OBSCURE_PATIENTS_MIDDLE_NAME", OpenmrsConstants.OBSCURE_PATIENTS_MIDDLE_NAME);
 			systemVariables.put("MODULE_REPOSITORY_PATH", ModuleUtil.getModuleRepository().getAbsolutePath());
-			systemVariables.put("OPERATING_SYSTEM_KEY", String.valueOf(OpenmrsConstants.OPERATING_SYSTEM_KEY));
-			systemVariables.put("OPERATING_SYSTEM", String.valueOf(OpenmrsConstants.OPERATING_SYSTEM));
+			systemVariables.put("OPERATING_SYSTEM_KEY", OpenmrsConstants.OPERATING_SYSTEM_KEY);
+			systemVariables.put("OPERATING_SYSTEM", OpenmrsConstants.OPERATING_SYSTEM);
 		}
 		
 		return systemVariables;
@@ -868,8 +868,8 @@ public class AdministrationServiceImpl extends BaseOpenmrsService implements Adm
 	 * @return memory in mega bytes
 	 */
 	private String convertToMegaBytes(long bytes) {
-		final int ONE_KILO_BYTE = 1024;
-		return String.valueOf(bytes / ONE_KILO_BYTE / ONE_KILO_BYTE) + " MB";
+		final int oneKiloByte = 1024;
+		return bytes / oneKiloByte / oneKiloByte + " MB";
 	}
 	
 	/**
@@ -987,10 +987,9 @@ public class AdministrationServiceImpl extends BaseOpenmrsService implements Adm
 		return whitelistTypes;
 	}
 	public static List<Class<?>> getSerializerDefaultWhitelistHierarchyTypes() {
-		List<Class<?>> types = Arrays.asList(OpenmrsObject.class, OpenmrsMetadata.class, OpenmrsData.class, 
+		return Arrays.asList(OpenmrsObject.class, OpenmrsMetadata.class, OpenmrsData.class, 
 			CustomDatatype.class, SingleCustomValue.class, CustomValueDescriptor.class, Customizable.class,
 			LayoutTemplate.class, LayoutSupport.class, ComplexData.class, PresentationMessage.class,
 			PersonMergeLogData.class);
-		return types;
 	}
 }

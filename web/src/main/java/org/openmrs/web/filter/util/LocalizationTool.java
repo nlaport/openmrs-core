@@ -26,7 +26,7 @@ public class LocalizationTool extends ResourceTool {
 	/**
 	 * The default message resource bundle to use, this is english
 	 */
-	private static ResourceBundle defaultResourceBundle = null;
+	private static ResourceBundle defaultResourceBundle;
 	
 	/**
 	 * Its need to override base class method to be able to change its locale property outside the
@@ -57,7 +57,7 @@ public class LocalizationTool extends ResourceTool {
 	 */
 	@Override
 	protected ResourceBundle getBundle(String baseName, Object loc) {
-		Locale locale = (loc == null) ? getLocale() : LocaleUtility.fromSpecification(String.valueOf(loc));
+		Locale locale = loc == null ? getLocale() : LocaleUtility.fromSpecification(String.valueOf(loc));
 		if (baseName == null || locale == null) {
 			return null;
 		}

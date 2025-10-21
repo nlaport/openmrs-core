@@ -16,8 +16,8 @@ import org.junit.internal.matchers.TypeSafeMatcher;
 import org.openmrs.PersonAddress;
 
 public class AddressMatcher extends TypeSafeMatcher<Set<PersonAddress>> {
-	
-	private String address;
+
+	private final String address;
 	
 	public AddressMatcher(String address) {
 		this.address = address;

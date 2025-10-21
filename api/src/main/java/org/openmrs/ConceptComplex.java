@@ -10,7 +10,6 @@
 package org.openmrs;
 
 import org.hibernate.envers.Audited;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 import org.openmrs.obs.ComplexObsHandler;
 
 /**

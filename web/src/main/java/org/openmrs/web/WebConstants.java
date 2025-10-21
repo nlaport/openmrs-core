@@ -9,7 +9,7 @@
  */
 package org.openmrs.web;
 
-public class WebConstants {
+public final class WebConstants {
 	
 	/**
 	 * Private constructor to prevent accidental instantiation of this utility class

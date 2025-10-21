@@ -22,7 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.Enumeration;
@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  * Contains static methods to be used by the installation wizard when creating a testing
  * installation
  */
-public class TestInstallUtil {
+public final class TestInstallUtil {
 	private TestInstallUtil() {
 	}
 	
@@ -71,7 +71,7 @@ public class TestInstallUtil {
 		
 		//For stand-alone, use explicit path to the mysql executable.
 		String runDirectory = System.getProperties().getProperty("user.dir");
-		File file = Paths.get(runDirectory, "database", "bin", "mysql").toFile();
+		File file = Path.of(runDirectory, "database", "bin", "mysql").toFile();
 		
 		if (file.exists()) {
 			command[0] = file.getAbsolutePath();

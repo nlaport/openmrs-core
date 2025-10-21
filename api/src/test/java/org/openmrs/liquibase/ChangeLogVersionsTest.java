@@ -101,7 +101,7 @@ public class ChangeLogVersionsTest {
 	private List<String> getChangelogNamesFromVersions(List<String> versions, String baseName) {
 		List<String> changeLogNames = new ArrayList<>();
 		for (String version : versions) {
-			changeLogNames.add(String.format("%s%s.xml", baseName, version));
+			changeLogNames.add("%s%s.xml".formatted(baseName, version));
 		}
 		return changeLogNames;
 	}
@@ -112,6 +112,6 @@ public class ChangeLogVersionsTest {
 		
 		log.debug("Liquibase resources found for pattern '{}' are: {}", resourcePattern, Arrays.toString(resources));
 		
-		return Arrays.stream(resources).map(resource -> resource.getFilename()).sorted().collect(Collectors.toList());
+		return Arrays.stream(resources).map(Resource::getFilename).sorted().collect(Collectors.toList());
 	}
 }

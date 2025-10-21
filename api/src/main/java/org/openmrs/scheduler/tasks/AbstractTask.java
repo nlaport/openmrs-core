@@ -25,7 +25,7 @@ public abstract class AbstractTask implements Task {
 	private static final Logger log = LoggerFactory.getLogger(AbstractTask.class);
 	
 	// Indicates whether the task is currently running
-	protected boolean isExecuting = false;
+	protected boolean isExecuting;
 	
 	// The task definition of the running task
 	protected TaskDefinition taskDefinition;

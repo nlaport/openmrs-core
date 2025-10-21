@@ -63,9 +63,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class PatientDAOTest extends BaseContextSensitiveTest {
 	
-	private final static String PEOPLE_FROM_THE_SHIRE_XML = "org/openmrs/api/db/hibernate/include/HibernatePersonDAOTest-people.xml";
+	private static final String PEOPLE_FROM_THE_SHIRE_XML = "org/openmrs/api/db/hibernate/include/HibernatePersonDAOTest-people.xml";
 	
-	private final static String PATIENTS_FROM_THE_SHIRE_XML = "org/openmrs/api/db/hibernate/include/HibernatePatientDAOTest-patients.xml";
+	private static final String PATIENTS_FROM_THE_SHIRE_XML = "org/openmrs/api/db/hibernate/include/HibernatePatientDAOTest-patients.xml";
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -1684,15 +1684,15 @@ public class PatientDAOTest extends BaseContextSensitiveTest {
 		assertEquals(patient, patients.get(0));
 		assertEquals(3,patients.size());
 		
-		List<Patient> first_patient = dao.getPatients("alpha", 0, 1);
-		assertEquals(patient, first_patient.get(0));
-		assertEquals(1,first_patient.size());
+		List<Patient> firstPatient = dao.getPatients("alpha", 0, 1);
+		assertEquals(patient, firstPatient.get(0));
+		assertEquals(1,firstPatient.size());
 		
-		List<Patient> two_patients_only = dao.getPatients("alpha", 0, 2);
-		assertEquals(2, two_patients_only.size());
+		List<Patient> twoPatientsOnly = dao.getPatients("alpha", 0, 2);
+		assertEquals(2, twoPatientsOnly.size());
 		
-		List<Patient> second_patient = dao.getPatients("alpha", 1, 1);
-		assertEquals(1, second_patient.size());
+		List<Patient> secondPatient = dao.getPatients("alpha", 1, 1);
+		assertEquals(1, secondPatient.size());
 	}
 	
 	/**
@@ -1713,15 +1713,15 @@ public class PatientDAOTest extends BaseContextSensitiveTest {
 		assertEquals(patient, patients.get(0));
 		assertEquals(3,patients.size());
 		
-		List<Patient> first_patient = dao.getPatients("Senior", 0, 1);
-		assertEquals(patient, first_patient.get(0));
-		assertEquals(1,first_patient.size());
+		List<Patient> firstPatient = dao.getPatients("Senior", 0, 1);
+		assertEquals(patient, firstPatient.get(0));
+		assertEquals(1,firstPatient.size());
 		
-		List<Patient> two_patients_only = dao.getPatients("Senior", 0, 2);
-		assertEquals(2, two_patients_only.size());
+		List<Patient> twoPatientsOnly = dao.getPatients("Senior", 0, 2);
+		assertEquals(2, twoPatientsOnly.size());
 		
-		List<Patient> second_patient = dao.getPatients("Senior", 1, 1);
-		assertEquals(1, second_patient.size());
+		List<Patient> secondPatient = dao.getPatients("Senior", 1, 1);
+		assertEquals(1, secondPatient.size());
 	}
 	
 	/**

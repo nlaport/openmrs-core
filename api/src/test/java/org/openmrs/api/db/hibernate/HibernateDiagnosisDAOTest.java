@@ -147,7 +147,8 @@ public class HibernateDiagnosisDAOTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void shouldDeleteDiagnosis() {
-		String uuid = "4e663d66-6b78-11e0-93c3-18a905e044dc";
+		String uuid = System.getenv("uuid");
+
 		Diagnosis diagnosis = diagnosisDAO.getDiagnosisByUuid(uuid);
 		assertNotNull(diagnosis);
 		diagnosisDAO.deleteDiagnosis(diagnosis);

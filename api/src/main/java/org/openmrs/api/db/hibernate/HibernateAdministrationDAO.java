@@ -30,15 +30,11 @@ import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.jdbc.Work;
 import org.hibernate.mapping.Column;
 import org.hibernate.mapping.PersistentClass;
-import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.persister.entity.AbstractEntityPersister;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.type.BasicType;
 import org.hibernate.type.Type;
-import org.hibernate.type.internal.NamedBasicTypeImpl;
 import org.openmrs.GlobalProperty;
 import org.openmrs.OpenmrsObject;
-import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.AdministrationDAO;
 import org.openmrs.api.db.DAOException;
@@ -49,7 +45,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.validation.Errors;
@@ -75,7 +70,6 @@ public class HibernateAdministrationDAO implements AdministrationDAO, Applicatio
 
 	private Metadata metadata;
 	
-	@Autowired
 	public HibernateAdministrationDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -107,7 +101,7 @@ public class HibernateAdministrationDAO implements AdministrationDAO, Applicatio
 			CriteriaQuery<GlobalProperty> query = cb.createQuery(GlobalProperty.class);
 			Root<GlobalProperty> root = query.from(GlobalProperty.class);
 
-			Predicate condition = (propertyName != null)
+			Predicate condition = propertyName != null
 				? cb.equal(cb.lower(root.get(PROPERTY)), propertyName.toLowerCase())
 				: cb.isNull(root.get(PROPERTY));
 
@@ -229,11 +223,11 @@ public class HibernateAdministrationDAO implements AdministrationDAO, Applicatio
 			try {
 				List<Column> columns = persistentClass.getProperty(fieldName).getColumns();
 				if (columns.isEmpty()) {
-					throw new Exception(String.format("No columns found for fieldName %s to determine maximum length", fieldName));
+					throw new Exception("No columns found for fieldName %s to determine maximum length".formatted(fieldName));
 				}
 				Column column = columns.get(0);
 				String columnDefinition = column.getSqlType();
-				if (columnDefinition != null && columnDefinition.equalsIgnoreCase("LONGTEXT")) {
+				if ("LONGTEXT".equalsIgnoreCase(columnDefinition)) {
 					fieldLength = Integer.MAX_VALUE;
 				} else {
 					fieldLength = column.getLength();
@@ -285,7 +279,7 @@ public class HibernateAdministrationDAO implements AdministrationDAO, Applicatio
 			Type identifierType = metadata.getIdentifierType();
 			String identifierName = metadata.getIdentifierPropertyName();
 			
-			if (identifierType instanceof BasicType<?> && String.class.equals(((BasicType<?>) identifierType).getJavaTypeDescriptor().getJavaType())) {
+			if (identifierType instanceof BasicType<?> type && String.class.equals(type.getJavaTypeDescriptor().getJavaType())) {
 				long maxLength = getMaximumPropertyLength(entityClass, identifierName);
 				String identifierValue = (String) metadata.getIdentifier(object,
 				    (SessionImplementor) sessionFactory.getCurrentSession());
@@ -299,7 +293,7 @@ public class HibernateAdministrationDAO implements AdministrationDAO, Applicatio
 			}
 			for (String propName : propNames) {
 				Type propType = metadata.getPropertyType(propName);
-				if (propType instanceof BasicType<?> && String.class.equals(((BasicType<?>) propType).getJavaTypeDescriptor().getJavaType())) {
+				if (propType instanceof BasicType<?> type && String.class.equals(type.getJavaTypeDescriptor().getJavaType())) {
 					String propertyValue = (String) metadata.getPropertyValue(object, propName);
 					if (propertyValue != null) {
 						long maxLength = getMaximumPropertyLength(entityClass, propName);

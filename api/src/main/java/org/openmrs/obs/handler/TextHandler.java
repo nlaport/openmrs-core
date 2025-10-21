@@ -99,7 +99,7 @@ public class TextHandler extends AbstractHandler implements ComplexObsHandler {
 			throw new UncheckedIOException(e);
 		}
 		String mimeType = metadata.getMimeType();
-		mimeType = !(mimeType.equals("application/octet-stream")) ? mimeType : "text/plain";
+		mimeType = "application/octet-stream".equals(mimeType) ? "text/plain" : mimeType;
 		complexData.setMimeType(mimeType);
 		complexData.setLength(metadata.getLength());
 		obs.setComplexData(complexData);
@@ -128,12 +128,12 @@ public class TextHandler extends AbstractHandler implements ComplexObsHandler {
 			return obs;
 		}
 		try {
-			String assignedKey = storageService.saveData((out) -> {
+			String assignedKey = storageService.saveData(out -> {
 				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
 
 				Object data = obs.getComplexData().getData();
-				if (data instanceof char[]) {
-					writer.write((char[]) data);
+				if (data instanceof char[] chars) {
+					writer.write(chars);
 				} else if (Reader.class.isAssignableFrom(data.getClass())) {
 					try (Reader reader = new BufferedReader((Reader) data)){
 						IOUtils.copy(reader, writer);

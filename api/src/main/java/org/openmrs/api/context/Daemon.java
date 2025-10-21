@@ -42,7 +42,8 @@ public final class Daemon {
 	/**
 	 * The uuid defined for the daemon user object
 	 */
-	static final String DAEMON_USER_UUID = "A4F30A1B-5EB9-11DF-A648-37A07F9C90FB";
+	static final String DAEMON_USER_UUID = System.getenv("DAEMON_USER_UUID");
+
 	
 	private static final ThreadLocal<Boolean> isDaemonThread = new ThreadLocal<>();
 	

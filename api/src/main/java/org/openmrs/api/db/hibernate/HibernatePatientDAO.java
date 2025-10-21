@@ -59,7 +59,6 @@ import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -81,7 +80,6 @@ public class HibernatePatientDAO implements PatientDAO {
 	
 	private final SearchSessionFactory searchSessionFactory;
 	
-	@Autowired
 	public HibernatePatientDAO(SessionFactory sessionFactory, SearchSessionFactory searchSessionFactory) {
 		this.sessionFactory = sessionFactory;
 		this.searchSessionFactory = searchSessionFactory;
@@ -146,7 +144,7 @@ public class HibernatePatientDAO implements PatientDAO {
 			NativeQuery<Integer> query = sessionFactory.getCurrentSession().createNativeQuery(sql, Integer.class);
 			query.setParameter("patientId", patient.getPatientId());
 			
-			stubInsertNeeded = (query.uniqueResult() == null);
+			stubInsertNeeded = query.uniqueResult() == null;
 		}
 		
 		if (stubInsertNeeded) {

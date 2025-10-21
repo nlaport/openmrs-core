@@ -28,7 +28,7 @@ public class MedicationDispenseCriteria {
 	
 	private DrugOrder drugOrder;
 	
-	private boolean includeVoided = false;
+	private boolean includeVoided;
 	
 	public MedicationDispenseCriteria() {
 	}

@@ -16,7 +16,7 @@ import org.openmrs.util.OpenmrsUtil;
 /**
  * Contains convenience methods for working with Orders.
  */
-public class OrderUtil {
+public final class OrderUtil {
 	
 	private OrderUtil() {
 	}

@@ -9,7 +9,7 @@
  */
 package org.openmrs.logging;
 
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
@@ -78,24 +78,24 @@ public final class OpenmrsLoggingUtil {
 		
 		String fileName = null;
 		if (fileAppender instanceof AbstractOutputStreamAppender) {
-			if (fileAppender instanceof RollingFileAppender) {
-				fileName = ((RollingFileAppender) fileAppender).getFileName();
-			} else if (fileAppender instanceof FileAppender) {
-				fileName = ((FileAppender) fileAppender).getFileName();
-			} else if (fileAppender instanceof MemoryMappedFileAppender) {
-				fileName = ((MemoryMappedFileAppender) fileAppender).getFileName();
-			} else if (fileAppender instanceof RollingRandomAccessFileAppender) {
-				fileName = ((RollingRandomAccessFileAppender) fileAppender).getFileName();
-			} else if (fileAppender instanceof RandomAccessFileAppender) {
-				fileName = ((RandomAccessFileAppender) fileAppender).getFileName();
-			} else if (fileAppender instanceof AbstractFileAppender) {
-				fileName = ((AbstractFileAppender<?>) fileAppender).getFileName();
+			if (fileAppender instanceof RollingFileAppender appender) {
+				fileName = appender.getFileName();
+			} else if (fileAppender instanceof FileAppender appender) {
+				fileName = appender.getFileName();
+			} else if (fileAppender instanceof MemoryMappedFileAppender appender) {
+				fileName = appender.getFileName();
+			} else if (fileAppender instanceof RollingRandomAccessFileAppender appender) {
+				fileName = appender.getFileName();
+			} else if (fileAppender instanceof RandomAccessFileAppender appender) {
+				fileName = appender.getFileName();
+			} else if (fileAppender instanceof AbstractFileAppender<?> appender) {
+				fileName = appender.getFileName();
 			} else {
 				return null;
 			}
 		}
 		
-		return fileName == null ? null : Paths.get("", fileName).toAbsolutePath().toString();
+		return fileName == null ? null : Path.of("", fileName).toAbsolutePath().toString();
 	}
 	
 	/**

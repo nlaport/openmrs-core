@@ -21,7 +21,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class DtdTestValidator {
+public final class DtdTestValidator {
 	
 	private static final Logger log = LoggerFactory.getLogger(DtdTestValidator.class);
 	

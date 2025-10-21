@@ -23,7 +23,7 @@ import org.openmrs.api.db.hibernate.search.lucene.LuceneConfig;
  * @see LuceneConfig
  * @since 2.8.0
  */
-public class SearchAnalysis {
+public final class SearchAnalysis {
 	
 	private SearchAnalysis() {
 	}

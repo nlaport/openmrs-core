@@ -114,7 +114,7 @@ public class MigrateConceptReferenceTermChangeSet implements CustomTaskChange {
 				final String uuid = selectMapResult.getString("uuid");
 				
 				final Integer mapTypeId = determineMapTypeId(comment, typesToIds);
-				final int updatedMapTypeId = (mapTypeId == null) ? typesToIds.get(DEFAULT_CONCEPT_MAP_TYPE) : mapTypeId;
+				final int updatedMapTypeId = mapTypeId == null ? typesToIds.get(DEFAULT_CONCEPT_MAP_TYPE) : mapTypeId;
 				updateMapType.setInt(1, updatedMapTypeId);
 				updateMapType.setInt(2, conceptMapId);
 				updateMapType.execute();

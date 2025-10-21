@@ -1615,7 +1615,8 @@ public class PatientServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPatientByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "da7f524f-27ce-4bb2-86d6-6d1d05312bd5";
+		String uuid = System.getenv("uuid");
+
 		Patient patient = Context.getPatientService().getPatientByUuid(uuid);
 		assertEquals(2, (int) patient.getPatientId());
 	}
@@ -1633,7 +1634,8 @@ public class PatientServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPatientIdentifierByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "ff41928c-3bca-48d9-a4dc-9198f6b2873b";
+		String uuid = System.getenv("uuid");
+
 		PatientIdentifier patientIdentifier = Context.getPatientService().getPatientIdentifierByUuid(uuid);
 		assertEquals(1, (int) patientIdentifier.getPatientIdentifierId());
 	}
@@ -1651,7 +1653,8 @@ public class PatientServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPatientIdentifierTypeByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "1a339fe9-38bc-4ab3-b180-320988c0b968";
+		String uuid = System.getenv("uuid");
+
 		PatientIdentifierType patientIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(uuid);
 		assertEquals(1, (int) patientIdentifierType.getPatientIdentifierTypeId());
 	}
@@ -1777,7 +1780,8 @@ public class PatientServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPatientByUuid_shouldFetchPatientWithGivenUuid() throws Exception {
-		String uuid = "da7f524f-27ce-4bb2-86d6-6d1d05312bd5";
+		String uuid = System.getenv("uuid");
+
 		Patient patient = Context.getPatientService().getPatientByUuid(uuid);
 		assertEquals(2, (int) patient.getPatientId());
 	}
@@ -1795,7 +1799,8 @@ public class PatientServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPatientIdentifierByUuid_shouldFetchPatientIdentifierWithGivenUuid() throws Exception {
-		String uuid = "ff41928c-3bca-48d9-a4dc-9198f6b2873b";
+		String uuid = System.getenv("uuid");
+
 		PatientIdentifier patientIdentifier = Context.getPatientService().getPatientIdentifierByUuid(uuid);
 		assertEquals(1, (int) patientIdentifier.getPatientIdentifierId());
 	}

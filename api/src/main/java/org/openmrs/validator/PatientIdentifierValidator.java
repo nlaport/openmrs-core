@@ -91,7 +91,7 @@ public class PatientIdentifierValidator implements Validator {
 			// Check that location is included if it is required (default behavior is to require it)
 			LocationBehavior lb = pi.getIdentifierType().getLocationBehavior();
 			if (pi.getLocation() == null && (lb == null || lb == LocationBehavior.REQUIRED)) {
-				String identifierString = (pi.getIdentifier() != null) ? pi.getIdentifier() : "";
+				String identifierString = pi.getIdentifier() != null ? pi.getIdentifier() : "";
 				throw new PatientIdentifierException(Context.getMessageSourceService().getMessage(
 				    "PatientIdentifier.location.null", new Object[] { identifierString }, Context.getLocale()));
 			}

@@ -18,7 +18,7 @@ import static org.openmrs.module.ModuleFactory.getStartedModules;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +54,7 @@ public class WebModuleActivatorTest extends BaseModuleActivatorTest {
 		//org.openmrs.module.ModuleException: Unable to load module messages from file: 
 		// /Projects/openmrs/core/web/target/test-classes/WEB-INF/module_messages_fr.properties
 		
-		File folder = Paths.get("target", "test-classes", "WEB-INF").toFile();
+		File folder = Path.of("target", "test-classes", "WEB-INF").toFile();
 		if (!folder.exists()) {
 			folder.mkdirs();
 		}
@@ -214,7 +214,7 @@ public class WebModuleActivatorTest extends BaseModuleActivatorTest {
 	public void shouldUpgradeModule() {
 		Module module = ModuleFactory.getModuleById(MODULE3_ID);
 		
-		assertTrue(module.getVersion().equals("1.0-SNAPSHOT"));
+		assertTrue("1.0-SNAPSHOT".equals(module.getVersion()));
 		
 		URL url = OpenmrsClassLoader.getInstance().getResource("org/openmrs/module/include/test3-2.0-SNAPSHOT.omod");
 		module.setDownloadURL("file:" + url.getFile());
@@ -228,13 +228,13 @@ public class WebModuleActivatorTest extends BaseModuleActivatorTest {
 		
 		//module3 should have upgraded from version 1.0 to 2.0
 		module = ModuleFactory.getModuleById(MODULE3_ID);
-		assertTrue(module.getVersion().equals("2.0-SNAPSHOT"));
+		assertTrue("2.0-SNAPSHOT".equals(module.getVersion()));
 	}
 	
 	@Test
 	public void shouldUpgradeModuleWithDependents() {
 		Module module = ModuleFactory.getModuleById(MODULE1_ID);
-		assertTrue(module.getVersion().equals("1.0-SNAPSHOT"));
+		assertTrue("1.0-SNAPSHOT".equals(module.getVersion()));
 		
 		URL url = OpenmrsClassLoader.getInstance().getResource("org/openmrs/module/include/test1-2.0-SNAPSHOT.omod");
 		module.setDownloadURL("file:" + url.getFile());
@@ -268,7 +268,7 @@ public class WebModuleActivatorTest extends BaseModuleActivatorTest {
 		//module1 should have upgraded from version 1.0 to 2.0
 		module = ModuleFactory.getModuleById(MODULE1_ID);
 		assertTrue(module.isStarted());
-		assertTrue(module.getVersion().equals("2.0-SNAPSHOT"));
+		assertTrue("2.0-SNAPSHOT".equals(module.getVersion()));
 		
 		//now try start module2 and module3
 		ModuleFactory.startModule(ModuleFactory.getModuleById(MODULE2_ID));

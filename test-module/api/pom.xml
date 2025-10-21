@@ -22,6 +22,9 @@
 	<packaging>jar</packaging>
 	<name>openmrs-test-module-api</name>
 	<description>API project for Test Module</description>
+ <properties>
+  <maven.compiler.release>17</maven.compiler.release>
+ </properties>
 
 	<dependencies>
 		<!-- Begin OpenMRS core -->
@@ -41,6 +44,16 @@
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
 			<scope>test</scope>
+   <exclusions>
+    <exclusion>
+     <groupId>junit</groupId>
+     <artifactId>junit</artifactId>
+    </exclusion>
+    <exclusion>
+     <groupId>org.junit.vintage</groupId>
+     <artifactId>junit-vintage-engine</artifactId>
+    </exclusion>
+   </exclusions>
 		</dependency>
 		<!-- End OpenMRS core -->
 	</dependencies>

@@ -30,7 +30,7 @@ public abstract class BaseAttributeType<OwningType extends Customizable<?>> exte
 	private Integer minOccurs = 0;
 	
 	@Column(name = "max_occurs", length = 11)
-	private Integer maxOccurs = null;
+	private Integer maxOccurs;
 	
 	@Column(name = "datatype", length = 255)
 	private String datatypeClassname;

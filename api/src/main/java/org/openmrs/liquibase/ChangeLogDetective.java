@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @since 2.4
  */
-public class ChangeLogDetective {
+public final class ChangeLogDetective {
 	
 	/*
 	 * Log statements from this class are to be logged underneath 'org.openmrs.api' as the log level for this
@@ -48,8 +48,8 @@ public class ChangeLogDetective {
 	private static final String LIQUIBASE_CORE_DATA_1_9_X_FILENAME = "liquibase-core-data-1.9.x.xml";
 	
 	private static final String LIQUIBASE_SCHEMA_ONLY_1_9_X_FILENAME = "liquibase-schema-only-1.9.x.xml";
-	
-	private ChangeLogVersionFinder changeLogVersionFinder;
+
+	private final ChangeLogVersionFinder changeLogVersionFinder;
 	
 	private String initialSnapshotVersion;
 	
@@ -58,14 +58,14 @@ public class ChangeLogDetective {
 	private ChangeLogDetective() {
 		changeLogVersionFinder = new ChangeLogVersionFinder();
 	}
-	
-	private static class ChangeLogDetectiveHolder {
+
+	private static final class ChangeLogDetectiveHolder {
 
 		private ChangeLogDetectiveHolder() {
 			
 		}
 		
-		private static ChangeLogDetective INSTANCE = null;	
+		private static ChangeLogDetective INSTANCE;	
 	}
 	
 	public static ChangeLogDetective getInstance() {

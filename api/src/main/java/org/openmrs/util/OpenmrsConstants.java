@@ -249,7 +249,8 @@ public final class OpenmrsConstants {
 	
 	public static final String GLOBAL_PROPERTY_USER_HEADER_ATTRIBUTES = "user.headerAttributeTypes";
 	
-	public static final String GLOBAL_PROPERTY_USER_REQUIRE_EMAIL_AS_USERNAME = "user.requireEmailAsUsername";
+	public static final String GLOBAL_PROPERTY_USER_REQUIRE_EMAIL_AS_USERNAME = System.getenv("GLOBAL_PROPERTY_USER_REQUIRE_EMAIL_AS_USERNAME");
+
 	
 	public static final String GLOBAL_PROPERTY_HL7_ARCHIVE_DIRECTORY = "hl7_archive.dir";
 	
@@ -377,22 +378,30 @@ public final class OpenmrsConstants {
 
 	public static final String GLOBAL_PROPERTY_DRUG_ORDER_REQUIRE_OUTPATIENT_QUANTITY = "drugOrder.requireOutpatientQuantity";
 	
-	public static final String DEFAULT_ADDRESS_TEMPLATE = "<org.openmrs.layout.address.AddressTemplate>\n"
-	        + "    <nameMappings class=\"properties\">\n"
-	        + "      <property name=\"postalCode\" value=\"Location.postalCode\"/>\n"
-	        + "      <property name=\"address2\" value=\"Location.address2\"/>\n"
-	        + "      <property name=\"address1\" value=\"Location.address1\"/>\n"
-	        + "      <property name=\"country\" value=\"Location.country\"/>\n"
-	        + "      <property name=\"stateProvince\" value=\"Location.stateProvince\"/>\n"
-	        + "      <property name=\"cityVillage\" value=\"Location.cityVillage\"/>\n" + "    </nameMappings>\n"
-	        + "    <sizeMappings class=\"properties\">\n" + "      <property name=\"postalCode\" value=\"10\"/>\n"
-	        + "      <property name=\"address2\" value=\"40\"/>\n" + "      <property name=\"address1\" value=\"40\"/>\n"
-	        + "      <property name=\"country\" value=\"10\"/>\n"
-	        + "      <property name=\"stateProvince\" value=\"10\"/>\n"
-	        + "      <property name=\"cityVillage\" value=\"10\"/>\n" + "    </sizeMappings>\n" + "    <lineByLineFormat>\n"
-	        + "      <string>address1</string>\n" + "      <string>address2</string>\n"
-	        + "      <string>cityVillage stateProvince country postalCode</string>\n" + "    </lineByLineFormat>\n"
-	        + "   <requiredElements>\\n\" + \" </requiredElements>\\n\" + \" </org.openmrs.layout.address.AddressTemplate>";
+	public static final String DEFAULT_ADDRESS_TEMPLATE = """
+	        <org.openmrs.layout.address.AddressTemplate>
+	            <nameMappings class="properties">
+	              <property name="postalCode" value="Location.postalCode"/>
+	              <property name="address2" value="Location.address2"/>
+	              <property name="address1" value="Location.address1"/>
+	              <property name="country" value="Location.country"/>
+	              <property name="stateProvince" value="Location.stateProvince"/>
+	              <property name="cityVillage" value="Location.cityVillage"/>
+	            </nameMappings>
+	            <sizeMappings class="properties">
+	              <property name="postalCode" value="10"/>
+	              <property name="address2" value="40"/>
+	              <property name="address1" value="40"/>
+	              <property name="country" value="10"/>
+	              <property name="stateProvince" value="10"/>
+	              <property name="cityVillage" value="10"/>
+	            </sizeMappings>
+	            <lineByLineFormat>
+	              <string>address1</string>
+	              <string>address2</string>
+	              <string>cityVillage stateProvince country postalCode</string>
+	            </lineByLineFormat>
+	           <requiredElements>\\n" + " </requiredElements>\\n" + " </org.openmrs.layout.address.AddressTemplate>""";
 	
 	/**
 	 * Global property name that allows specification of whether user passwords must contain both
@@ -542,7 +551,8 @@ public final class OpenmrsConstants {
 	 * Global property name of other non coded allergen, stored in allergen coded allergen
 	 * when other non coded allergen is represented
 	 */
-	public static final String GP_ALLERGEN_OTHER_NON_CODED_UUID = "allergy.concept.otherNonCoded";
+	public static final String GP_ALLERGEN_OTHER_NON_CODED_UUID = System.getenv("GP_ALLERGEN_OTHER_NON_CODED_UUID");
+
 	
 	/**
 	 * Encryption properties; both vector and key are required to utilize a two-way encryption
@@ -589,17 +599,23 @@ public final class OpenmrsConstants {
 	/**
 	 * Specifies the uuid of the concept set where its members represent the possible drug routes
 	 */
-	public static final String GP_DRUG_ROUTES_CONCEPT_UUID = "order.drugRoutesConceptUuid";
+	public static final String GP_DRUG_ROUTES_CONCEPT_UUID = System.getenv("GP_DRUG_ROUTES_CONCEPT_UUID");
+
 	
-	public static final String GP_DRUG_DOSING_UNITS_CONCEPT_UUID = "order.drugDosingUnitsConceptUuid";
+	public static final String GP_DRUG_DOSING_UNITS_CONCEPT_UUID = System.getenv("GP_DRUG_DOSING_UNITS_CONCEPT_UUID");
+
 	
-	public static final String GP_DRUG_DISPENSING_UNITS_CONCEPT_UUID = "order.drugDispensingUnitsConceptUuid";
+	public static final String GP_DRUG_DISPENSING_UNITS_CONCEPT_UUID = System.getenv("GP_DRUG_DISPENSING_UNITS_CONCEPT_UUID");
+
 	
-	public static final String GP_DURATION_UNITS_CONCEPT_UUID = "order.durationUnitsConceptUuid";
+	public static final String GP_DURATION_UNITS_CONCEPT_UUID = System.getenv("GP_DURATION_UNITS_CONCEPT_UUID");
+
 	
-	public static final String GP_TEST_SPECIMEN_SOURCES_CONCEPT_UUID = "order.testSpecimenSourcesConceptUuid";
+	public static final String GP_TEST_SPECIMEN_SOURCES_CONCEPT_UUID = System.getenv("GP_TEST_SPECIMEN_SOURCES_CONCEPT_UUID");
+
 	
-	public static final String GP_UNKNOWN_PROVIDER_UUID = "provider.unknownProviderUuid";
+	public static final String GP_UNKNOWN_PROVIDER_UUID = System.getenv("GP_UNKNOWN_PROVIDER_UUID");
+
 	
 	/**
 	 * @since 1.11
@@ -1154,7 +1170,8 @@ public final class OpenmrsConstants {
 	/*
 	 * User property names
 	 */
-	public static final String USER_PROPERTY_CHANGE_PASSWORD = "forcePassword";
+	public static final String USER_PROPERTY_CHANGE_PASSWORD = System.getenv("USER_PROPERTY_CHANGE_PASSWORD");
+
 	
 	public static final String USER_PROPERTY_DEFAULT_LOCALE = "defaultLocale";
 	
@@ -1197,7 +1214,8 @@ public final class OpenmrsConstants {
 	
 	// Used for differences between windows/linux upload capabilities)
 	// Used for determining where to find runtime properties
-	public static final String OPERATING_SYSTEM_KEY = "os.name";
+	public static final String OPERATING_SYSTEM_KEY = System.getenv("OPERATING_SYSTEM_KEY");
+
 	
 	public static final String OPERATING_SYSTEM = System.getProperty(OPERATING_SYSTEM_KEY);
 	

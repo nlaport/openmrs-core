@@ -67,7 +67,7 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 	
 	private Locale defaultLocale = new Locale("en");
 	
-	private List<Locale> allowedLocales = null;
+	private List<Locale> allowedLocales;
 	
 	/**
 	 * @see CustomTaskChange#execute(Database)
@@ -604,8 +604,8 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 					conceptName.setConceptNameType(conceptNameType);
 				}
 				String localeString = rs.getString("locale");
-				conceptName.setLocale(!StringUtils.isBlank(localeString) ? LocaleUtility.fromSpecification(localeString)
-				        : null);
+				conceptName.setLocale(StringUtils.isBlank(localeString) ? null
+				        : LocaleUtility.fromSpecification(localeString));
 				conceptName.setLocalePreferred(rs.getBoolean("locale_preferred"));
 				conceptName.setVoided(false);
 				
@@ -658,14 +658,14 @@ public class ConceptValidatorChangeSet implements CustomTaskChange {
 			
 			for (ConceptName conceptName : updatedConceptNames) {
 				pStmt.setString(1, conceptName.getLocale().toString());
-				pStmt.setString(2, (conceptName.getConceptNameType() != null) ? conceptName.getConceptNameType().toString()
+				pStmt.setString(2, conceptName.getConceptNameType() != null ? conceptName.getConceptNameType().toString()
 				        : null);
 				pStmt.setBoolean(3, conceptName.getLocalePreferred());
 				pStmt.setBoolean(4, conceptName.getVoided());
 				pStmt.setDate(5, conceptName.getVoided() ? new Date(System.currentTimeMillis()) : null);
 				pStmt.setString(6, conceptName.getVoidReason());
 				// "Not all databases allow for a non-typed Null to be sent to the backend", so we can't use setInt
-				pStmt.setObject(7, (conceptName.getVoided() && userId != null) ? userId : null, Types.INTEGER);
+				pStmt.setObject(7, conceptName.getVoided() && userId != null ? userId : null, Types.INTEGER);
 				pStmt.setInt(8, conceptName.getConceptNameId());
 				
 				pStmt.addBatch();

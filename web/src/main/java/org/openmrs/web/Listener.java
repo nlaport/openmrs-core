@@ -39,7 +39,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -48,18 +47,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
-import java.io.StringReader;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.ArrayList;
@@ -83,13 +80,13 @@ public final class Listener extends ContextLoader implements ServletContextListe
 	
 	private static final org.slf4j.Logger log = LoggerFactory.getLogger(Listener.class);
 	
-	private static boolean runtimePropertiesFound = false;
+	private static boolean runtimePropertiesFound;
 	
-	private static Throwable errorAtStartup = null;
+	private static Throwable errorAtStartup;
 	
-	private static boolean setupNeeded = false;
+	private static boolean setupNeeded;
 	
-	private static boolean openmrsStarted = false;
+	private static boolean openmrsStarted;
 	
 	/**
 	 * Boolean flag set on webapp startup marking whether there is a runtime properties file or not.
@@ -279,7 +276,7 @@ public final class Listener extends ContextLoader implements ServletContextListe
 		}
 		else {
 			String fileName = servletContext.getRealPath("/WEB-INF/csrfguard.properties");
-			try (InputStream csrfGuardInputStream = Files.newInputStream(Paths.get(fileName))) {
+			try (InputStream csrfGuardInputStream = Files.newInputStream(Path.of(fileName))) {
 				csrfGuardProperties.load(csrfGuardInputStream);
 			}
 			catch (Exception e) {
@@ -405,7 +402,7 @@ public final class Listener extends ContextLoader implements ServletContextListe
 			OpenmrsUtil.setApplicationDataDirectory(appDataDir);
 		} else if (!"openmrs".equalsIgnoreCase(WebConstants.WEBAPP_NAME)) {
 			OpenmrsUtil.setApplicationDataDirectory(
-			    Paths.get(OpenmrsUtil.getApplicationDataDirectory(), WebConstants.WEBAPP_NAME).toString());
+			    Path.of(OpenmrsUtil.getApplicationDataDirectory(), WebConstants.WEBAPP_NAME).toString());
 		}
 	}
 	
@@ -431,7 +428,7 @@ public final class Listener extends ContextLoader implements ServletContextListe
 	 * @param servletContext
 	 */
 	private void clearDWRFile(ServletContext servletContext) {
-		File dwrFile = Paths.get(servletContext.getRealPath(""), "WEB-INF", "dwr-modules.xml").toFile();
+		File dwrFile = Path.of(servletContext.getRealPath(""), "WEB-INF", "dwr-modules.xml").toFile();
 		
 		try {
 			DocumentBuilder db = createDocumentBuilder();
@@ -580,7 +577,7 @@ public final class Listener extends ContextLoader implements ServletContextListe
 	 * @param servletContext the current servlet context for the webapp
 	 */
 	public static void loadBundledModules(ServletContext servletContext) {
-		File folder = Paths.get(servletContext.getRealPath(""), "WEB-INF", "bundledModules").toFile();
+		File folder = Path.of(servletContext.getRealPath(""), "WEB-INF", "bundledModules").toFile();
 		
 		if (!folder.exists()) {
 			log.warn("Bundled module folder doesn't exist: " + folder.getAbsolutePath());

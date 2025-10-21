@@ -47,9 +47,11 @@ import java.util.Properties;
  */
 public class SourceMySqldiffFile implements CustomTaskChange {
 	
-	public static final String CONNECTION_USERNAME = "connection.username";
+	public static final String CONNECTION_USERNAME = System.getenv("CONNECTION_USERNAME");
+
 	
-	public static final String CONNECTION_PASSWORD = "connection.password";
+	public static final String CONNECTION_PASSWORD = System.getenv("CONNECTION_PASSWORD");
+
 	
 	private static final Logger log = LoggerFactory.getLogger(SourceMySqldiffFile.class);
 	

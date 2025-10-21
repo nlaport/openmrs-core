@@ -14,6 +14,8 @@ import org.hibernate.envers.Audited;
 import org.openmrs.api.APIException;
 
 import jakarta.persistence.Column;
+
+import java.io.Serial;
 import jakarta.persistence.MappedSuperclass;
 
 /**
@@ -25,6 +27,7 @@ import jakarta.persistence.MappedSuperclass;
 @Audited
 public abstract class BaseFormRecordableOpenmrsData extends BaseChangeableOpenmrsData implements FormRecordable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	protected static final String FORM_NAMESPACE_PATH_SEPARATOR = "^";

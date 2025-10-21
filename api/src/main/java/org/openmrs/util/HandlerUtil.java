@@ -52,8 +52,8 @@ public class HandlerUtil implements ApplicationListener<ContextRefreshedEvent> {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((handlerType == null) ? 0 : handlerType.hashCode());
-			result = prime * result + ((type == null) ? 0 : type.hashCode());
+			result = prime * result + (handlerType == null ? 0 : handlerType.hashCode());
+			result = prime * result + (type == null ? 0 : type.hashCode());
 			return result;
 		}
 		

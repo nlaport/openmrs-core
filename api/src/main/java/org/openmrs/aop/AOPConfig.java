@@ -70,10 +70,10 @@ public class AOPConfig {
 	 * @return serviceInterceptors
 	 * @deprecated since 3.0.0 use {@link Service} annotation instead
 	 */
-	@Bean 
-	public List<Advice> serviceInterceptors(AuthorizationAdvice authorizationAdvice,
-											LoggingAdvice loggingAdvice, RequiredDataAdvice requiredDataAdvice,
-											CacheInterceptor cacheInterceptor) {
+	@Bean
+	List<Advice> serviceInterceptors(AuthorizationAdvice authorizationAdvice,
+		LoggingAdvice loggingAdvice, RequiredDataAdvice requiredDataAdvice,
+		CacheInterceptor cacheInterceptor) {
 		List<Advice> interceptors = new ArrayList<>();
 		interceptors.add(authorizationAdvice);
 		interceptors.add(loggingAdvice);
@@ -89,22 +89,22 @@ public class AOPConfig {
 	 * @deprecated since 3.0.0 use {@link Service} annotation instead
 	 */
 	@Bean
-	public TransactionAttributeSource transactionAttributeSource() {
+	TransactionAttributeSource transactionAttributeSource() {
 		return new AnnotationTransactionAttributeSource();
 	}
-	
+
 	@Bean
-	public Advisor authorizationAdvisor(AuthorizationAdvice advice) {
+	Advisor authorizationAdvisor(AuthorizationAdvice advice) {
 		return createAdvisor(advice, 1);
 	}
 
 	@Bean
-	public Advisor loggingAdvisor(LoggingAdvice advice) {
+	Advisor loggingAdvisor(LoggingAdvice advice) {
 		return createAdvisor(advice, 2);
 	}
 
 	@Bean
-	public Advisor requiredDataAdvisor(RequiredDataAdvice advice) {
+	Advisor requiredDataAdvisor(RequiredDataAdvice advice) {
 		return createAdvisor(advice,3);
 	}
 

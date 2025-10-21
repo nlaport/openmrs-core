@@ -53,7 +53,7 @@ import org.springframework.context.support.AbstractRefreshableApplicationContext
 /**
  * Utility methods for working and manipulating modules
  */
-public class ModuleUtil {
+public final class ModuleUtil {
 
 	private ModuleUtil() {
 	}
@@ -293,7 +293,7 @@ public class ModuleUtil {
 			for (String range : ranges) {
 				// need to externalize this string
 				String separator = "-";
-				if (range.indexOf("*") > 0 || range.indexOf(separator) > 0 && (!isVersionWithQualifier(range))) {
+				if (range.indexOf("*") >= 1 || range.indexOf(separator) >= 1 && (!isVersionWithQualifier(range))) {
 					// if it contains "*" or "-" then we must separate those two
 					// assume it's always going to be two part
 					// assign the upper and lower bound
@@ -319,12 +319,12 @@ public class ModuleUtil {
 					upperBound = StringUtils.remove(upperBound, upperBound.replaceAll("^\\s?\\d+[\\.\\d+\\*?|\\.\\*]+", ""));
 					
 					// if the lower contains "*" then change it to zero
-					if (lowerBound.indexOf("*") > 0) {
+					if (lowerBound.indexOf("*") >= 1) {
 						lowerBound = lowerBound.replaceAll("\\*", "0");
 					}
 					
 					// if the upper contains "*" then change it to maxRevisionNumber
-					if (upperBound.indexOf("*") > 0) {
+					if (upperBound.indexOf("*") >= 1) {
 						upperBound = upperBound.replaceAll("\\*", Integer.toString(Integer.MAX_VALUE));
 					}
 					
@@ -574,7 +574,7 @@ public class ModuleUtil {
 		String docBase = tmpModuleDir.getAbsolutePath();
 		try (JarFile jarFile = new JarFile(fileToExpand)) {
 			Enumeration<JarEntry> jarEntries = jarFile.entries();
-			boolean foundName = (name == null);
+			boolean foundName = name == null;
 			
 			// loop over all of the elements looking for the match to 'name'
 			while (jarEntries.hasMoreElements()) {
@@ -681,15 +681,14 @@ public class ModuleUtil {
 		int redirects = 0;
 		InputStream in;
 		do {
-			if (c instanceof HttpURLConnection) {
-				((HttpURLConnection) c).setInstanceFollowRedirects(false);
+			if (c instanceof HttpURLConnection connection) {
+				connection.setInstanceFollowRedirects(false);
 			}
 			// We want to open the input stream before getting headers
 			// because getHeaderField() et al swallow IOExceptions.
 			in = c.getInputStream();
 			redir = false;
-			if (c instanceof HttpURLConnection) {
-				HttpURLConnection http = (HttpURLConnection) c;
+			if (c instanceof HttpURLConnection http) {
 				int stat = http.getResponseCode();
 				if (stat == 300 || stat == 301 || stat == 302 || stat == 303 || stat == 305 || stat == 307) {
 					URL base = http.getURL();

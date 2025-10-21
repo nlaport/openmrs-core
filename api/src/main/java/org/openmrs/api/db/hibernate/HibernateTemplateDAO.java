@@ -17,7 +17,6 @@ import org.openmrs.api.db.TemplateDAO;
 import org.openmrs.notification.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("templateDAO")
@@ -27,7 +26,6 @@ public class HibernateTemplateDAO implements TemplateDAO {
 	
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateTemplateDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

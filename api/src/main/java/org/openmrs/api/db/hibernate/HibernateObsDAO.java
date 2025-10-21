@@ -39,7 +39,6 @@ import org.openmrs.Visit;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.ObsDAO;
 import org.openmrs.util.OpenmrsConstants.PERSON_TYPE;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -54,7 +53,6 @@ public class HibernateObsDAO implements ObsDAO {
 	
 	protected final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateObsDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

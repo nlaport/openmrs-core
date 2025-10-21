@@ -28,9 +28,9 @@ public class LogicTransform {
 	
 	private Operator transformOperator;
 	
-	private Integer numResults = null;
+	private Integer numResults;
 	
-	private String sortColumn = null;
+	private String sortColumn;
 	
 	public LogicTransform(Operator transformOperator, Integer numResults) {
 		this.transformOperator = transformOperator;
@@ -121,9 +121,9 @@ public class LogicTransform {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((transformOperator == null) ? 0 : transformOperator.hashCode());
-		result = prime * result + ((numResults == null) ? 0 : numResults.hashCode());
-		result = prime * result + ((sortColumn == null) ? 0 : sortColumn.hashCode());
+		result = prime * result + (transformOperator == null ? 0 : transformOperator.hashCode());
+		result = prime * result + (numResults == null ? 0 : numResults.hashCode());
+		result = prime * result + (sortColumn == null ? 0 : sortColumn.hashCode());
 		return result;
 	}
 }

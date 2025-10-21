@@ -24,7 +24,6 @@ import org.openmrs.Cohort;
 import org.openmrs.CohortMembership;
 import org.openmrs.api.db.CohortDAO;
 import org.openmrs.api.db.DAOException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -41,7 +40,6 @@ public class HibernateCohortDAO implements CohortDAO {
 	
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateCohortDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

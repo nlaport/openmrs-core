@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Set;
 
 public class Graph<T> {
-	
-	private Set<T> nodes = new HashSet<>();
-	
-	private Set<Edge> edges = new HashSet<>();
+
+	private final Set<T> nodes = new HashSet<>();
+
+	private final Set<Edge> edges = new HashSet<>();
 	
 	public class Edge {
 		

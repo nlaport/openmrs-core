@@ -30,6 +30,7 @@ import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -324,7 +325,7 @@ public class LocationServiceImpl extends BaseOpenmrsService implements LocationS
 	@Override
 	@Transactional(readOnly = true)
 	public List<LocationTag> getLocationTags(String search) throws APIException {
-		if (StringUtils.isEmpty(search)) {
+		if (ObjectUtils.isEmpty(search)) {
 			return Context.getLocationService().getAllLocationTags(true);
 		}
 		

@@ -157,7 +157,7 @@ public class PatientServiceAllergyTest extends BaseContextSensitiveTest {
 		assertEquals(4, allergies.size());
 		
 		//remove all allergies
-		while (allergies.size() > 0) {
+		while (!allergies.isEmpty()) {
 			allergies.remove(0);
 		}
 		
@@ -182,7 +182,7 @@ public class PatientServiceAllergyTest extends BaseContextSensitiveTest {
 		assertEquals(4, allergies.size());
 		
 		//remove all allergies
-		while (allergies.size() > 0) {
+		while (!allergies.isEmpty()) {
 			allergies.remove(0);
 		}
 		

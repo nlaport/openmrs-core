@@ -30,7 +30,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -105,7 +105,6 @@ import org.openmrs.propertyeditor.LocationEditor;
 import org.openmrs.propertyeditor.PersonAttributeTypeEditor;
 import org.openmrs.propertyeditor.ProgramEditor;
 import org.openmrs.propertyeditor.ProgramWorkflowStateEditor;
-import org.openmrs.validator.ObsValidator;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -116,17 +115,17 @@ import org.w3c.dom.DocumentType;
 /**
  * Utility methods used in openmrs
  */
-public class OpenmrsUtil {
+public final class OpenmrsUtil {
 	private OpenmrsUtil() {
 	}
 	
-	private static volatile MimetypesFileTypeMap mimetypesFileTypeMap = null;
-	
-	private static org.slf4j.Logger log = LoggerFactory.getLogger(OpenmrsUtil.class);
-	
-	private static Map<Locale, SimpleDateFormat> dateFormatCache = new HashMap<>();
-	
-	private static Map<Locale, SimpleDateFormat> timeFormatCache = new HashMap<>();
+	private static volatile MimetypesFileTypeMap mimetypesFileTypeMap;
+
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(OpenmrsUtil.class);
+
+	private static final Map<Locale, SimpleDateFormat> dateFormatCache = new HashMap<>();
+
+	private static final Map<Locale, SimpleDateFormat> timeFormatCache = new HashMap<>();
 	
 	/**
 	 * Compares origList to newList returning map of differences
@@ -185,28 +184,28 @@ public class OpenmrsUtil {
 		if (concept.getHiNormal() == null || concept.getLowNormal() == null) {
 			return false;
 		}
-		return (value <= concept.getHiNormal() && value >= concept.getLowNormal());
+		return value <= concept.getHiNormal() && value >= concept.getLowNormal();
 	}
 	
 	public static Boolean isInCriticalNumericRange(Float value, ConceptNumeric concept) {
 		if (concept.getHiCritical() == null || concept.getLowCritical() == null) {
 			return false;
 		}
-		return (value <= concept.getHiCritical() && value >= concept.getLowCritical());
+		return value <= concept.getHiCritical() && value >= concept.getLowCritical();
 	}
 	
 	public static Boolean isInAbsoluteNumericRange(Float value, ConceptNumeric concept) {
 		if (concept.getHiAbsolute() == null || concept.getLowAbsolute() == null) {
 			return false;
 		}
-		return (value <= concept.getHiAbsolute() && value >= concept.getLowAbsolute());
+		return value <= concept.getHiAbsolute() && value >= concept.getLowAbsolute();
 	}
 	
 	public static Boolean isValidNumericValue(Float value, ConceptNumeric concept) {
 		if (concept.getHiAbsolute() == null || concept.getLowAbsolute() == null) {
 			return true;
 		}
-		return (value <= concept.getHiAbsolute() && value >= concept.getLowAbsolute());
+		return value <= concept.getHiAbsolute() && value >= concept.getLowAbsolute();
 	}
 	
 	/**
@@ -556,7 +555,7 @@ public class OpenmrsUtil {
 		} else if (d2 == null) {
 			return false;
 		}
-		return (d1 instanceof Date && d2 instanceof Date) ? compare((Date) d1, (Date) d2) == 0 : d1.equals(d2);
+		return d1 instanceof Date d && d2 instanceof Date d3 ? compare(d, d3) == 0 : d1.equals(d2);
 	}
 	
 	/**
@@ -983,16 +982,16 @@ public class OpenmrsUtil {
 		
 		if (filepath == null) {
 			if (OpenmrsConstants.UNIX_BASED_OPERATING_SYSTEM) {
-				filepath = Paths.get(System.getProperty("user.home"), "." + openmrsDir).toString();
+				filepath = Path.of(System.getProperty("user.home"), "." + openmrsDir).toString();
 				if (!canWrite(new File(filepath))) {
 					log.warn("Unable to write to users home dir, fallback to: "
 						+ OpenmrsConstants.APPLICATION_DATA_DIRECTORY_FALLBACK_UNIX);
-					filepath = Paths.get(OpenmrsConstants.APPLICATION_DATA_DIRECTORY_FALLBACK_UNIX, openmrsDir).toString();
+					filepath = Path.of(OpenmrsConstants.APPLICATION_DATA_DIRECTORY_FALLBACK_UNIX, openmrsDir).toString();
 				}
 			} else {
-				filepath = Paths.get(System.getProperty("user.home"), "Application Data", "OpenMRS").toString();
+				filepath = Path.of(System.getProperty("user.home"), "Application Data", "OpenMRS").toString();
 				if (!new File(filepath).exists()) {
-					filepath = Paths.get(System.getenv("appdata"), "OpenMRS").toString();
+					filepath = Path.of(System.getenv("appdata"), "OpenMRS").toString();
 				}
 				if (!canWrite(new File(filepath))) {
 					log.warn("Unable to write to users home dir, fallback to: "
@@ -2137,8 +2136,8 @@ public class OpenmrsUtil {
 		Calendar c2 = Calendar.getInstance();
 		c2.setTime(date);
 		
-		return (c1.get(Calendar.ERA) == c2.get(Calendar.ERA) && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
-		        && c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR));
+		return c1.get(Calendar.ERA) == c2.get(Calendar.ERA) && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
+		        && c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR);
 	}
 	
 	/**
@@ -2169,7 +2168,7 @@ public class OpenmrsUtil {
 
 		if ((conceptReferenceRange.getHiAbsolute() != null && conceptReferenceRange.getHiAbsolute() < value) ||
 			(conceptReferenceRange.getLowAbsolute() != null && conceptReferenceRange.getLowAbsolute() > value)) {
-			return String.format("Expected value between %s and %s", conceptReferenceRange.getLowAbsolute(), conceptReferenceRange.getHiAbsolute());
+			return "Expected value between %s and %s".formatted(conceptReferenceRange.getLowAbsolute(), conceptReferenceRange.getHiAbsolute());
 		} else {
 			return "";
 		}

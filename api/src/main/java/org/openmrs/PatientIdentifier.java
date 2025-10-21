@@ -9,12 +9,13 @@
  */
 package org.openmrs;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Comparator;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.envers.Audited;
 import org.hibernate.search.engine.backend.types.Sortable;
 import org.hibernate.search.mapper.pojo.automaticindexing.ReindexOnUpdate;
@@ -299,6 +300,7 @@ public class PatientIdentifier extends BaseChangeableOpenmrsData implements java
 	 **/
 	public static class DefaultComparator implements Comparator<PatientIdentifier>, Serializable {
 
+		@Serial
 		private static final long serialVersionUID = 1L;
 		
 		@Override

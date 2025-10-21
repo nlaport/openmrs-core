@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * Helper methods for dealing with custom datatypes and their handlers
  * @since 1.9
  */
-public class CustomDatatypeUtil {
+public final class CustomDatatypeUtil {
 
 	private CustomDatatypeUtil() {
 	}
@@ -99,7 +99,7 @@ public class CustomDatatypeUtil {
 			try {
 				Class<? extends CustomDatatypeHandler> clazz = (Class<? extends CustomDatatypeHandler>) Context
 				        .loadClass(preferredHandlerClassname);
-				CustomDatatypeHandler handler = clazz.newInstance();
+				CustomDatatypeHandler handler = clazz.getDeclaredConstructor().newInstance();
 				if (handlerConfig != null) {
 					handler.setHandlerConfiguration(handlerConfig);
 				}

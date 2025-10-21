@@ -76,7 +76,7 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getData_shouldReturnDataWhenFileExists() throws IOException {
-		saveTestData(null, "key", (key) -> {
+		saveTestData(null, "key", key -> {
 			try (InputStream data = storageService.getData(key)) {
 				assertEquals(testFileContent, IOUtils.toString(data, Charset.defaultCharset()));
 			} catch (IOException e) {
@@ -128,7 +128,7 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void saveData_shouldPersistDataIfNoModuleIdAndKeySuffix() throws IOException {
-		saveTestData(null, null, (key) -> {
+		saveTestData(null, null, key -> {
 			try (InputStream data = storageService.getData(key)) {
 				assertEquals(testFileContent, IOUtils.toString(data, Charset.defaultCharset()));
 				assertThat(key, startsWith(dirFormat.format(new Date())));
@@ -140,7 +140,7 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void saveData_shouldPersistDataWithModuleId() throws IOException {
-		saveTestData("test_module", null, (key) -> {
+		saveTestData("test_module", null, key -> {
 			try (InputStream data = storageService.getData(key)) {
 				assertEquals(testFileContent, IOUtils.toString(data, Charset.defaultCharset()));
 				assertThat(key, startsWith("test_module/"));
@@ -153,7 +153,7 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void saveData_shouldPersistDataWithModuleIdAndKeySuffix() throws IOException {
-		saveTestData("test_module", "test_key", (key) -> {
+		saveTestData("test_module", "test_key", key -> {
 			try (InputStream data = storageService.getData(key)) {
 				assertEquals(testFileContent, IOUtils.toString(data, Charset.defaultCharset()));
 				assertThat(key, startsWith("test_module/"));
@@ -168,19 +168,18 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void saveData_shouldFailIfModuleIdAndKeySuffixExists() throws IOException {
 		String keySuffix = BaseStorageServiceTest.newKeySuffix();
-		saveTestData("test_module", keySuffix, (key) -> {
+		saveTestData("test_module", keySuffix, key ->
 			assertThrows(FileAlreadyExistsException.class, () -> 
-				saveTestData("test_module", keySuffix, (newKey) -> {
-			}));
-		});
+				saveTestData("test_module", keySuffix, newKey -> {
+			})));
 	}
 
 	@Test
 	public void saveData_shouldPersistDataIfModuleIdDiffersButKeySuffixSame() throws IOException {
 		String keySuffix = BaseStorageServiceTest.newKeySuffix();
-		saveTestData("test_module", keySuffix, (key) -> {
+		saveTestData("test_module", keySuffix, key -> {
 			try {
-				saveTestData("test_another_module", keySuffix, testFile2, (newKey) -> {
+				saveTestData("test_another_module", keySuffix, testFile2, newKey -> {
 					try (InputStream data = storageService.getData(key)) {
 						assertEquals(testFileContent, IOUtils.toString(data, Charset.defaultCharset()));
 						assertThat(newKey, startsWith("test_another_module/"));
@@ -198,9 +197,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListFilesWithGivenModuleIdAndKeySuffix() throws IOException {
-		saveTestData("test_module", "test/test_key", (key) -> {
+		saveTestData("test_module", "test/test_key", key -> {
 			try {
-				saveTestData("test_module", "test/test_key_2", testFile2, (key2) -> {
+				saveTestData("test_module", "test/test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys("test_module", "test/test_ke")) {
 						assertThat(keys.collect(Collectors.toList()),
 							containsInAnyOrder(equalTo("test_module/test/test_key"), 
@@ -217,9 +216,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListFilesWithGivenModuleIdAndKeySuffixWithoutDirs() throws IOException {
-		saveTestData("test_module", "test_key", (key) -> {
+		saveTestData("test_module", "test_key", key -> {
 			try {
-				saveTestData("test_module", "test_key_2", testFile2, (key2) -> {
+				saveTestData("test_module", "test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys("test_module", "test_ke")) {
 						assertThat(keys.collect(Collectors.toList()),
 							containsInAnyOrder(equalTo("test_module/test_key"), 
@@ -236,9 +235,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListFilesWithoutGivenModuleIdAndWithKeySuffix() throws IOException {
-		saveTestData(null, "test_key", (key) -> {
+		saveTestData(null, "test_key", key -> {
 			try {
-				saveTestData(null, "test_key_2", testFile2, (key2) -> {
+				saveTestData(null, "test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys(null, "test_ke")) {
 						assertThat(keys.collect(Collectors.toList()),
 							containsInAnyOrder(equalTo("test_key"), equalTo("test_key_2")));
@@ -254,9 +253,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListFilesOnlyForGivenModule() throws IOException {
-		saveTestData("test_module", "test_key", (key) -> {
+		saveTestData("test_module", "test_key", key -> {
 			try {
-				saveTestData(null, "test_key_2", testFile2, (key2) -> {
+				saveTestData(null, "test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys("test_module", "test_ke")) {
 						assertThat(keys.collect(Collectors.toList()), 
 							containsInAnyOrder(equalTo("test_module/test_key")));
@@ -272,9 +271,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListFilesOnlyForGlobal() throws IOException {
-		saveTestData("test_module", "test_key", (key) -> {
+		saveTestData("test_module", "test_key", key -> {
 			try {
-				saveTestData(null, "test_key_2", testFile2, (key2) -> {
+				saveTestData(null, "test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys(null, "test_ke")) {
 						assertThat(keys.collect(Collectors.toList()), containsInAnyOrder(
 							equalTo("test_key_2")));
@@ -290,9 +289,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListFilesAndDirsOnlyForCurrentDir() throws IOException {
-		saveTestData("test_module", "test_parent/test/test_key", (key) -> {
+		saveTestData("test_module", "test_parent/test/test_key", key -> {
 			try {
-				saveTestData("test_module", "test_parent/test_key_2", testFile2, (key2) -> {
+				saveTestData("test_module", "test_parent/test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys("test_module", "test_parent/test")) {
 						assertThat(keys.collect(Collectors.toList()),
 							containsInAnyOrder(equalTo("test_module/test_parent/test_key_2"), 
@@ -309,9 +308,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListNoFilesIfNoMatches() throws IOException {
-		saveTestData("test_module", "test/test_key", (key) -> {
+		saveTestData("test_module", "test/test_key", key -> {
 			try {
-				saveTestData("test_module", "test/test_key_2", testFile2, (key2) -> {
+				saveTestData("test_module", "test/test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys("test_module", "test2")) {
 						assertThat(keys.collect(Collectors.toList()), is(emptyIterable()));
 					} catch (IOException e) {
@@ -326,9 +325,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListAllFilesAndDirsFromDir() throws IOException {
-		saveTestData("test_module", "test/test_key", (key) -> {
+		saveTestData("test_module", "test/test_key", key -> {
 			try {
-				saveTestData("test_module", "test/test_key_2", testFile2, (key2) -> {
+				saveTestData("test_module", "test/test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys("test_module", "test/")) {
 						assertThat(keys.collect(Collectors.toList()),
 							containsInAnyOrder(equalTo("test_module/test/test_key_2"), 
@@ -345,11 +344,11 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListAllFilesAndDirsFromRoot() throws IOException {
-		saveTestData("test_module", "test/test_key", (key) -> {
+		saveTestData("test_module", "test/test_key", key -> {
 			try {
-				saveTestData("test_module", "test/test_key_2", testFile2, (key2) -> {
+				saveTestData("test_module", "test/test_key_2", testFile2, key2 -> {
 					try {
-						saveTestData(null, "test", (key3) -> {
+						saveTestData(null, "test", key3 -> {
 							try (Stream<String> keys = storageService.getKeys(null, "")) {
 								assertThat(keys.collect(Collectors.toList()),
 									containsInAnyOrder(equalTo("test_module/"), 
@@ -370,9 +369,9 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void getKeys_shouldListAllFilesAndDirsFromParentDirOnly() throws IOException {
-		saveTestData("test_module", "test/test_key", (key) -> {
+		saveTestData("test_module", "test/test_key", key -> {
 			try {
-				saveTestData("test_module", "test/test/test_key_2", testFile2, (key2) -> {
+				saveTestData("test_module", "test/test/test_key_2", testFile2, key2 -> {
 					try (Stream<String> keys = storageService.getKeys("test_module", "test/")) {
 						assertThat(keys.collect(Collectors.toList()),
 							containsInAnyOrder(equalTo("test_module/test/test_key"), 
@@ -389,7 +388,7 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void purgeData_shouldReturnTrueWhenDeleted() throws IOException {
-		saveTestData(null, null, (key) -> {
+		saveTestData(null, null, key -> {
 			try {
 				boolean deleted = storageService.purgeData(key);
 				boolean exists = storageService.exists(key);
@@ -411,7 +410,7 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void exists_shouldReturnTrueWhenFileExists() throws IOException {
-		saveTestData(null, null, (key) -> {
+		saveTestData(null, null, key -> {
 			boolean exists = storageService.exists(key);
 			assertThat(exists, is(true));
 		});
@@ -425,17 +424,17 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void saveData_shouldHandleWindowsPathSeparatorInKey() throws IOException {
-		saveTestData("test_module", "test_key/test", (key) -> {
+		saveTestData("test_module", "test_key/test", key -> {
 			assertThat(key, is("test_module/test_key/test"));
 			assertThat(storageService.exists(key), is(true));
 		});
 
-		saveTestData("test_module", "test_key\\test", (key) -> {
+		saveTestData("test_module", "test_key\\test", key -> {
 			assertThat(key, is("test_module/test_key\\test"));
 			assertThat(storageService.exists(key), is(true));
 		});
 
-		saveTestData(null, null, (key) -> {
+		saveTestData(null, null, key -> {
 			assertThat(key, not(containsString("\\")));
 			assertThat(storageService.exists(key), is(true));
 		});
@@ -446,7 +445,7 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 	public void saveData_shouldNotFailIfModuleIdOrGroupContainsAllowedCharacters() throws IOException {
 		String key = null;
 		try {
-			key = storageService.saveData((out) -> {
+			key = storageService.saveData(out -> {
 				out.write(1);
 			}, null, "test10-.a/10");
 		} finally {
@@ -458,57 +457,48 @@ public abstract class BaseStorageServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void saveData_shouldFailIfModuleIdOrGroupContainsBadCharacters() throws IOException {
-		assertThrows(IllegalArgumentException.class, () -> {
-			storageService.saveData((out) -> {
+		assertThrows(IllegalArgumentException.class, () ->
+			storageService.saveData(out -> {
 				out.write(1);
-			}, null, "test10$-.a/10");
-		});
-		assertThrows(IllegalArgumentException.class, () -> {
-			storageService.saveData((out) -> {
+			}, null, "test10$-.a/10"));
+		assertThrows(IllegalArgumentException.class, () ->
+			storageService.saveData(out -> {
 				out.write(1);
-			}, null, "test10-.a/10,");
-		});
-		assertThrows(IllegalArgumentException.class, () -> {
-			storageService.saveData((out) -> {
+			}, null, "test10-.a/10,"));
+		assertThrows(IllegalArgumentException.class, () ->
+			storageService.saveData(out -> {
 				out.write(1);
-			}, null, "test10-.a/10=");
-		});
-		assertThrows(IllegalArgumentException.class, () -> {
-			storageService.saveData((out) -> {
+			}, null, "test10-.a/10="));
+		assertThrows(IllegalArgumentException.class, () ->
+			storageService.saveData(out -> {
 				out.write(1);
-			}, null, "test10-.a/10\\");
-		});
-		assertThrows(IllegalArgumentException.class, () -> {
-			storageService.saveData((out) -> {
+			}, null, "test10-.a/10\\"));
+		assertThrows(IllegalArgumentException.class, () ->
+			storageService.saveData(out -> {
 				out.write(1);
-			}, null, "@test10-.a/10");
-		});
-		assertThrows(IllegalArgumentException.class, () -> {
-			storageService.saveData((out) -> {
+			}, null, "@test10-.a/10"));
+		assertThrows(IllegalArgumentException.class, () ->
+			storageService.saveData(out -> {
 				out.write(1);
-			}, null, "test!10-.a/10");
-		});
-		assertThrows(IllegalArgumentException.class, () -> {
-			storageService.saveData((out) -> {
+			}, null, "test!10-.a/10"));
+		assertThrows(IllegalArgumentException.class, () ->
+			storageService.saveData(out -> {
 				out.write(1);
-			}, null, "t[est10-.a/10=");
-		});
-		assertThrows(IllegalArgumentException.class, () -> {
-			storageService.saveData((out) -> {
+			}, null, "t[est10-.a/10="));
+		assertThrows(IllegalArgumentException.class, () ->
+			storageService.saveData(out -> {
 				out.write(1);
-			}, null, "test10-.a/10=");
-		});
+			}, null, "test10-.a/10="));
 	}
 
 	@Test
 	public void saveData_shouldNotCreateFileIfErrorOccursWhenCopyingData() {
-		assertThrows(IOException.class, () -> {
-			storageService.saveData((out) -> {
+		assertThrows(IOException.class, () ->
+			storageService.saveData(out -> {
 					out.write(1);
 					throw new IOException("Failure during writing");
 				}, null, null,
-				"test");
-		});
+				"test"));
 
 		assertThat(storageService.exists("test"), is(false));
 	}

@@ -9,7 +9,6 @@
  */
 package org.openmrs.annotation;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -135,7 +134,7 @@ public class AuthorizedAnnotationAttributes {
 	public boolean hasAuthorizedAnnotation(Method method) {
 		Authorized authorized = AnnotationUtils.findAnnotation(method, Authorized.class);
 	
-		return (authorized != null);
+		return authorized != null;
 	}
 	
 	public Collection<?> getAttributes(Class<?> clazz, Class<?> filter) {

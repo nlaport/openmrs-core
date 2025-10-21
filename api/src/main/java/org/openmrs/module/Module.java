@@ -49,9 +49,9 @@ public final class Module {
 	
 	private String updateURL; // should be a URL to an update.rdf file
 	
-	private String updateVersion = null; // version obtained from the remote update.rdf file
+	private String updateVersion; // version obtained from the remote update.rdf file
 	
-	private String downloadURL = null; // will only be populated when the remote file is newer than the current module
+	private String downloadURL; // will only be populated when the remote file is newer than the current module
 	
 	private ModuleActivator moduleActivator;
 	
@@ -85,9 +85,9 @@ public final class Module {
 	
 	private String configVersion;
 	
-	private Document config = null;
+	private Document config;
 	
-	private Document sqldiff = null;
+	private Document sqldiff;
 	
 	private boolean mandatory = Boolean.FALSE;
 	
@@ -95,9 +95,9 @@ public final class Module {
 	
 	// keep a reference to the file that we got this module from so we can delete
 	// it if necessary
-	private File file = null;
+	private File file;
 	
-	private String startupErrorMessage = null;
+	private String startupErrorMessage;
 	
 	/**
 	 * Simple constructor
@@ -132,8 +132,7 @@ public final class Module {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (obj != null && obj instanceof Module) {
-			Module mod = (Module) obj;
+		if (obj != null && obj instanceof Module mod) {
 			return getModuleId().equals(mod.getModuleId());
 		}
 		return false;
@@ -764,7 +763,7 @@ public final class Module {
 	}
 	
 	public Boolean hasStartupError() {
-		return (this.startupErrorMessage != null);
+		return this.startupErrorMessage != null;
 	}
 	
 	public void clearStartupError() {

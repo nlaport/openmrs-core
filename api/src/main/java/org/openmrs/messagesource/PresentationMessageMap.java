@@ -19,10 +19,10 @@ import java.util.Set;
  * A mapped collection of PresentationMessages, all of which are enforced to be in the same locale.
  */
 public class PresentationMessageMap implements Map<String, PresentationMessage> {
-	
-	private Locale locale;
-	
-	private Map<String, PresentationMessage> internalMap = new HashMap<>();
+
+	private final Locale locale;
+
+	private final Map<String, PresentationMessage> internalMap = new HashMap<>();
 	
 	/**
 	 * Create a new PresentationMessageMap for the given locale.

@@ -11,7 +11,6 @@ package org.openmrs.module;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.SortedMap;
@@ -20,14 +19,12 @@ import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import static org.openmrs.util.XmlUtils.createDocumentBuilder;
 
@@ -36,7 +33,7 @@ import static org.openmrs.util.XmlUtils.createDocumentBuilder;
  *
  * @version 1.0
  */
-public class SqlDiffFileParser {
+public final class SqlDiffFileParser {
 
 	private SqlDiffFileParser() {
 	}

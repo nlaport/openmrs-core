@@ -18,12 +18,10 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.generator.EventType;
 import org.hibernate.id.Configurable;
 import org.hibernate.id.IdentifierGenerator;
-import org.hibernate.id.IdentifierGeneratorHelper;
 import org.hibernate.id.IdentityGenerator;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.Type;
-import org.openmrs.Concept;
 
 /**
  * <b>native-if-not-assigned</b><br>

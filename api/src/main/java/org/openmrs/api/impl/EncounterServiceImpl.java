@@ -35,7 +35,6 @@ import org.openmrs.User;
 import org.openmrs.Visit;
 import org.openmrs.VisitType;
 import org.openmrs.api.APIException;
-import org.openmrs.api.DiagnosisService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.EncounterTypeLockedException;
 import org.openmrs.api.ObsService;
@@ -730,14 +729,14 @@ public class EncounterServiceImpl extends BaseOpenmrsService implements Encounte
 			Object instance;
 			
 			try {
-				instance = OpenmrsClassLoader.getInstance().loadClass(handlerGlobalValue).newInstance();
+				instance = OpenmrsClassLoader.getInstance().loadClass(handlerGlobalValue).getDeclaredConstructor().newInstance();
 			}
 			catch (Exception ex) {
 				throw new APIException("failed.instantiate.assignment.handler", new Object[] { handlerGlobalValue }, ex);
 			}
 			
-			if (instance instanceof EncounterVisitHandler) {
-				handler = (EncounterVisitHandler) instance;
+			if (instance instanceof EncounterVisitHandler visitHandler) {
+				handler = visitHandler;
 			} else {
 				throw new APIException("assignment.handler.should.implement.EncounterVisitHandler", (Object[]) null);
 			}

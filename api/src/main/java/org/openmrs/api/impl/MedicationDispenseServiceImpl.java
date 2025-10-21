@@ -9,19 +9,16 @@
  */
 package org.openmrs.api.impl;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.MedicationDispense;
 import org.openmrs.api.APIException;
 import org.openmrs.api.MedicationDispenseService;
-import org.openmrs.api.context.Context;
 import org.openmrs.api.db.MedicationDispenseDAO;
 import org.openmrs.parameter.MedicationDispenseCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**

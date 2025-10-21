@@ -13,6 +13,8 @@ import org.hibernate.envers.Audited;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.DocumentId;
 
 import jakarta.persistence.Column;
+
+import java.io.Serial;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +34,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "obs_reference_range")
 public class ObsReferenceRange extends BaseReferenceRange {
-	
+
+	@Serial
 	private static final long serialVersionUID = 473299L;
 
 	@DocumentId

@@ -49,7 +49,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.EncounterDAO;
 import org.openmrs.parameter.EncounterSearchCriteria;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -67,7 +66,6 @@ public class HibernateEncounterDAO implements EncounterDAO {
 	 */
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateEncounterDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -669,8 +667,8 @@ public class HibernateEncounterDAO implements EncounterDAO {
 			}
 
 			encounters.sort((o1, o2) -> {
-				Date o1Date = (o1.getVisit() != null) ? o1.getVisit().getStartDatetime() : o1.getEncounterDatetime();
-				Date o2Date = (o2.getVisit() != null) ? o2.getVisit().getStartDatetime() : o2.getEncounterDatetime();
+				Date o1Date = o1.getVisit() != null ? o1.getVisit().getStartDatetime() : o1.getEncounterDatetime();
+				Date o2Date = o2.getVisit() != null ? o2.getVisit().getStartDatetime() : o2.getEncounterDatetime();
 				return o2Date.compareTo(o1Date);
 			});
 		}

@@ -26,7 +26,7 @@ import org.openmrs.test.jupiter.BaseContextSensitiveTest;
 
 public class ProgramWorkflowDAOTest extends BaseContextSensitiveTest {
 	
-	private ProgramWorkflowDAO dao = null;
+	private ProgramWorkflowDAO dao;
 	
 	/**
 	 * Run this before each unit test in this class. The "@Before" method in

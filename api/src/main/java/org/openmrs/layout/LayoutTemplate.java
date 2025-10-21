@@ -21,7 +21,8 @@ import java.util.Map;
  */
 public abstract class LayoutTemplate {
 	
-	protected static final String LAYOUT_TOKEN = "<!-- openmrsToken -->";
+	static final String LAYOUT_TOKEN = System.getenv("LAYOUT_TOKEN");
+
 	
 	protected String displayName;
 	

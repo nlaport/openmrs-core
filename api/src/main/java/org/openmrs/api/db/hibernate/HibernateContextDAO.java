@@ -48,7 +48,6 @@ import org.openmrs.util.OpenmrsUtil;
 import org.openmrs.util.Security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.SessionFactoryUtils;
 import org.springframework.orm.hibernate5.SessionHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,7 +77,6 @@ public class HibernateContextDAO implements ContextDAO {
 	
 	private final UserDAO userDao;
 	
-	@Autowired
 	public HibernateContextDAO(SessionFactory sessionFactory, SearchSessionFactory searchSessionFactory, UserDAO userDao) {
 		this.sessionFactory = sessionFactory;
 		this.searchSessionFactory = searchSessionFactory;
@@ -311,7 +309,7 @@ public class HibernateContextDAO implements ContextDAO {
 	/**
 	 * @see org.openmrs.api.context.Context#openSession()
 	 */
-	private boolean participate = false;
+	private boolean participate;
 	
 	@Override
 	public void openSession() {
@@ -339,8 +337,8 @@ public class HibernateContextDAO implements ContextDAO {
 			if (TransactionSynchronizationManager.hasResource(sessionFactory)) {
 				Object value = TransactionSynchronizationManager.unbindResource(sessionFactory);
 				try {
-					if (value instanceof SessionHolder) {
-						Session session = ((SessionHolder) value).getSession();
+					if (value instanceof SessionHolder holder) {
+						Session session = holder.getSession();
 						SessionFactoryUtils.closeSession(session);
 					}
 				}

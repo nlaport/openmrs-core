@@ -85,7 +85,8 @@ public class HibernateConditionDAOTest extends BaseContextSensitiveTest {
 	
 	@Test
 	public void shouldGetConditionByUuid() {
-		String uuid = "2cc6880e-2c46-15e4-9038-a6c5e4d22fb7";
+		String uuid = System.getenv("uuid");
+
 		ConditionClinicalStatus expectedClinicalStatus = ConditionClinicalStatus.INACTIVE;
 		ConditionVerificationStatus expectedVerificationStatus = ConditionVerificationStatus.PROVISIONAL;
 		
@@ -134,7 +135,8 @@ public class HibernateConditionDAOTest extends BaseContextSensitiveTest {
 	
 	@Test
 	public void shouldDeleteCondition() {
-		String uuid = "2cc6880e-2c46-15e4-9038-a6c5e4d22fb7";
+		String uuid = System.getenv("uuid");
+
 		Condition condition = dao.getConditionByUuid(uuid);
 
 		assertNotNull(condition);

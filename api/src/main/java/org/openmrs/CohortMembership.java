@@ -181,11 +181,11 @@ public class CohortMembership extends BaseChangeableOpenmrsData implements Compa
 		} 
 		
 		
-		return ((endDate != null ) ? endDate.equals(otherCohortMembership.getEndDate()) : otherCohortMembership.getEndDate() == null)
+		return (endDate != null ? endDate.equals(otherCohortMembership.getEndDate()) : otherCohortMembership.getEndDate() == null)
 			&&
-			((startDate !=null) ? startDate.equals(otherCohortMembership.getStartDate())  : otherCohortMembership.getStartDate() == null)
+			(startDate !=null ? startDate.equals(otherCohortMembership.getStartDate())  : otherCohortMembership.getStartDate() == null)
 			&& 
-			((patientId != null) ? patientId.equals(otherCohortMembership.getPatientId()) : otherCohortMembership.getPatientId() == null);
+			(patientId != null ? patientId.equals(otherCohortMembership.getPatientId()) : otherCohortMembership.getPatientId() == null);
 	}
 	/**
 	 * @since 2.3.0

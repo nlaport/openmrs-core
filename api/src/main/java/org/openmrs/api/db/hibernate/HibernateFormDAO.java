@@ -41,7 +41,6 @@ import org.openmrs.api.db.FormDAO;
 import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -61,7 +60,6 @@ public class HibernateFormDAO implements FormDAO {
 	 */
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateFormDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

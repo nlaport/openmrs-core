@@ -22,7 +22,6 @@ import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.scheduler.db.SchedulerDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Repository;
 
@@ -41,7 +40,6 @@ public class HibernateSchedulerDAO implements SchedulerDAO {
 	/**
 	 * Constructor with SessionFactory injection
 	 */
-	@Autowired
 	public HibernateSchedulerDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

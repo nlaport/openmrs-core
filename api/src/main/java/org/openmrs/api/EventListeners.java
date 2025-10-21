@@ -21,7 +21,7 @@ public class EventListeners {
 	
 	private static final Logger log = LoggerFactory.getLogger(EventListeners.class);
 	
-	private static List<GlobalPropertyListener> globalPropertyListeners = null;
+	private static List<GlobalPropertyListener> globalPropertyListeners;
 	
 	public EventListeners() {
 	}

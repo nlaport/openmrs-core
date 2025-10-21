@@ -43,18 +43,18 @@ import org.slf4j.LoggerFactory;
 /**
  * This class holds common methods and utilities that are used across the hibernate related classes
  */
-public class HibernateUtil {
+public final class HibernateUtil {
 
 	private HibernateUtil() {
 	}
 	
 	private static final Logger log = LoggerFactory.getLogger(HibernateUtil.class);
 	
-	private static Dialect dialect = null;
+	private static Dialect dialect;
 	
-	private static Boolean isHSQLDialect = null;
+	private static Boolean isHSQLDialect;
 	
-	private static Boolean isPostgreSQLDialect = null;
+	private static Boolean isPostgreSQLDialect;
 	
 	/**
 	 * Check and cache whether the currect dialect is HSQL or not. This is needed because some
@@ -192,9 +192,9 @@ public class HibernateUtil {
 			return null;
 		}
 		
-		if (persistentObject instanceof HibernateProxy) {
+		if (persistentObject instanceof HibernateProxy proxy) {
 			Hibernate.initialize(persistentObject);
-			persistentObject = (T) ((HibernateProxy) persistentObject).getHibernateLazyInitializer().getImplementation();
+			persistentObject = (T) proxy.getHibernateLazyInitializer().getImplementation();
 		}
 		
 		return persistentObject;

@@ -17,7 +17,6 @@ import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.time.Duration;
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.unit.DataSize;
@@ -48,7 +46,7 @@ public class StreamDataService {
 	private static final Logger log = LoggerFactory.getLogger(StreamDataService.class);
 	private final TaskExecutor taskExecutor;
 	
-	public StreamDataService(@Autowired TaskExecutor taskExecutor) {
+	public StreamDataService(TaskExecutor taskExecutor) {
 		this.taskExecutor = taskExecutor;
 	}
 	

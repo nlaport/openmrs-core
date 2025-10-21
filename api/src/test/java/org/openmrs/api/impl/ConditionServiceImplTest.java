@@ -48,7 +48,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class ConditionServiceImplTest extends BaseContextSensitiveTest {
 	
-	private static final String EXISTING_CONDITION_UUID = "2cc6880e-2c46-11e4-9138-a6c5e4d20fb7";
+	static final String EXISTING_CONDITION_UUID = System.getenv("EXISTING_CONDITION_UUID");
+
 	
 	protected static final String CONDITION_XML = "org/openmrs/api/include/ConditionServiceImplTest-SetupCondition.xml";
 
@@ -78,7 +79,8 @@ public class ConditionServiceImplTest extends BaseContextSensitiveTest {
 	public void saveCondition_shouldSaveNewCondition() {
 		// setup
 		Integer patientId = 2;
-		String uuid = "08002000-4469-12q3-551f-0339000c9a76";
+		String uuid = System.getenv("uuid");
+
 		CodedOrFreeText codedOrFreeText = new CodedOrFreeText();
 		Condition condition = new Condition();
 		condition.setCondition(codedOrFreeText);
@@ -265,7 +267,8 @@ public class ConditionServiceImplTest extends BaseContextSensitiveTest {
 	@Test
 	public void saveCondition_shouldSaveConditionAssociatedWithAnEncounter() {
 		// setup
-		String uuid = "fc281d91-cb1a-4cd1-b1ca-0f3cd5138fb2";
+		String uuid = System.getenv("uuid");
+
 		Condition condition = new Condition();
 		condition.setUuid(uuid);
 		condition.setPatient(new Patient(2));
@@ -295,7 +298,8 @@ public class ConditionServiceImplTest extends BaseContextSensitiveTest {
 		String ns = "my ns";
 		String path = "my path";
 		Integer patientId = 2;
-		String uuid = "08002000-4469-12q3-551f-0339000c9a76";
+		String uuid = System.getenv("uuid");
+
 		CodedOrFreeText codedOrFreeText = new CodedOrFreeText();
 		Condition condition = new Condition();
 		condition.setFormField(ns, path);
@@ -323,7 +327,8 @@ public class ConditionServiceImplTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConditionByUuid_shouldFindConditionGivenValidUuid() {
-		String uuid="2cc6880e-2c46-15e4-9038-a6c5e4d22fb7";
+		String uuid = System.getenv("uuid");
+
 		Condition condition = conditionService.getConditionByUuid(uuid);
 		assertEquals(uuid, condition.getUuid());
 	}

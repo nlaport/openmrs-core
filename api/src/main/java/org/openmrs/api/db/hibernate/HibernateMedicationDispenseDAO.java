@@ -13,7 +13,6 @@ import org.hibernate.SessionFactory;
 import org.openmrs.MedicationDispense;
 import org.openmrs.api.db.MedicationDispenseDAO;
 import org.openmrs.parameter.MedicationDispenseCriteria;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -33,7 +32,6 @@ public class HibernateMedicationDispenseDAO implements MedicationDispenseDAO {
 	
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateMedicationDispenseDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -66,7 +64,7 @@ public class HibernateMedicationDispenseDAO implements MedicationDispenseDAO {
 		if (!criteria.isIncludeVoided()) {
 			predicates.add(criteriaBuilder.equal(md.get("voided"), false));
 		}
-		if (predicates.size() > 0) {
+		if (!predicates.isEmpty()) {
 			criteriaQuery.where(predicates.toArray(new Predicate[]{}));
 		}
 		criteriaQuery.orderBy(criteriaBuilder.asc(md.get("medicationDispenseId")));

@@ -62,7 +62,7 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 		
 		module.setExtensionNames(null);
 
-		assertThat(module.getExtensions(), is(equalTo(Collections.EMPTY_LIST)));
+		assertThat(module.getExtensions(), is(equalTo(Collections.emptyList())));
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 
 		module.setExtensionNames(new HashMap<>());
 
-		assertThat(module.getExtensions(), is(equalTo(Collections.EMPTY_LIST)));
+		assertThat(module.getExtensions(), is(equalTo(Collections.emptyList())));
 	}
 
 	@Test
@@ -82,7 +82,7 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 		
 		ModuleFactory.moduleClassLoaders.invalidateAll();
 
-		assertThat(module.getExtensions(), is(equalTo(Collections.EMPTY_LIST)));
+		assertThat(module.getExtensions(), is(equalTo(Collections.emptyList())));
 	}
 	
 	@Test
@@ -99,7 +99,7 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 		ModuleClassLoader moduleClassLoader = new ModuleClassLoader(module, getClass().getClassLoader());
 		ModuleFactory.getModuleClassLoaderMap().put(module, moduleClassLoader);
 
-		assertThat(module.getExtensions(), is(equalTo(Collections.EMPTY_LIST)));
+		assertThat(module.getExtensions(), is(equalTo(Collections.emptyList())));
 	}
 
 	@Test
@@ -110,7 +110,7 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 		module.setExtensionNames(extensionNames);
 		registerModuleClassLoader();
 
-		assertThat(module.getExtensions(), is(equalTo(Collections.EMPTY_LIST)));
+		assertThat(module.getExtensions(), is(equalTo(Collections.emptyList())));
 	}
 	
 	@Test
@@ -122,7 +122,7 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 		module.setExtensionNames(extensionNames);
 		registerModuleClassLoader();
 
-		assertThat(module.getExtensions(), is(equalTo(Collections.EMPTY_LIST)));
+		assertThat(module.getExtensions(), is(equalTo(Collections.emptyList())));
 	}
 	
 	@Test
@@ -134,7 +134,7 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 		module.setExtensionNames(extensionNames);
 		registerModuleClassLoader();
 
-		assertThat(module.getExtensions(), is(equalTo(Collections.EMPTY_LIST)));
+		assertThat(module.getExtensions(), is(equalTo(Collections.emptyList())));
 	}
 	
 	@Test
@@ -214,8 +214,8 @@ public class ModuleExtensionsTest extends BaseContextMockTest {
 			return null;
 		}
 	}
-	
-	static class ExtensionCausingIllegalAccessException extends Extension {
+
+	static final class ExtensionCausingIllegalAccessException extends Extension {
 		@Override
 		public Extension.MEDIA_TYPE getMediaType() {
 			return null;
