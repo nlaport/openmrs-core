@@ -16,8 +16,8 @@ import org.junit.internal.matchers.TypeSafeMatcher;
 import org.openmrs.PersonName;
 
 public class NameMatcher extends TypeSafeMatcher<Set<PersonName>> {
-	
-	private String fullName;
+
+	private final String fullName;
 	
 	public NameMatcher(String fullName) {
 		this.fullName = fullName;

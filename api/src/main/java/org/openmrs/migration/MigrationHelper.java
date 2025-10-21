@@ -65,7 +65,7 @@ import static org.openmrs.util.XmlUtils.createDocumentBuilder;
  * @deprecated since 2.2.0
  */
 @Deprecated
-public class MigrationHelper {
+public final class MigrationHelper {
 
 	private MigrationHelper() {
 	}

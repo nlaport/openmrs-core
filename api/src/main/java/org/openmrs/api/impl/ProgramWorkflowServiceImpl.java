@@ -471,7 +471,7 @@ public class ProgramWorkflowServiceImpl extends BaseOpenmrsService implements Pr
 					// #1080 cannot exit patient from care  
 					// Should allow a transition from a null state to a terminal state
 					// Or we should require a user to ALWAYS add an initial workflow/state when a patient is added to a program
-					ProgramWorkflowState currentState = (patientState != null) ? patientState.getState() : null;
+					ProgramWorkflowState currentState = patientState != null ? patientState.getState() : null;
 					ProgramWorkflowState transitionState = workflow.getState(trigger);
 					
 					log.debug("Transitioning from current state [" + currentState + "]");

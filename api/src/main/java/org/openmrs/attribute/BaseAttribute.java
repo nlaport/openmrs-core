@@ -45,7 +45,7 @@ public abstract class BaseAttribute<AT extends AttributeType, OwningType extends
 	// temporarily holds a typed value, either when getValue() is called the first time (causing valueReference to be converted) or when setValue has been called, but this attribute has not yet been committed to persistent storage
 	private transient Object value;
 	
-	private transient boolean dirty = false;
+	private transient boolean dirty;
 	
 	/**
 	 * @see org.openmrs.attribute.Attribute#getOwner()

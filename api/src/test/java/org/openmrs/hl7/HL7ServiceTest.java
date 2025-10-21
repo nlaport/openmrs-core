@@ -87,9 +87,10 @@ public class HL7ServiceTest extends BaseContextSensitiveTest {
 		executeDataSet("org/openmrs/hl7/include/ORUTest-initialData.xml");
 		
 		File tempDir = new File(System.getProperty("java.io.tmpdir"), HL7Constants.HL7_ARCHIVE_DIRECTORY_NAME);
-		
-		if (tempDir.exists() && tempDir.isDirectory())
+
+		if (tempDir.exists() && tempDir.isDirectory()) {
 			assertTrue(deleteDirectory(tempDir));
+		}
 		
 		//set a global property for the archives directory as a temporary folder
 		GlobalProperty gp = new GlobalProperty();
@@ -203,7 +204,7 @@ public class HL7ServiceTest extends BaseContextSensitiveTest {
 		// the application context cannot restart here to load in the moduleApplicationContext that
 		// calls the setHL7Handlers method so we're doing it manually here
 		Class<Application> c = (Class<Application>) Context.loadClass("org.openmrs.module.examplehl7handlers.ADRHandler");
-		Application classInstance = c.newInstance();
+		Application classInstance = c.getDeclaredConstructor().newInstance();
 		HashMap<String, Application> map = new HashMap<>();
 		map.put("ADR_A19", classInstance);
 		HL7ServiceImpl hl7service = (HL7ServiceImpl) Context.getHL7Service();
@@ -223,9 +224,9 @@ public class HL7ServiceTest extends BaseContextSensitiveTest {
 			fail("Should not be here. The ADR_A19 parser provided by the module throws an ApplicationException.");
 		}
 		catch (HL7Exception e) {
-			if (e.getCause() != null)
+			if (e.getCause() != null) {
 				assertEquals("In ADR A19 parser", e.getCause().getMessage());
-			else {
+			} else {
 				log.error("unable to parse message", e);
 				fail("something bad happened, check the log statement 1 line up");
 			}
@@ -254,7 +255,7 @@ public class HL7ServiceTest extends BaseContextSensitiveTest {
 		// calls the setHL7Handlers method so we're doing it manually here
 		Class<Application> c = (Class<Application>) Context
 		        .loadClass("org.openmrs.module.examplehl7handlers.AlternateORUR01Handler");
-		Application classInstance = c.newInstance();
+		Application classInstance = c.getDeclaredConstructor().newInstance();
 		HashMap<String, Application> map = new HashMap<>();
 		map.put("ORU_R01", classInstance);
 		HL7ServiceImpl hl7service = (HL7ServiceImpl) Context.getHL7Service();

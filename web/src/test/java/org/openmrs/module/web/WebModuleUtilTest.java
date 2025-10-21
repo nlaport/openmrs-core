@@ -15,14 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -124,8 +123,9 @@ public class WebModuleUtilTest {
 		
 		ServletContext servletContext = mock(ServletContext.class);
 		String realPath = servletContext.getRealPath("");
-		if (realPath == null)
+		if (realPath == null) {
 			realPath = System.getProperty("user.dir");
+		}
 		
 		// manually delete dwr-modules.xml 
 		File f = new File(realPath + "/WEB-INF/dwr-modules.xml");
@@ -152,8 +152,9 @@ public class WebModuleUtilTest {
 		
 		ServletContext servletContext = mock(ServletContext.class);
 		String realPath = servletContext.getRealPath("");
-		if (realPath == null)
+		if (realPath == null) {
 			realPath = System.getProperty("user.dir");
+		}
 		
 		WebModuleUtil.startModule(mod, servletContext, true);
 		
@@ -168,8 +169,9 @@ public class WebModuleUtilTest {
 				break;
 			}
 		}
-		if (scanner != null)
+		if (scanner != null) {
 			scanner.close();
+		}
 		
 		assertTrue(found);
 	}
@@ -349,7 +351,7 @@ public class WebModuleUtilTest {
 	public void getModuleWebFolder_shouldReturnTheCorrectModuleFolder() {
 		setupMocks(false);
 		String moduleId = "basicmodule";
-		String expectedPath = Paths.get(REAL_PATH, "WEB-INF", "view", "module", moduleId).toString();
+		String expectedPath = Path.of(REAL_PATH, "WEB-INF", "view", "module", moduleId).toString();
 		
 		String actualPath = WebModuleUtil.getModuleWebFolder(moduleId);
 		
@@ -363,7 +365,7 @@ public class WebModuleUtilTest {
 	public void getModuleWebFolder_shouldReturnTheCorrectModuleFolderIfRealPathHasATrailingSlash() {
 		setupMocks(true);
 		String moduleId = "basicmodule";
-		String expectedPath = Paths.get(REAL_PATH, "WEB-INF", "view", "module", moduleId).toString();
+		String expectedPath = Path.of(REAL_PATH, "WEB-INF", "view", "module", moduleId).toString();
 		String actualPath = WebModuleUtil.getModuleWebFolder(moduleId);
 		
 		assertEquals(expectedPath, actualPath);
@@ -373,7 +375,7 @@ public class WebModuleUtilTest {
 		ServletConfig servletConfig = mock(ServletConfig.class);
 		
 		ServletContext servletContext = mock(ServletContext.class);
-		String realPath = (includeTrailingSlash) ? REAL_PATH + "/" : REAL_PATH;
+		String realPath = includeTrailingSlash ? REAL_PATH + "/" : REAL_PATH;
 		when(servletContext.getRealPath("")).thenReturn(realPath);
 		
 		DispatcherServlet dispatcherServlet = mock(DispatcherServlet.class);

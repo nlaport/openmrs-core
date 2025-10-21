@@ -216,9 +216,9 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 		// the notNull assertion is sufficient):
 		Obs testGGGP = os.getObs(oGGGPId);
 		assertTrue(testGGGP.isObsGrouping());
-		Set<Obs> GGGPmembers = testGGGP.getGroupMembers();
-		assertEquals(GGGPmembers.size(), 1);
-		for (Obs testGGP : GGGPmembers) {
+		Set<Obs> gggPmembers = testGGGP.getGroupMembers();
+		assertEquals(gggPmembers.size(), 1);
+		for (Obs testGGP : gggPmembers) {
 			assertTrue(testGGP.isObsGrouping());
 			assertEquals(testGGP.getGroupMembers().size(), 1);
 			assertNotNull(testGGP.getObsId());
@@ -250,9 +250,9 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 		int childOneId = 0;
 		int childTwoId = 0;
 		assertTrue(oGGGPThatWasUpdated.isObsGrouping());
-		Set<Obs> GGGPmembers2 = oGGGPThatWasUpdated.getGroupMembers();
-		assertEquals(GGGPmembers2.size(), 1);
-		for (Obs testGGP : GGGPmembers2) {
+		Set<Obs> gggPmembers2 = oGGGPThatWasUpdated.getGroupMembers();
+		assertEquals(gggPmembers2.size(), 1);
+		for (Obs testGGP : gggPmembers2) {
 			assertTrue(testGGP.isObsGrouping());
 			assertEquals(testGGP.getGroupMembers().size(), 1);
 			assertNotNull(testGGP.getObsId());
@@ -268,10 +268,11 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 						for (Obs child : parent.getGroupMembers()) {
 							assertEquals("testingUpdate", child.getValueText());
 							//set childIds, so that we can test voids/unvoids/delete
-							if (i == 0)
+							if (i == 0) {
 								childOneId = child.getObsId();
-							else
+							} else {
 								childTwoId = child.getObsId();
+							}
 							i++;
 						}
 					}
@@ -461,8 +462,9 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 
 	public static @NotNull File createImage(File complexObsDir, String filename) throws IOException {
 		File createdFile = new File(complexObsDir, filename);
-		if (createdFile.exists())
+		if (createdFile.exists()) {
 			createdFile.delete();
+		}
 		int width = 10;
 		int height = 10;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -655,8 +657,9 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 		executeDataSet(COMPLEX_OBS_XML);
 		ObsService os = Context.getObsService();
 		ConceptService cs = Context.getConceptService();
-		
-		Obs firstObs = null, secondObs = null;
+
+		Obs firstObs = null;
+		Obs secondObs = null;
 		try {
 			// the complex data to put onto an obs that will be saved
 			Reader input2 = new CharArrayReader("some string".toCharArray());
@@ -689,8 +692,12 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 				"file with the same name"));
 		}
 		finally {
-			if (firstObs != null) os.purgeObs(firstObs);
-			if (secondObs != null) os.purgeObs(secondObs);
+			if (firstObs != null) {
+				os.purgeObs(firstObs);
+			}
+			if (secondObs != null) {
+				os.purgeObs(secondObs);
+			}
 		}
 		
 	}
@@ -1780,8 +1787,9 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 		File complexObsDir = OpenmrsUtil.getDirectoryInApplicationDataDirectory(as
 		        .getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_COMPLEX_OBS_DIR));
 		final File createdFile = new File(complexObsDir, "nameOfFile.txt");
-		if (createdFile.exists())
+		if (createdFile.exists()) {
 			createdFile.delete();
+		}
 		
 		// the complex data to put onto an obs that will be saved
 		Reader input = new CharArrayReader("This is a string to save to a file".toCharArray());
@@ -1796,8 +1804,9 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 		os.saveObs(obsToSave, null);
 		
 		File updatedFile = new File(complexObsDir, "nameOfUpdatedFile.txt");
-		if (updatedFile.exists())
+		if (updatedFile.exists()) {
 			updatedFile.delete();
+		}
 		
 		// the complex data to put onto an obs that will be updated
 		Reader updatedInput = new CharArrayReader(
@@ -1907,7 +1916,7 @@ public class ObsServiceTest extends BaseContextSensitiveTest {
 
 				for (Obs memberChild : member.getGroupMembers()) {
 					assertEquals(memberChild.getObsDatetime().toString(), newDate.toString());
-					if (memberChild.getValueText()!= null && memberChild.getValueText().equals("NewObs Value")) {
+					if ("NewObs Value".equals(memberChild.getValueText())) {
 						count++;
 					}
 				}

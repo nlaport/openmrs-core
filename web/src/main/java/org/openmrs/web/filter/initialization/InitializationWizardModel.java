@@ -37,7 +37,8 @@ public class InitializationWizardModel {
 	public static final String INSTALL_METHOD_AUTO = "auto";
 	
 	// Default OpenMRS admin password set by the simple installation.
-	public static final String ADMIN_DEFAULT_PASSWORD = "Admin123";
+	public static final String ADMIN_DEFAULT_PASSWORD = System.getenv("ADMIN_DEFAULT_PASSWORD");
+
 	
 	/**
 	 * Default database name to use unless user specifies another in the wizard or they are creating
@@ -127,12 +128,14 @@ public class InitializationWizardModel {
 	/**
 	 * Filled in on databasesetup.vm
 	 */
-	public String createDatabaseUsername = "root";
+	public String createDatabaseusername = System.getenv("username");
+
 
 	/**
 	 * Default postgres super user
 	 */
-	public String postgresUsername = "postgres";
+	public String postgresUsername = System.getenv("postgresUsername");
+
 	
 	/**
 	 * Filled in on databasesetup.vm
@@ -142,7 +145,8 @@ public class InitializationWizardModel {
 	/**
 	 * DB user that can create an openmrs db user Filled in on databasetablesanduser.vm
 	 */
-	public String createUserUsername = "root";
+	public String createUserusername = System.getenv("username");
+
 	
 	/**
 	 * DB user that can create an openmrs db user Filled in on databasetablesanduser.vm

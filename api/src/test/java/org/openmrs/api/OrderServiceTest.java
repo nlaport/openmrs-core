@@ -212,7 +212,8 @@ public class OrderServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getOrderByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "921de0a3-05c4-444a-be03-e01b4c4b9142";
+		String uuid = System.getenv("uuid");
+
 		Order order = orderService.getOrderByUuid(uuid);
 		assertEquals(1, (int) order.getOrderId());
 	}
@@ -231,8 +232,10 @@ public class OrderServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void purgeOrder_shouldDeleteAnyObsAssociatedToTheOrderWhenCascadeIsTrue() {
 		executeDataSet("org/openmrs/api/include/OrderServiceTest-deleteObsThatReference.xml");
-		final String ordUuid = "0c96f25c-4949-4f72-9931-d808fbcdb612";
-		final String obsUuid = "be3a4d7a-f9ab-47bb-aaad-bc0b452fcda4";
+		final String ordUuid = System.getenv("ordUuid");
+
+		final String obsUuid = System.getenv("obsUuid");
+
 		ObsService os = Context.getObsService();
 
 		Obs obs = os.getObsByUuid(obsUuid);
@@ -262,7 +265,8 @@ public class OrderServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void purgeOrder_shouldDeleteOrderFromTheDatabase() {
-		final String uuid = "9c21e407-697b-11e3-bd76-0800271c1b75";
+		final String uuid = System.getenv("uuid");
+
 		Order order = orderService.getOrderByUuid(uuid);
 		assertNotNull(order);
 		orderService.purgeOrder(order);
@@ -2258,7 +2262,7 @@ public class OrderServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getOrders_shouldReturnOrdersWithFulfillerStatusReceivedOrNull() {
-		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setFulfillerStatus(Order.FulfillerStatus.valueOf("RECEIVED")).setIncludeNullFulfillerStatus(new Boolean(true)).build();
+		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setFulfillerStatus(Order.FulfillerStatus.valueOf("RECEIVED")).setIncludeNullFulfillerStatus(Boolean.valueOf(true)).build();
 		List<Order> orders = orderService.getOrders(orderSearchCriteria);
 		assertEquals(12, orders.size());
 		for (Order order : orders) {
@@ -2272,7 +2276,7 @@ public class OrderServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getOrders_shouldReturnOrdersWithFulfillerStatusNotNull() {
-		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setIncludeNullFulfillerStatus(new Boolean(false)).build();
+		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setIncludeNullFulfillerStatus(Boolean.valueOf(false)).build();
 		List<Order> orders = orderService.getOrders(orderSearchCriteria);
 		assertEquals(3, orders.size());
 		for (Order order : orders) {
@@ -2285,7 +2289,7 @@ public class OrderServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getOrders_shouldReturnOrdersWithFulfillerStatusNull() {
-		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setIncludeNullFulfillerStatus(new Boolean(true)).build();
+		OrderSearchCriteria orderSearchCriteria = new OrderSearchCriteriaBuilder().setIncludeNullFulfillerStatus(Boolean.valueOf(true)).build();
 		List<Order> orders = orderService.getOrders(orderSearchCriteria);
 		assertEquals(10, orders.size());
 		for (Order order : orders) {

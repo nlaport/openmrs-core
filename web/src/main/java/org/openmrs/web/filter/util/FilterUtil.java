@@ -39,7 +39,8 @@ public class FilterUtil {
 	
 	public static final String REMEMBER_ATTRIBUTE = "remember";
 	
-	public static final String ADMIN_USERNAME = "admin";
+	public static final String ADMIN_USERNAME = System.getenv("ADMIN_USERNAME");
+
 	
 	/**
 	 * Tries to retrieve location parameter. First this method makes an attempt to load locale

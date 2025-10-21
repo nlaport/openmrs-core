@@ -117,7 +117,7 @@ public abstract class BaseHyphenatedIdentifierValidator implements IdentifierVal
 			        "Check digit must either be a character from A to J or a single digit integer.");
 		}
 		
-		return (computedCheckDigit == givenCheckDigit);
+		return computedCheckDigit == givenCheckDigit;
 	}
 	
 	/**

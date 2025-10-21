@@ -30,6 +30,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+
+import java.io.Serial;
 import java.util.Date;
 
 /**
@@ -45,7 +47,8 @@ import java.util.Date;
 @Table(name = "conditions")
 @Audited
 public class Condition extends BaseFormRecordableOpenmrsData {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -174,7 +177,7 @@ public class Condition extends BaseFormRecordableOpenmrsData {
 		CodedOrFreeText coft1 = getCondition() == null ? new CodedOrFreeText() : getCondition();
 		CodedOrFreeText coft2 = c.getCondition() == null ? new CodedOrFreeText() : c.getCondition();
 		
-		boolean ret = (OpenmrsUtil.nullSafeEquals(getPreviousVersion(), c.getPreviousVersion()));
+		boolean ret = OpenmrsUtil.nullSafeEquals(getPreviousVersion(), c.getPreviousVersion());
 		ret = ret && (OpenmrsUtil.nullSafeEquals(getPatient(), c.getPatient()));
 		ret = ret && (OpenmrsUtil.nullSafeEquals(getEncounter(), c.getEncounter()));
 		ret = ret && (OpenmrsUtil.nullSafeEquals(getFormNamespaceAndPath(), c.getFormNamespaceAndPath()));

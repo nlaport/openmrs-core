@@ -40,7 +40,7 @@ public class VisitSearchCriteriaBuilder {
 	private Date maxEndDatetime;
 	private Map<VisitAttributeType, String> serializedAttributeValues;
 	private boolean includeInactive = true;
-	private boolean includeVoided = false;
+	private boolean includeVoided;
 	
 	/**
 	 * Constructs a new {@link VisitSearchCriteriaBuilder} instance.

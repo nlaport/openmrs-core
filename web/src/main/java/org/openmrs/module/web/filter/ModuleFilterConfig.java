@@ -18,7 +18,7 @@ import jakarta.servlet.ServletContext;
 /**
  * This class is an implementation of FilterConfig for use in instantiating Filters from Modules
  */
-public class ModuleFilterConfig implements FilterConfig {
+public final class ModuleFilterConfig implements FilterConfig {
 	
 	// Properties
 	private ModuleFilterDefinition filterDefinition;

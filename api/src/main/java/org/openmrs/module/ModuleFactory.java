@@ -60,7 +60,7 @@ import liquibase.Contexts;
 /**
  * Methods for loading, starting, stopping, and storing OpenMRS modules
  */
-public class ModuleFactory {
+public final class ModuleFactory {
 	
 	private ModuleFactory() {
 	}
@@ -652,7 +652,7 @@ public class ModuleFactory {
 				}
 				
 				// Sort this module's extensions, and merge them into the full extensions map
-				Comparator<Extension> sortOrder = (e1, e2) -> Integer.valueOf(e1.getOrder()).compareTo(e2.getOrder());
+				Comparator<Extension> sortOrder = (e1, e2) -> Integer.compare(e1.getOrder(), e2.getOrder());
 				for (Map.Entry<String, List<Extension>> moduleExtensionEntry : moduleExtensionMap.entrySet()) {
 					// Sort this module's extensions for current extension point
 					List<Extension> sortedModuleExtensions = moduleExtensionEntry.getValue();
@@ -856,9 +856,9 @@ public class ModuleFactory {
 			try {
 				cls = Context.loadClass(advice.getPoint());
 				Object aopObject = advice.getClassInstance();
-				if (aopObject instanceof Advisor) {
+				if (aopObject instanceof Advisor advisor) {
 					log.debug("adding advisor [{}]", aopObject.getClass());
-					Context.addAdvisor(cls, (Advisor) aopObject);
+					Context.addAdvisor(cls, advisor);
 				} else if (aopObject != null) {
 					log.debug("adding advice [{}]", aopObject.getClass());
 					Context.addAdvice(cls, (Advice) aopObject);
@@ -957,7 +957,7 @@ public class ModuleFactory {
 		
 		if (moduleClassLoader != null) {
 			try (InputStream inStream = moduleClassLoader.getResourceAsStream(MODULE_CHANGELOG_FILENAME)) {
-				liquibaseFileExists = (inStream != null);
+				liquibaseFileExists = inStream != null;
 			}
 			catch (IOException ignored) {
 				
@@ -1084,9 +1084,9 @@ public class ModuleFactory {
 						try {
 							cls = Context.loadClass(advice.getPoint());
 							Object aopObject = advice.getClassInstance();
-							if (aopObject instanceof Advisor) {
+							if (aopObject instanceof Advisor advisor) {
 								log.debug("adding advisor: " + aopObject.getClass());
-								Context.removeAdvisor(cls, (Advisor) aopObject);
+								Context.removeAdvisor(cls, advisor);
 							} else {
 								log.debug("Adding advice: " + aopObject.getClass());
 								Context.removeAdvice(cls, (Advice) aopObject);

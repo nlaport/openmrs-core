@@ -10,14 +10,11 @@
 package org.openmrs.api;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.emptyIterable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -244,7 +240,8 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 	
 	@Test
 	public void setGlobalProperty_shouldCreateGlobalPropertyInDatabase() {
-		String newKey = "new_gp_key";
+		String newKey = System.getenv("newKey");
+
 		
 		String initialValue = adminService.getGlobalProperty(newKey);
 		assertNull(initialValue); // ensure gp doesn't exist before test
@@ -272,7 +269,8 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void setGlobalProperty_shouldSaveAGlobalPropertyWhoseTypedValueIsHandledByACustomDatatype() {
 		
-		String newKey = "Flag";
+		String newKey = System.getenv("newKey");
+
 		String initialValue = adminService.getGlobalProperty(newKey);
 		assertNull(initialValue);
 		
@@ -283,7 +281,8 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 	
 	@Test
 	public void getGlobalProperty_shouldReturnDefaultValueIfPropertyNameDoesNotExist() {
-		String invalidKey = "asdfasdf";
+		String invalidKey = System.getenv("invalidKey");
+
 		String propertyValue = adminService.getGlobalProperty(invalidKey);
 		assertNull(propertyValue); // make sure there isn't a gp
 		
@@ -363,7 +362,8 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 	
 	@Test
 	public void getGlobalPropertyByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "4f55827e-26fe-102b-80cb-0017a47871b3";
+		String uuid = System.getenv("uuid");
+
 		GlobalProperty prop = adminService.getGlobalPropertyByUuid(uuid);
 		assertEquals("locale.allowed.list", prop.getProperty());
 	}
@@ -594,7 +594,7 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 		Context.authenticate(getTestUserCredentials());
 		
 		APIAuthenticationException exception = assertThrows(APIAuthenticationException.class, () -> adminService.getGlobalProperty(property.getProperty()));
-		assertEquals(exception.getMessage(), String.format("Privileges required: %s", property.getViewPrivilege()));
+		assertEquals(exception.getMessage(), "Privileges required: %s".formatted(property.getViewPrivilege()));
 	}
 	
 	/**
@@ -628,7 +628,7 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 		Context.authenticate(getTestUserCredentials());
 
 		APIException exception = assertThrows(APIException.class, () -> adminService.getGlobalPropertyObject(property.getProperty()));
-		assertEquals(exception.getMessage(), String.format("Privileges required: %s",
+		assertEquals(exception.getMessage(), "Privileges required: %s".formatted(
 			property.getViewPrivilege()));
 	}
 
@@ -665,7 +665,7 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 		Context.authenticate(getTestUserCredentials());
 		
 		APIException exception = assertThrows(APIException.class, () -> adminService.updateGlobalProperty(property.getProperty(), "new-value"));
-		assertEquals(exception.getMessage(), String.format("Privileges required: %s",
+		assertEquals(exception.getMessage(), "Privileges required: %s".formatted(
 			property.getEditPrivilege()));
 	}
 	
@@ -710,7 +710,7 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 		Context.addProxyPrivilege(PrivilegeConstants.MANAGE_GLOBAL_PROPERTIES);
 		
 		APIException exception = assertThrows(APIException.class, () -> adminService.saveGlobalProperty(property));
-		assertEquals(exception.getMessage(), String.format("Privilege: %s, required to edit globalProperty: %s",
+		assertEquals(exception.getMessage(), "Privilege: %s, required to edit globalProperty: %s".formatted(
 			property.getEditPrivilege(), property.getProperty()));
 	}
 	
@@ -729,7 +729,7 @@ public class AdministrationServiceTest extends BaseContextSensitiveTest {
 		Context.addProxyPrivilege(PrivilegeConstants.PURGE_GLOBAL_PROPERTIES);
 		
 		APIException exception = assertThrows(APIException.class, () -> adminService.purgeGlobalProperty(property));
-		assertEquals(exception.getMessage(), String.format("Privilege: %s, required to purge globalProperty: %s",
+		assertEquals(exception.getMessage(), "Privilege: %s, required to purge globalProperty: %s".formatted(
 			property.getDeletePrivilege(), property.getProperty()));
 	}
 	

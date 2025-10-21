@@ -56,7 +56,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -80,7 +79,6 @@ public class HibernateOrderDAO implements OrderDAO {
 	 */
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateOrderDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

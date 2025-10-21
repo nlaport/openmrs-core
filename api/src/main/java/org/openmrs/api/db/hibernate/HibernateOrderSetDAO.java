@@ -23,8 +23,6 @@ import org.openmrs.OrderSetMember;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.OrderSetDAO;
 
-import org.openmrs.api.db.OrderSetDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -44,7 +42,6 @@ public class HibernateOrderSetDAO implements OrderSetDAO {
 	
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateOrderSetDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

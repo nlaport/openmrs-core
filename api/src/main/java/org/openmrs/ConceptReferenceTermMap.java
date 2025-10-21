@@ -9,6 +9,8 @@
  */
 package org.openmrs;
 
+import java.io.Serial;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +34,8 @@ import org.hibernate.envers.Audited;
 @Table(name = "concept_reference_term_map")
 @Audited
 public class ConceptReferenceTermMap extends BaseConceptMap {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	@Id

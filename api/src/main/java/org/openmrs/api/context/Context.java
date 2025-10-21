@@ -11,7 +11,6 @@ package org.openmrs.api.context;
 
 import org.aopalliance.aop.Advice;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.SessionFactory;
 import org.openmrs.Allergen;
 import org.openmrs.GlobalProperty;
 import org.openmrs.OpenmrsObject;
@@ -74,9 +73,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
+import jakarta.mail.Authenticator;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -152,7 +151,7 @@ public class Context {
 
 	private static Properties runtimeProperties = new Properties();
 
-	private static Properties configProperties = new Properties();
+	private static final Properties configProperties = new Properties();
 
 	private static AuthenticationScheme authenticationScheme;
 
@@ -596,16 +595,16 @@ public class Context {
 		String prefix = "mail.";
 		for (GlobalProperty gp : getAdministrationService().getGlobalPropertiesByPrefix(prefix)) {
 			// Historically, some mail properties defined with underscores, support these for legacy compatibility
-			if (gp.getProperty().equals("mail.transport_protocol")) {
+			if ("mail.transport_protocol".equals(gp.getProperty())) {
 				p.setProperty("mail.transport.protocol", gp.getPropertyValue());
 			}
-			else if (gp.getProperty().equals("mail.smtp_host")) {
+			else if ("mail.smtp_host".equals(gp.getProperty())) {
 				p.setProperty("mail.smtp.host", gp.getPropertyValue());
 			}
-			else if (gp.getProperty().equals("mail.smtp_port")) {
+			else if ("mail.smtp_port".equals(gp.getProperty())) {
 				p.setProperty("mail.smtp.port", gp.getPropertyValue());
 			}
-			else if (gp.getProperty().equals("mail.smtp_auth")) {
+			else if ("mail.smtp_auth".equals(gp.getProperty())) {
 				p.setProperty("mail.smtp.auth", gp.getPropertyValue());
 			}
 			else {

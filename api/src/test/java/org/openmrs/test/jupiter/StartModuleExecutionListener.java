@@ -56,9 +56,9 @@ public class StartModuleExecutionListener extends AbstractTestExecutionListener 
 	// stores the last class that restarted the module system because we only 
 	// want it restarted once per class, not once per method
 	private static String lastClassRun = "";
-	
+
 	// storing the bean definitions that have been manually removed from the context
-	private Map<String, BeanDefinition> filteredDefinitions = new HashMap<>();
+	private final Map<String, BeanDefinition> filteredDefinitions = new HashMap<>();
 	
 	/**
 	 * called before @BeforeTransaction methods
@@ -75,9 +75,10 @@ public class StartModuleExecutionListener extends AbstractTestExecutionListener 
 			if (!lastClassRun.equals(testContext.getTestClass().getSimpleName())) {
 				// mark this with our class so that the services are only restarted once
 				lastClassRun = testContext.getTestClass().getSimpleName();
-				
-				if (!Context.isSessionOpen())
+
+				if (!Context.isSessionOpen()) {
 					Context.openSession();
+				}
 				
 				
 				ModuleUtil.shutdown();

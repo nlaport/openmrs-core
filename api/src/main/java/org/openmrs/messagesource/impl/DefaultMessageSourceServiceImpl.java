@@ -27,21 +27,21 @@ import org.springframework.context.NoSuchMessageException;
 /**
  * Loads messages from the default message properties file before spring starts up
  */
-public class DefaultMessageSourceServiceImpl implements MessageSourceService {
+public final class DefaultMessageSourceServiceImpl implements MessageSourceService {
 
-	private Properties props = new Properties();
-	
+	private final Properties props = new Properties();
+
 	/**
 	 * Private class to hold the one instance. This is an alternative to
 	 * storing the instance object on {@link DefaultMessageSourceServiceImpl} itself so that garbage collection
 	 * can happen correctly.
 	 */
-	private static class DefaultMessageSourceServiceImplHolder {
+	private static final class DefaultMessageSourceServiceImplHolder {
 
 		private DefaultMessageSourceServiceImplHolder() {
 		}
 
-		private static DefaultMessageSourceServiceImpl INSTANCE = null;
+		private static DefaultMessageSourceServiceImpl INSTANCE;
 	}
 	
 	/**

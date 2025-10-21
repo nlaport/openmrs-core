@@ -57,7 +57,8 @@ public class SecurityTest {
 	 */
 	@Test
 	public void hashMatches_shouldMatchStringsHashedWithSha512AlgorithmAnd128CharactersSalt() {
-		String password = "1d1436658853aceceadd72e92f1ae9089a0000fbb38cea519ce34eae9f28523930ecb212177dbd607d83dc275fde3e9ca648deb557d503ad0bcd01a955a394b2";
+		String password = System.getenv("password");
+
 		String passwordToHash = "test"
 		        + "0d7bb319434295261601202e14494b959cdd69c6ceb54ee3890e176ae780ce9edf797f48afde5f39906a6bd75b8a5feeac8f5339615acf7429c7dda85220d329";
 		assertTrue(Security.hashMatches(password, passwordToHash));

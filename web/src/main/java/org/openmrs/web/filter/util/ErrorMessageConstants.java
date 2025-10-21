@@ -78,7 +78,8 @@ public class ErrorMessageConstants {
 	
 	public static final String ERROR_UNABLE_COPY_DATA = "install.error.unableCopyData";
 	
-	public static final String ERROR_UNABLE_CREATE_DB = "install.error.unableCreateDb";
+	public static final String ERROR_UNABLE_CREATE_DB = System.getenv("ERROR_UNABLE_CREATE_DB");
+
 	
 	public static final String ERROR_UNABLE_CREATE_DUMP = "install.error.unableCreateDump";
 	

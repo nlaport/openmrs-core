@@ -85,16 +85,16 @@ public class ChangeLogVersionFinderTest {
 	public void shouldGetLiquibaseChangeSetCombinations() {
 		Map<String, List<String>> actual = changeLogVersionFinder.getChangeLogCombinations();
 		
-		List<String> liquibaseChangeSetsForSnapshot_1_9 = Arrays.asList(SNAPSHOTS_SCHEMA_ONLY_1_9_X_FILENAME,
+		List<String> liquibaseChangeSetsForSnapshot19 = Arrays.asList(SNAPSHOTS_SCHEMA_ONLY_1_9_X_FILENAME,
 		    SNAPSHOTS_CORE_DATA_1_9_X_FILENAME, UPDATES_LIQUIBASE_UPDATE_TO_LATEST_2_0_X_FILENAME,
 		    UPDATES_LIQUIBASE_UPDATE_TO_LATEST_2_1_X_FILENAME, UPDATES_LIQUIBASE_UPDATE_TO_LATEST_2_2_X_FILENAME);
 		
-		List<String> liquibaseChangeSetsForSnapshot_2_1 = Arrays.asList(SNAPSHOTS_SCHEMA_ONLY_2_1_X_FILENAME,
+		List<String> liquibaseChangeSetsForSnapshot21 = Arrays.asList(SNAPSHOTS_SCHEMA_ONLY_2_1_X_FILENAME,
 		    SNAPSHOTS_CORE_DATA_2_1_X_FILENAME, UPDATES_LIQUIBASE_UPDATE_TO_LATEST_2_2_X_FILENAME);
 		
 		Map<String, List<String>> expected = new HashMap<>();
-		expected.put(VERSION_1_9_X, liquibaseChangeSetsForSnapshot_1_9);
-		expected.put(VERSION_2_1_X, liquibaseChangeSetsForSnapshot_2_1);
+		expected.put(VERSION_1_9_X, liquibaseChangeSetsForSnapshot19);
+		expected.put(VERSION_2_1_X, liquibaseChangeSetsForSnapshot21);
 		
 		assertEquals(expected, actual);
 	}
@@ -103,15 +103,15 @@ public class ChangeLogVersionFinderTest {
 	public void shouldGetLiquibaseSnapshotCombinations() {
 		Map<String, List<String>> actual = changeLogVersionFinder.getSnapshotCombinations();
 		
-		List<String> liquibaseChangeSetsForSnapshot_1_9 = Arrays.asList(SNAPSHOTS_SCHEMA_ONLY_1_9_X_FILENAME,
+		List<String> liquibaseChangeSetsForSnapshot19 = Arrays.asList(SNAPSHOTS_SCHEMA_ONLY_1_9_X_FILENAME,
 		    SNAPSHOTS_CORE_DATA_1_9_X_FILENAME);
 		
-		List<String> liquibaseChangeSetsForSnapshot_2_1 = Arrays.asList(SNAPSHOTS_SCHEMA_ONLY_2_1_X_FILENAME,
+		List<String> liquibaseChangeSetsForSnapshot21 = Arrays.asList(SNAPSHOTS_SCHEMA_ONLY_2_1_X_FILENAME,
 		    SNAPSHOTS_CORE_DATA_2_1_X_FILENAME);
 		
 		Map<String, List<String>> expected = new HashMap<>();
-		expected.put(VERSION_1_9_X, liquibaseChangeSetsForSnapshot_1_9);
-		expected.put(VERSION_2_1_X, liquibaseChangeSetsForSnapshot_2_1);
+		expected.put(VERSION_1_9_X, liquibaseChangeSetsForSnapshot19);
+		expected.put(VERSION_2_1_X, liquibaseChangeSetsForSnapshot21);
 		
 		assertEquals(expected, actual);
 	}

@@ -134,8 +134,8 @@ public class OrderValidator implements Validator {
 	}
 	
 	private void validateScheduledDate(Order order, Errors errors) {
-		boolean isUrgencyOnScheduledDate = (order.getUrgency() != null && order.getUrgency().equals(
-		    Order.Urgency.ON_SCHEDULED_DATE));
+		boolean isUrgencyOnScheduledDate = order.getUrgency() != null && order.getUrgency().equals(
+		    Order.Urgency.ON_SCHEDULED_DATE);
 		if (order.getScheduledDate() != null && !isUrgencyOnScheduledDate) {
 			errors.rejectValue("urgency", "Order.error.urgencyNotOnScheduledDate");
 		}
@@ -145,13 +145,13 @@ public class OrderValidator implements Validator {
 	}
 	
 	private void validateOrderGroupEncounter(Order order, Errors errors) {
-		if (order.getOrderGroup() != null && !(order.getEncounter().equals(order.getOrderGroup().getEncounter()))) {
+		if (order.getOrderGroup() != null && !order.getEncounter().equals(order.getOrderGroup().getEncounter())) {
 			errors.rejectValue("encounter", "Order.error.orderEncounterAndOrderGroupEncounterMismatch");
 		}
 	}
 	
 	private void validateOrderGroupPatient(Order order, Errors errors) {
-		if (order.getOrderGroup() != null && !(order.getPatient().equals(order.getOrderGroup().getPatient()))) {
+		if (order.getOrderGroup() != null && !order.getPatient().equals(order.getOrderGroup().getPatient())) {
 			errors.rejectValue("patient", "Order.error.orderPatientAndOrderGroupPatientMismatch");
 		}
 	}

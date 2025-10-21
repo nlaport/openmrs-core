@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.openmrs.util.OpenmrsConstants;
 import org.slf4j.Logger;
@@ -34,15 +33,15 @@ import static org.openmrs.util.XmlUtils.createDocumentBuilder;
 public class UpdateFileParser {
 	
 	private static final Logger log = LoggerFactory.getLogger(UpdateFileParser.class);
-	
-	private String content;
+
+	private final String content;
 	
 	// these properties store the 'best fit' (most recent update that will fit with the current code version)
-	private String moduleId = null;
+	private String moduleId;
 	
-	private String currentVersion = null;
+	private String currentVersion;
 	
-	private String downloadURL = null;
+	private String downloadURL;
 	
 	/**
 	 * Default constructor
@@ -116,10 +115,6 @@ public class UpdateFileParser {
 					}
 				}
 			}
-		}
-		catch (ModuleException e) {
-			// rethrow the moduleException
-			throw e;
 		}
 		finally {
 			if (stringReader != null) {

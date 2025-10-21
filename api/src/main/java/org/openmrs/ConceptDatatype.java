@@ -54,29 +54,41 @@ public class ConceptDatatype extends BaseChangeableOpenmrsMetadata {
 	
 	// UUIDs for core datatypes
 	
-	public static final String NUMERIC_UUID = "8d4a4488-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String NUMERIC_UUID = System.getenv("NUMERIC_UUID");
+
 	
-	public static final String CODED_UUID = "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String CODED_UUID = System.getenv("CODED_UUID");
+
 	
-	public static final String TEXT_UUID = "8d4a4ab4-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String TEXT_UUID = System.getenv("TEXT_UUID");
+
 	
-	public static final String N_A_UUID = "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String N_A_UUID = System.getenv("N_A_UUID");
+
 	
-	public static final String DOCUMENT_UUID = "8d4a4e74-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String DOCUMENT_UUID = System.getenv("DOCUMENT_UUID");
+
 	
-	public static final String DATE_UUID = "8d4a505e-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String DATE_UUID = System.getenv("DATE_UUID");
+
 	
-	public static final String TIME_UUID = "8d4a591e-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String TIME_UUID = System.getenv("TIME_UUID");
+
 	
-	public static final String DATETIME_UUID = "8d4a5af4-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String DATETIME_UUID = System.getenv("DATETIME_UUID");
+
 	
-	public static final String BOOLEAN_UUID = "8d4a5cca-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String BOOLEAN_UUID = System.getenv("BOOLEAN_UUID");
+
 	
-	public static final String RULE_UUID = "8d4a5e96-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String RULE_UUID = System.getenv("RULE_UUID");
+
 	
-	public static final String STRUCTURED_NUMERIC_UUID = "8d4a606c-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String STRUCTURED_NUMERIC_UUID = System.getenv("STRUCTURED_NUMERIC_UUID");
+
 	
-	public static final String COMPLEX_UUID = "8d4a6242-c2cc-11de-8d13-0010c6dffd0f";
+	public static final String COMPLEX_UUID = System.getenv("COMPLEX_UUID");
+
 	
 	// Fields
 	@Id

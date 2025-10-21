@@ -26,7 +26,6 @@ import org.openmrs.notification.Alert;
 import org.openmrs.notification.db.AlertDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -39,7 +38,6 @@ public class HibernateAlertDAO implements AlertDAO {
 	
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateAlertDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

@@ -1808,7 +1808,8 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPersonAddressByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "3350d0b5-821c-4e5e-ad1d-a9bce331e118";
+		String uuid = System.getenv("uuid");
+
 		PersonAddress personAddress = Context.getPersonService().getPersonAddressByUuid(uuid);
 		assertEquals(2, (int) personAddress.getPersonAddressId());
 	}
@@ -1826,7 +1827,8 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPersonAttributeByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "0768f3da-b692-44b7-a33f-abf2c450474e";
+		String uuid = System.getenv("uuid");
+
 		PersonAttribute person = Context.getPersonService().getPersonAttributeByUuid(uuid);
 		assertEquals(1, (int) person.getPersonAttributeId());
 	}
@@ -1844,7 +1846,8 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPersonAttributeTypeByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "b3b6d540-a32e-44c7-91b3-292d97667518";
+		String uuid = System.getenv("uuid");
+
 		PersonAttributeType personAttributeType = Context.getPersonService().getPersonAttributeTypeByUuid(uuid);
 		assertEquals(1, (int) personAttributeType.getPersonAttributeTypeId());
 	}
@@ -1862,7 +1865,8 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPersonByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "ba1b19c2-3ed6-4f63-b8c0-f762dc8d7562";
+		String uuid = System.getenv("uuid");
+
 		Person person = Context.getPersonService().getPersonByUuid(uuid);
 		assertEquals(1, (int) person.getPersonId());
 	}
@@ -1880,7 +1884,8 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPersonNameByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "399e3a7b-6482-487d-94ce-c07bb3ca3cc7";
+		String uuid = System.getenv("uuid");
+
 		PersonName personName = Context.getPersonService().getPersonNameByUuid(uuid);
 		assertEquals(2, (int) personName.getPersonNameId());
 	}
@@ -1910,7 +1915,8 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getRelationshipByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "c18717dd-5d78-4a0e-84fc-ee62c5f0676a";
+		String uuid = System.getenv("uuid");
+
 		Relationship relationship = Context.getPersonService().getRelationshipByUuid(uuid);
 		assertEquals(1, (int) relationship.getRelationshipId());
 	}
@@ -1928,7 +1934,8 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getRelationshipTypeByUuid_shouldFindObjectGivenValidUuid() throws Exception {
-		String uuid = "6d9002ea-a96b-4889-af78-82d48c57a110";
+		String uuid = System.getenv("uuid");
+
 		RelationshipType relationshipType = Context.getPersonService().getRelationshipTypeByUuid(uuid);
 		assertEquals(1, (int) relationshipType.getRelationshipTypeId());
 	}

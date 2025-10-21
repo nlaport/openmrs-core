@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
 
-import org.hibernate.SessionFactory;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;

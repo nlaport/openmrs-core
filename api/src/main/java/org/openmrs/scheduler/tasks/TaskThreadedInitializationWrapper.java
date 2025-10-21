@@ -32,7 +32,7 @@ public class TaskThreadedInitializationWrapper implements Task {
 	
 	private final Task task;
 	
-	private boolean initialized = false;
+	private boolean initialized;
 	
 	private final Lock lock = new ReentrantLock();
 	

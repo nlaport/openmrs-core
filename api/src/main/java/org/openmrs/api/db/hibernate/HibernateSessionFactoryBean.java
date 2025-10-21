@@ -62,7 +62,7 @@ public class HibernateSessionFactoryBean extends LocalSessionFactoryBean impleme
 	@Value("${cache.type:local}")
 	private String cacheType;
 	
-	@Value(("${cache.stack:}"))
+	@Value("${cache.stack:}")
 	private String cacheStack;
 	
 	private Metadata metadata;

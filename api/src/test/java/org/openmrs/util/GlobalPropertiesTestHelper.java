@@ -16,8 +16,8 @@ import org.openmrs.GlobalProperty;
 import org.openmrs.api.AdministrationService;
 
 public class GlobalPropertiesTestHelper {
-	
-	private AdministrationService administrationService;
+
+	private final AdministrationService administrationService;
 	
 	public GlobalPropertiesTestHelper(AdministrationService administrationService) {
 		this.administrationService = administrationService;

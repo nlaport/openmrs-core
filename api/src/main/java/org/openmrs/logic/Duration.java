@@ -18,9 +18,9 @@ import org.openmrs.logic.op.Operand;
  * 
  * @see org.openmrs.logic.LogicCriteria
  */
-public class Duration implements Operand {
-	
-	public static enum Units {
+public final class Duration implements Operand {
+
+	public enum Units {
 		SECONDS,
 		MINUTES,
 		HOURS,
@@ -29,10 +29,10 @@ public class Duration implements Operand {
 		MONTHS,
 		YEARS
 	}
-	
-	private Double duration;
-	
-	private Units units;
+
+	private final Double duration;
+
+	private final Units units;
 	
 	/**
 	 * Private constructor used by the static methods on this class. Use the
@@ -124,7 +124,7 @@ public class Duration implements Operand {
 	 * @return <code>Duration</code> object for given number of seconds
 	 */
 	public static Duration seconds(int duration) {
-		return seconds(new Double(duration));
+		return seconds(Double.valueOf(duration));
 	}
 	
 	/**
@@ -144,7 +144,7 @@ public class Duration implements Operand {
 	 * @return <code>Duration</code> object for given number of minutes
 	 */
 	public static Duration minutes(int duration) {
-		return minutes(new Double(duration));
+		return minutes(Double.valueOf(duration));
 	}
 	
 	/**
@@ -164,7 +164,7 @@ public class Duration implements Operand {
 	 * @return <code>Duration</code> object for given number of hours
 	 */
 	public static Duration hours(int duration) {
-		return hours(new Double(duration));
+		return hours(Double.valueOf(duration));
 	}
 	
 	/**
@@ -184,7 +184,7 @@ public class Duration implements Operand {
 	 * @return <code>Duration</code> object with specified number of days
 	 */
 	public static Duration days(int duration) {
-		return days(new Double(duration));
+		return days(Double.valueOf(duration));
 	}
 	
 	/**
@@ -204,7 +204,7 @@ public class Duration implements Operand {
 	 * @return <code>Duration</code> object with specified number of weeks
 	 */
 	public static Duration weeks(int duration) {
-		return weeks(new Double(duration));
+		return weeks(Double.valueOf(duration));
 	}
 	
 	/**
@@ -224,7 +224,7 @@ public class Duration implements Operand {
 	 * @return <code>Duration</code> object with specified number of months
 	 */
 	public static Duration months(int duration) {
-		return months(new Double(duration));
+		return months(Double.valueOf(duration));
 	}
 	
 	/**
@@ -244,7 +244,7 @@ public class Duration implements Operand {
 	 * @return <code>Duration</code> object with specified number of years
 	 */
 	public static Duration years(int duration) {
-		return years(new Double(duration));
+		return years(Double.valueOf(duration));
 	}
 	
 	/**
@@ -252,7 +252,7 @@ public class Duration implements Operand {
 	 */
 	@Override
 	public boolean supports(ComparisonOperator operator) {
-		return (ComparisonOperator.WITHIN.equals(operator));
+		return ComparisonOperator.WITHIN.equals(operator);
 	}
 	
 }

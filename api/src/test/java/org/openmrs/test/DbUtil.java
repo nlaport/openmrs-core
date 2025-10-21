@@ -67,17 +67,19 @@ public class DbUtil {
 		
 		String username = System.getProperty("databaseUsername");
 		if (StringUtils.isBlank(username)) {
-			username = "root";
+			username = System.getenv("username");
+
 		}
 		
 		String password = System.getProperty("databasePassword");
 		if (StringUtils.isBlank(password)) {
-			password = "test";
+			password = System.getenv("password");
+
 		}
 		
 		String url = System.getProperty("databaseUrl");
 		if (StringUtils.isBlank(url)) {
-			url = String.format(getConnectionUrl(), databaseName);
+			url = getConnectionUrl().formatted(databaseName);
 		}
 		
 		System.setProperty("databaseUrl", url);
@@ -87,9 +89,9 @@ public class DbUtil {
 		System.setProperty("databaseDriver", isMySql ? "com.mysql.cj.jdbc.Driver" : "org.postgresql.Driver");
 		System.setProperty("databaseDialect", isMySql ? MySQLDialect.class.getName() : PostgreSQLDialect.class.getName());
 		
-		String sql = String.format(
-		    isMySql ? "create database if not exists %s default character set utf8 collate utf8_general_ci"
-		            : "create database %s encoding utf8", databaseName);
+		String sql = (
+			isMySql ? "create database if not exists %s default character set utf8 collate utf8_general_ci"
+				: "create database %s encoding utf8").formatted(databaseName);
 		createDatabase(username, password, sql, url.replace(databaseName, ""));
 		
 		//needed for running liquibase changesets

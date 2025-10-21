@@ -82,7 +82,7 @@ public class UpdateFilter extends StartupFilter {
 	/**
 	 * The model object behind this set of screens
 	 */
-	private UpdateFilterModel updateFilterModel = null;
+	private UpdateFilterModel updateFilterModel;
 	
 	/**
 	 * Variable set as soon as the update is done or verified to not be needed so that future calls
@@ -94,7 +94,7 @@ public class UpdateFilter extends StartupFilter {
 	 * Used on all pages after the first to make sure the user isn't trying to cheat and do some url
 	 * magic to hack in.
 	 */
-	private volatile boolean authenticatedSuccessfully = false;
+	private volatile boolean authenticatedSuccessfully;
 	
 	private UpdateFilterCompletion updateJob;
 	
@@ -102,7 +102,7 @@ public class UpdateFilter extends StartupFilter {
 	 * Variable set to true as soon as the update begins and set to false when the process ends. This
 	 * thread should only be accesses through the synchronized method.
 	 */
-	private static boolean isDatabaseUpdateInProgress = false;
+	private static boolean isDatabaseUpdateInProgress;
 	
 	/**
 	 * Variable set to true when the db lock is released. It's needed to prevent repeatedly releasing
@@ -589,17 +589,17 @@ public class UpdateFilter extends StartupFilter {
 
 		private Runnable r;
 
-		private String executingChangesetId = null;
+		private String executingChangesetId;
 		
 		private List<String> changesetIds = new ArrayList<>();
 		
 		private Map<String, Object[]> errors = new HashMap<>();
 		
-		private String message = null;
+		private String message;
 		
-		private boolean erroneous = false;
+		private boolean erroneous;
 		
-		private boolean hasUpdateWarnings = false;
+		private boolean hasUpdateWarnings;
 		
 		private List<String> updateWarnings = new LinkedList<>();
 		

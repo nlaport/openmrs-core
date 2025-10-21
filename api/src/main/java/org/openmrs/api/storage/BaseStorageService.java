@@ -17,7 +17,6 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +26,6 @@ import org.openmrs.api.StorageService;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.api.stream.StreamDataService;
 import org.openmrs.api.stream.StreamDataWriter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Implements temporary storage.
@@ -37,11 +35,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class BaseStorageService extends BaseOpenmrsService implements StorageService {
 	private final StreamDataService streamService;
 	
-	private final Path tempDir = Paths.get(System.getProperty("java.io.tmpdir"));
+	private final Path tempDir = Path.of(System.getProperty("java.io.tmpdir"));
 
 	private final DateTimeFormatter keyDateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM-dd/yyyy-MM-dd-HH-mm-ss-SSS-");
 	
-	public BaseStorageService(@Autowired StreamDataService streamService) {
+	public BaseStorageService(StreamDataService streamService) {
 		this.streamService = streamService;
 	}
 

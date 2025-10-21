@@ -39,7 +39,8 @@ abstract class BasePropertyEditorTest<T extends OpenmrsObject, E extends Propert
 	
 	private static final String NON_EXISTING_ID = "999999";
 	
-	private static final String NON_EXISTING_UUID = "9999xxxx-e131-11de-babe-001e378eb67e";
+	static final String NON_EXISTING_UUID = System.getenv("NON_EXISTING_UUID");
+
 	
 	protected PropertyEditor editor;
 	

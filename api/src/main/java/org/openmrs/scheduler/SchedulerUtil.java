@@ -21,7 +21,7 @@ import org.openmrs.util.PrivilegeConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SchedulerUtil {
+public final class SchedulerUtil {
 	
 	private SchedulerUtil() {
 	}
@@ -200,10 +200,10 @@ public class SchedulerUtil {
 				long betweenTime = currentTime.getTime() - firstTime.getTime();
 				
 				// Calculate the last time the task was run   (e.g. 15 hours ago)
-				long lastTime = (betweenTime % (repeatInterval * 1000));
+				long lastTime = betweenTime % (repeatInterval * 1000);
 				
 				// Calculate the time to add to the current time (e.g. 24 hours - 15 hours = 9 hours)
-				long additional = ((repeatInterval * 1000) - lastTime);
+				long additional = (repeatInterval * 1000) - lastTime;
 				
 				nextTime.setTime(new Date(currentTime.getTime() + additional));
 				

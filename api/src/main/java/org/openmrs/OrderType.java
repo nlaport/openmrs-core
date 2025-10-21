@@ -17,8 +17,6 @@ import org.openmrs.annotation.Independent;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,11 +44,14 @@ public class OrderType extends BaseChangeableOpenmrsMetadata {
 	
 	public static final long serialVersionUID = 23232L;
 	
-	public static final String DRUG_ORDER_TYPE_UUID = "131168f4-15f5-102d-96e4-000c29c2a5d7";
+	public static final String DRUG_ORDER_TYPE_UUID = System.getenv("DRUG_ORDER_TYPE_UUID");
+
 	
-	public static final String TEST_ORDER_TYPE_UUID = "52a447d3-a64a-11e3-9aeb-50e549534c5e";
+	public static final String TEST_ORDER_TYPE_UUID = System.getenv("TEST_ORDER_TYPE_UUID");
+
 	
-	public static final String REFERRAL_ORDER_TYPE_UUID = "f1b63696-2b6c-11ec-8d3d-0242ac130003";
+	public static final String REFERRAL_ORDER_TYPE_UUID = System.getenv("REFERRAL_ORDER_TYPE_UUID");
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_type_id_seq")

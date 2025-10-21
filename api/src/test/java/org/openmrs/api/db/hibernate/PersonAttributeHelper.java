@@ -23,8 +23,8 @@ public class PersonAttributeHelper {
 	
 	private static final String QUERY_ALL_NON_SEARCHABLE_PERSON_ATTRIBUTES = "select pa.* from person_attribute pa, person_attribute_type pta "
 	        + "where pa.person_attribute_type_id = pta.person_attribute_type_id and pta.searchable = false";
-	
-	private SessionFactory sessionFactory;
+
+	private final SessionFactory sessionFactory;
 	
 	public PersonAttributeHelper(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

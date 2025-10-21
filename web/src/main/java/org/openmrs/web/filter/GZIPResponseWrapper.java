@@ -31,11 +31,11 @@ public class GZIPResponseWrapper extends HttpServletResponseWrapper {
 	
 	protected HttpServletResponse origResponse;
 	
-	protected ServletOutputStream stream = null;
+	protected ServletOutputStream stream;
 	
-	protected PrintWriter writer = null;
+	protected PrintWriter writer;
 	
-	protected int error = 0;
+	protected int error;
 	
 	public GZIPResponseWrapper(HttpServletResponse response) {
 		super(response);

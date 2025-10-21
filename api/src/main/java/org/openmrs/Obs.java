@@ -984,8 +984,7 @@ public class Obs extends BaseFormRecordableOpenmrsData {
 					return "";
 				} else {
 					Concept deproxiedConcept = HibernateUtil.getRealObjectFromProxy(getConcept());
-					if (deproxiedConcept instanceof ConceptNumeric) {
-						ConceptNumeric cn = (ConceptNumeric) deproxiedConcept;
+					if (deproxiedConcept instanceof ConceptNumeric cn) {
 						if (!cn.getAllowDecimal()) {
 							double d = getValueNumeric();
 							int i = (int) d;
@@ -997,11 +996,11 @@ public class Obs extends BaseFormRecordableOpenmrsData {
 				}
 			} else if ("DT".equals(abbrev)) {
 				DateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
-				return (getValueDatetime() == null ? "" : dateFormat.format(getValueDatetime()));
+				return getValueDatetime() == null ? "" : dateFormat.format(getValueDatetime());
 			} else if ("TM".equals(abbrev)) {
-				return (getValueDatetime() == null ? "" : Format.format(getValueDatetime(), locale, FORMAT_TYPE.TIME));
+				return getValueDatetime() == null ? "" : Format.format(getValueDatetime(), locale, FORMAT_TYPE.TIME);
 			} else if ("TS".equals(abbrev)) {
-				return (getValueDatetime() == null ? "" : Format.format(getValueDatetime(), locale, FORMAT_TYPE.TIMESTAMP));
+				return getValueDatetime() == null ? "" : Format.format(getValueDatetime(), locale, FORMAT_TYPE.TIMESTAMP);
 			} else if ("ST".equals(abbrev)) {
 				return getValueText();
 			} else if ("ED".equals(abbrev) && getValueComplex() != null) {

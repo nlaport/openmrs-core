@@ -9,9 +9,10 @@
  */
 package org.openmrs;
 
+import java.io.Serial;
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -52,6 +53,7 @@ import jakarta.persistence.Lob;
 @Audited
 public class FormResource extends BaseOpenmrsObject implements CustomValueDescriptor, SingleCustomValue<FormResource> {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -89,7 +91,7 @@ public class FormResource extends BaseOpenmrsObject implements CustomValueDescri
 	@Column(name = "handler_config", length = 65535)
 	private String handlerConfig;
 	
-	private transient boolean dirty = false;
+	private transient boolean dirty;
 	
 	private transient Object typedValue;
 

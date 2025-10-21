@@ -29,11 +29,11 @@ public class InputRequiredException extends Exception {
 		DOUBLE,
 		DATE
 	}
-	
+
 	/**
 	 * A mapping from user prompt to answer datatype
 	 */
-	private Map<String, DATATYPE> requiredInput;
+	private final Map<String, DATATYPE> requiredInput;
 	
 	/**
 	 * Common constructor taking in a message to give the user some context as to where/why the

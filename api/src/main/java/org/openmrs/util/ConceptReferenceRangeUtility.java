@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.ParseErrorException;
@@ -38,7 +38,7 @@ import org.openmrs.api.context.Context;
  */
 public class ConceptReferenceRangeUtility {
 	
-	private final long NULL_DATE_RETURN_VALUE = -1;
+	private static final long NULL_DATE_RETURN_VALUE = -1;
 	
 	public ConceptReferenceRangeUtility() {
 	}

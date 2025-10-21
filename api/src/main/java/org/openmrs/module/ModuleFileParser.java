@@ -289,9 +289,7 @@ public class ModuleFileParser {
 	}
 
 	private DocumentBuilder newDocumentBuilder() throws ParserConfigurationException {
-		DocumentBuilder db = createDocumentBuilder();;
-
-		// When asked to resolve external entities (such as a
+		DocumentBuilder db = createDocumentBuilder();// When asked to resolve external entities (such as a
 		// DTD) we return an InputSource
 		// with no data at the end, causing the parser to ignore
 		// the DTD.

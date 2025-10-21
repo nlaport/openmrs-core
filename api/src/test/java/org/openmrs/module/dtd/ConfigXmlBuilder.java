@@ -16,7 +16,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
@@ -28,7 +27,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -560,12 +558,10 @@ public class ConfigXmlBuilder {
 			Element initParamElement = configXml.createElement(TAG_INIT_PARAM);
 			
 			filterElement.appendChild(initParamElement);
-			initParam.getParamName().ifPresent(initParamName -> {
-				createElementWithText(initParamElement, TAG_PARAM_NAME, initParamName);
-			});
-			initParam.getParamValue().ifPresent(initParamValue -> {
-				createElementWithText(initParamElement, TAG_PARAM_VALUE, initParamValue);
-			});
+			initParam.getParamName().ifPresent(initParamName ->
+				createElementWithText(initParamElement, TAG_PARAM_NAME, initParamName));
+			initParam.getParamValue().ifPresent(initParamValue ->
+				createElementWithText(initParamElement, TAG_PARAM_VALUE, initParamValue));
 		}
 		
 		configXml.getDocumentElement().appendChild(filterElement);
@@ -623,7 +619,7 @@ public class ConfigXmlBuilder {
 			conditionalResource.getPath().ifPresent(path -> createElementWithText(conditionalResourceElement, TAG_PATH, path));
 			conditionalResource.getOpenmrsVersion().ifPresent(openmrsVersion -> createElementWithText(conditionalResourceElement, TAG_OPENMRS_VERSION, openmrsVersion));
 			
-			if (conditionalResource.getLoadIfModulesPresent().size() > 0) {
+			if (!conditionalResource.getLoadIfModulesPresent().isEmpty()) {
 				Element loadIfModulesPresentElement = configXml.createElement(TAG_LOAD_MODULES_IF_PRESENT);
 				conditionalResourceElement.appendChild(loadIfModulesPresentElement);
 				

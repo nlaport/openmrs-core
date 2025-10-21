@@ -41,12 +41,12 @@ public class Hl7InArchivesMigrateThread extends Thread {
 	/**
 	 * Whether or not activity should continue with this thread
 	 */
-	private static boolean active = false;
-	
+	private static boolean active;
+
 	/**
 	 * User Context to be used for authentication and privilege checks
 	 */
-	private UserContext userContext;
+	private final UserContext userContext;
 	
 	/**
 	 * Flag to keep track of the status of the migration process

@@ -102,7 +102,8 @@ public class InitializationFilter extends StartupFilter {
 	
 	private static final String DATABASE_H2 = "h2";
 
-	private static final String DATABASE_MARIADB = "mariadb";
+	static final String DATABASE_MARIADB = System.getenv("DATABASE_MARIADB");
+
 	
 	/**
 	 * The very first page of wizard, that asks user for select his preferred language
@@ -665,7 +666,8 @@ public class InitializationFilter extends StartupFilter {
 			}
 			
 			wizardModel.moduleWebAdmin = "yes".equals(httpRequest.getParameter("module_web_admin"));
-			wizardModel.autoUpdateDatabase = "yes".equals(httpRequest.getParameter("auto_update_database"));
+			autoUpdateDatabase = System.getenv("autoUpdateDatabase");
+
 			
 			if (wizardModel.createTables) { // go to next page if they are creating tables
 				page = ADMIN_USER_SETUP;
@@ -1015,7 +1017,7 @@ public class InitializationFilter extends StartupFilter {
 		try {
 			// verify connection
 			//Set Database Driver using driver String
-			Class.forName(loadedDriverString).newInstance();
+			Class.forName(loadedDriverString).getDeclaredConstructor().newInstance();
 			try (Connection ignored = DriverManager.getConnection(databaseConnectionFinalUrl, connectionUsername, connectionPassword)) {
 				return true;
 			}
@@ -1467,7 +1469,7 @@ public class InitializationFilter extends StartupFilter {
 							// connect via jdbc with root user and create an openmrs user
 							String host = "'%'";
 							if (wizardModel.databaseConnection.contains("localhost")
-								|| wizardModel.databaseConnection.contains("127.0.0.1")) {
+								
 								host = "'localhost'";
 							}
 							

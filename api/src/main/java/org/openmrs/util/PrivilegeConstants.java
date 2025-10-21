@@ -20,7 +20,7 @@ import org.openmrs.annotation.HasAddOnStartupPrivileges;
  * @since 1.8
  */
 @HasAddOnStartupPrivileges
-public class PrivilegeConstants {
+public final class PrivilegeConstants {
 
 	private PrivilegeConstants() {
 	}

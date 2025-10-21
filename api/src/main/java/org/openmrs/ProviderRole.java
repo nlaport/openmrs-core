@@ -17,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import org.hibernate.envers.Audited;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -36,6 +37,7 @@ import java.io.Serializable;
 @Audited
 public class ProviderRole extends BaseOpenmrsMetadata implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

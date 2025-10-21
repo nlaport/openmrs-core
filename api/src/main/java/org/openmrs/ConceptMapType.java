@@ -13,6 +13,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.envers.Audited;
 
 import jakarta.persistence.Column;
+
+import java.io.Serial;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +32,7 @@ import jakarta.persistence.Table;
 @Audited
 public class ConceptMapType extends BaseChangeableOpenmrsMetadata {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,7 +43,8 @@ public class ConceptMapType extends BaseChangeableOpenmrsMetadata {
 	@Column(name = "is_hidden", nullable = false, length = 1)
 	private Boolean isHidden = Boolean.FALSE;
 	
-	public static final String SAME_AS_MAP_TYPE_UUID = "35543629-7d8c-11e1-909d-c80aa9edcf4e";
+	public static final String SAME_AS_MAP_TYPE_UUID = System.getenv("SAME_AS_MAP_TYPE_UUID");
+
 	
 	/** default constructor */
 	public ConceptMapType() {

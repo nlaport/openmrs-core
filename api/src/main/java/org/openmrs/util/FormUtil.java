@@ -37,7 +37,7 @@ import org.openmrs.hl7.HL7Constants;
  * @see org.openmrs.FieldType
  * @see org.openmrs.FieldAnswer
  */
-public class FormUtil {
+public final class FormUtil {
 
 	private FormUtil() {
 	}
@@ -90,7 +90,7 @@ public class FormUtil {
 			if (entry.getValue() != null) {
 				s = s.replaceAll(entry.getKey(), "_" + entry.getValue() + "_");
 			} else {
-				s = s.replaceAll(String.valueOf(entry.getKey()), "");
+				s = s.replaceAll(entry.getKey(), "");
 			}
 		}
 		
@@ -101,7 +101,7 @@ public class FormUtil {
 		for (int i = 0; i < s.length(); i++) {
 			if (nameChars.indexOf(s.charAt(i)) != -1 && (s.charAt(i) != '_' || !underscoreFlag)) {
 				token.append(s.charAt(i));
-				underscoreFlag = (s.charAt(i) == '_');
+				underscoreFlag = s.charAt(i) == '_';
 			}
 		}
 		

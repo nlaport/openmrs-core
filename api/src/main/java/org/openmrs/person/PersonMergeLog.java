@@ -9,6 +9,8 @@
  */
 package org.openmrs.person;
 
+import java.io.Serial;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -39,7 +41,8 @@ import org.openmrs.api.PersonService;
 @Table(name = "person_merge_log")
 @Audited
 public class PersonMergeLog extends BaseChangeableOpenmrsData {
-	
+
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	/**

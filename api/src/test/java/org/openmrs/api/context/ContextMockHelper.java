@@ -96,17 +96,17 @@ public class ContextMockHelper {
 	
 	UserContext realUserContext;
 	
-	boolean userContextMocked = false;
+	boolean userContextMocked;
 	
 	ContextDAO realContextDAO;
 	
-	boolean contextDAOMocked = false;
+	boolean contextDAOMocked;
 	
 	ApplicationContext applicationContext;
 	
 	ApplicationContext realApplicationContext;
 	
-	boolean applicationContextMocked = false;
+	boolean applicationContextMocked;
 	
 	public ContextMockHelper() {
 	}
@@ -123,7 +123,7 @@ public class ContextMockHelper {
 		person.setId(1);
 		person.addName(new PersonName("Bob", "", "Smith"));
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(1980, 01, 01);
+		calendar.set(1980, 1, 1);
 		person.setBirthdate(calendar.getTime());
 		person.setGender("M");
 		user.setPerson(person);

@@ -64,10 +64,10 @@ import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.H2Dialect;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assume;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -211,7 +211,7 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 	 * 
 	 * @since 1.11, 1.10, 1.9.9
 	 */
-	@Before
+	@BeforeEach
 	public void initMocks() {
 		MockitoAnnotations.initMocks(this);
 	}
@@ -219,7 +219,7 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 	/**
 	 * @since 1.11, 1.10, 1.9.9
 	 */
-	@After
+	@AfterEach
 	public void revertContextMocks() {
 		contextMockHelper.revertMocks();
 	}
@@ -230,7 +230,7 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 	 * 
 	 * @throws Exception
 	 */
-	@Before
+	@BeforeEach
 	public void checkNotModule() throws Exception {
 		if (this.getClass().getPackage().toString().contains("org.openmrs.module.")
 		        && !(this instanceof BaseModuleContextSensitiveTest)) {
@@ -257,7 +257,7 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 		}
 		String errorMessage = "Ignored. Expected profile: {openmrsPlatformVersion=" + openmrsPlatformVersion + ", modules=["
 		        + StringUtils.join((String[]) profile.get("modules"), ", ") + "]}";
-		Assume.assumeTrue(errorMessage, filter.matchOpenmrsProfileAttributes(profile));
+		Assumptions.assumeTrue(filter.matchOpenmrsProfileAttributes(profile), errorMessage);
 	}
 	
 	/**
@@ -311,10 +311,11 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 	 * @return Properties runtime
 	 */
 	public Properties getRuntimeProperties() {
-		
+
 		// cache the properties for subsequent calls
-		if (runtimeProperties == null)
+		if (runtimeProperties == null) {
 			runtimeProperties = TestUtil.getRuntimeProperties(getWebappName());
+		}
 		
 		// if we're using the in-memory hypersonic database, add those
 		// connection properties here to override what is in the runtime
@@ -440,10 +441,12 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 			if (junitusername == null || junitpassword == null || attempts > 0) {
 				credentials = askForUsernameAndPassword(message);
 				// credentials are null if the user clicked "cancel" in popup
-				if (credentials == null)
+				if (credentials == null) {
 					return;
-			} else
-				credentials = new String[] { junitusername, junitpassword };
+				}
+			} else {
+				credentials = new String[]{junitusername, junitpassword};
+			}
 			
 			// try to authenticate to the Context with either the runtime
 			// defined credentials or the user supplied credentials from the
@@ -479,9 +482,10 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 		catch (Exception e) {
 
 		}
-		
-		if (message == null || "".equals(message))
+
+		if (message == null || "".equals(message)) {
 			message = "Enter username/password to authenticate to OpenMRS...";
+		}
 		
 		JPanel panel = new JPanel(new GridBagLayout());
 		JLabel usernameLabel = new JLabel("Username");
@@ -549,8 +553,8 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 		
 		// response of 2 is the cancel button, response of -1 is the little red
 		// X in the top right
-		return (response == 2 || response == -1 ? null : new String[] { usernameField.getText(),
-		        String.valueOf(passwordField.getPassword()) });
+		return response == 2 || response == -1 ? null : new String[] { usernameField.getText(),
+		        String.valueOf(passwordField.getPassword()) };
 	}
 	
 	/**
@@ -587,9 +591,10 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 	 */
 	public void initializeInMemoryDatabase() throws SQLException {
 		//Don't allow the user to overwrite data
-		if (!useInMemoryDatabase())
+		if (!useInMemoryDatabase()) {
 			throw new RuntimeException(
-			        "You shouldn't be initializing a NON in-memory database. Consider unoverriding useInMemoryDatabase");
+				"You shouldn't be initializing a NON in-memory database. Consider unoverriding useInMemoryDatabase");
+		}
 
 		//Because creator property in the superclass is mapped with optional set to false, the autoddl tool marks the 
 		//column as not nullable but for person it is actually nullable, we need to first drop the constraint from 
@@ -701,8 +706,9 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 						fileInInputStreamFormat = new FileInputStream(datasetFilename);
 					} else {
 						fileInInputStreamFormat = getClass().getClassLoader().getResourceAsStream(datasetFilename);
-						if (fileInInputStreamFormat == null)
+						if (fileInInputStreamFormat == null) {
 							throw new FileNotFoundException("Unable to find '" + datasetFilename + "' in the classpath");
+						}
 					}
 					
 					reader = new InputStreamReader(fileInInputStreamFormat, StandardCharsets.UTF_8);
@@ -745,8 +751,9 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 				inputStream = new FileInputStream(datasetFilename);
 			} else {
 				inputStream = getClass().getClassLoader().getResourceAsStream(datasetFilename);
-				if (inputStream == null)
+				if (inputStream == null) {
 					throw new FileNotFoundException("Unable to find '" + datasetFilename + "' in the classpath");
+				}
 			}
 			
 			final FlatXmlProducer flatXmlProducer = new FlatXmlProducer(new InputSource(inputStream));
@@ -793,12 +800,13 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 			try {
 				// try to load the file if its a straight up path to the file or
 				// if its a classpath path to the file
-				if (file.exists())
+				if (file.exists()) {
 					fileInInputStreamFormat = new FileInputStream(datasetFilename);
-				else {
+				} else {
 					fileInInputStreamFormat = getClass().getClassLoader().getResourceAsStream(datasetFilename);
-					if (fileInInputStreamFormat == null)
+					if (fileInInputStreamFormat == null) {
 						throw new FileNotFoundException("Unable to find '" + datasetFilename + "' in the classpath");
+					}
 				}
 				
 				XmlDataSet xmlDataSet = null;
@@ -932,7 +940,7 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 	 * @see #initializeInMemoryDatabase()
 	 * @see #authenticate()
 	 */
-	@Before
+	@BeforeEach
 	public void baseSetupWithStandardDataAndAuthentication() throws SQLException {
 		// Open a session if needed
 		if (!Context.isSessionOpen()) {
@@ -988,16 +996,17 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 		}
 	}
 	
-	@After
+	@AfterEach
 	public void clearSessionAfterEachTest() {
 		// clear the session to make sure nothing is cached, etc
 		Context.clearSession();
 		Context.clearEntireCache();
-		
+
 		// needed because the authenticatedUser is the only object that sticks
 		// around after tests and the clearSession call
-		if (Context.isSessionOpen())
+		if (Context.isSessionOpen()) {
 			Context.logout();
+		}
 	}
 	
 	/**
@@ -1007,7 +1016,7 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 	 * 
 	 * @throws Exception
 	 */
-	@AfterClass
+	@AfterAll
 	public static synchronized void closeSessionAfterEachClass() throws Exception {
 		// clean up the session so we don't leak memory
 		if (Context.isSessionOpen()) {
@@ -1024,7 +1033,7 @@ public abstract class BaseContextSensitiveTest extends AbstractJUnit4SpringConte
 	 * @see SkipBaseSetupAnnotationExecutionListener
 	 * @see #baseSetupWithStandardDataAndAuthentication()
 	 */
-	private boolean skipBaseSetup = false;
+	private boolean skipBaseSetup;
 	
 	/**
 	 * Don't run the {@link #setupDatabaseWithStandardData()} method. This means that the associated

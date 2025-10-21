@@ -34,7 +34,8 @@ public class UserDAOTest extends BaseContextSensitiveTest {
 	
 	public static final String SECRET_ANSWER = "42";
 	
-	public static final String PASSWORD = "Openmr5xy";
+	public static final String PASSWORD = System.getenv("PASSWORD");
+
 	
 	private User userJoe;
 	

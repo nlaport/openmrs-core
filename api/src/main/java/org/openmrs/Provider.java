@@ -162,7 +162,7 @@ public class Provider extends BaseCustomizableMetadata<ProviderAttribute> {
 	
 	@Override
 	public String toString() {
-		String provider = String.valueOf(providerId) + " providerName:" + ((person != null) ? person.getNames() : "");
+		String provider = String.valueOf(providerId) + " providerName:" + (person != null ? person.getNames() : "");
 		return "[Provider: providerId:" + provider + " ]";
 	}
 	

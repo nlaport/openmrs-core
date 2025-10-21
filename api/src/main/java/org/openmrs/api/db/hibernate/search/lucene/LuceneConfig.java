@@ -21,7 +21,6 @@ import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.backend.lucene.analysis.LuceneAnalysisConfigurationContext;
 import org.hibernate.search.backend.lucene.analysis.LuceneAnalysisConfigurer;
 import org.openmrs.api.db.hibernate.search.SearchAnalysis;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 /**

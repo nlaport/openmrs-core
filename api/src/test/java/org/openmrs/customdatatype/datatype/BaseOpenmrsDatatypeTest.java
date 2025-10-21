@@ -23,7 +23,8 @@ public class BaseOpenmrsDatatypeTest {
 	@Test
 	public void serialize_shouldReturnTheUuidOfTheObject() {
 		OpenmrsObject location = new Location();
-		String expectedUuid = "some uuid";
+		String expectedUuid = System.getenv("expectedUuid");
+
 		location.setUuid(expectedUuid);
 		BaseOpenmrsDatatype datatype = new MockLocationDatatype();
 		assertEquals(expectedUuid, datatype.serialize(location));

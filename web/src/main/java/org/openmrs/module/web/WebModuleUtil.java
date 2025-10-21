@@ -16,9 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.StringReader;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,8 +42,6 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -77,11 +73,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 import static org.openmrs.util.XmlUtils.createDocumentBuilder;
 
-public class WebModuleUtil {
+public final class WebModuleUtil {
 
 	private WebModuleUtil() {
 	}
@@ -102,9 +97,9 @@ public class WebModuleUtil {
 	
 	private static final Deque<ModuleFilterMapping> MODULE_FILTER_MAPPINGS = new ArrayDeque<>();
 	
-	private static DispatcherServlet dispatcherServlet = null;
+	private static DispatcherServlet dispatcherServlet;
 	
-	private static StaticDispatcherServlet staticDispatcherServlet = null;
+	private static StaticDispatcherServlet staticDispatcherServlet;
 	
 	/**
 	 * Performs the webapp specific startup needs for modules Normal startup is done in
@@ -158,7 +153,7 @@ public class WebModuleUtil {
 				while (entries.hasMoreElements()) {
 					JarEntry entry = entries.nextElement();
 					String name = entry.getName();
-					if (Paths.get(name).startsWith("..")) {
+					if (Path.of(name).startsWith("..")) {
 						throw new UnsupportedOperationException("Attempted to write file '" + name + "' rejected as it attempts to write outside the chosen directory. This may be the result of a zip-slip style attack.");
 					}
 					
@@ -364,7 +359,7 @@ public class WebModuleUtil {
 			}
 			
 			// return true if the module needs a context refresh and we didn't do it here
-			return (moduleNeedsContextRefresh && delayContextRefresh);
+			return moduleNeedsContextRefresh && delayContextRefresh;
 			
 		}
 		
@@ -449,7 +444,8 @@ public class WebModuleUtil {
 		for (int i = 0; i < servletTags.getLength(); i++) {
 			Node node = servletTags.item(i);
 			NodeList childNodes = node.getChildNodes();
-			String name = "", className = "";
+			String name = "";
+			String className = "";
 
 			Map<String, String> initParams = new HashMap<>();
 			for (int j = 0; j < childNodes.getLength(); j++) {
@@ -462,7 +458,8 @@ public class WebModuleUtil {
 					className = childNode.getTextContent().trim();
 				} else if ("init-param".equals(childNode.getNodeName())) {
 					NodeList initParamChildren = childNode.getChildNodes();
-					String paramName = null, paramValue = null;
+					String paramName = null;
+					String paramValue = null;
 					for (int k = 0; k < initParamChildren.getLength(); k++) {
 						Node initParamChild = initParamChildren.item(k);
 						if ("param-name".equals(initParamChild.getNodeName()) && initParamChild.getTextContent() != null) {

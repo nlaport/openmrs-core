@@ -9,7 +9,12 @@
  */
 package org.openmrs.parameter;
 
-import org.openmrs.*;
+import org.openmrs.CareSetting;
+import org.openmrs.Concept;
+import org.openmrs.Order;
+import org.openmrs.OrderType;
+import org.openmrs.Patient;
+import org.openmrs.Visit;
 
 import java.util.Collection;
 import java.util.Date;
@@ -63,7 +68,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setPatient(Patient patient) {
 		this.patient = patient;
-		return (this);
+		return this;
 	}
 	
 	/**
@@ -73,7 +78,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setVisit(Visit visit) {
 		this.visit = visit;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -82,7 +87,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setCareSetting(CareSetting careSetting) {
 		this.careSetting = careSetting;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -91,7 +96,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setConcepts(Collection<Concept> concepts) {
 		this.concepts = concepts;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -100,7 +105,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setOrderTypes(Collection<OrderType> orderTypes) {
 		this.orderTypes = orderTypes;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -109,7 +114,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setAccessionNumber(String accessionNumber) {
 		this.accessionNumber = accessionNumber;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -118,7 +123,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
-		return (this);
+		return this;
 	}
 	
 	/**
@@ -127,7 +132,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setActivatedOnOrBeforeDate(Date activatedOnOrBeforeDate) {
 		this.activatedOnOrBeforeDate = activatedOnOrBeforeDate;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -136,7 +141,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setActivatedOnOrAfterDate(Date activatedOnOrAfterDate) {
 		this.activatedOnOrAfterDate = activatedOnOrAfterDate;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -146,7 +151,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setIsStopped(boolean isStopped) {
 		this.isStopped = isStopped;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -156,7 +161,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setAutoExpireOnOrBeforeDate(Date autoExpireOnOrBeforeDate) {
 		this.autoExpireOnOrBeforeDate = autoExpireOnOrBeforeDate;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -166,7 +171,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setCanceledOrExpiredOnOrBeforeDate(Date canceledOrExpiredOnOrBeforeDate) {
 		this.canceledOrExpiredOnOrBeforeDate = canceledOrExpiredOnOrBeforeDate;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -176,7 +181,7 @@ public class OrderSearchCriteriaBuilder {
      */
     public OrderSearchCriteriaBuilder setAction(Order.Action action) {
         this.action = action;
-        return (this);
+        return this;
     }
 
     /**
@@ -186,7 +191,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setFulfillerStatus(Order.FulfillerStatus fulfillerStatus) {
 		this.fulfillerStatus = fulfillerStatus;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -196,17 +201,17 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setIncludeNullFulfillerStatus(Boolean includeNullFulfillerStatus) {
 		this.includeNullFulfillerStatus = includeNullFulfillerStatus;
-		return (this);
+		return this;
 	}
 
 	public OrderSearchCriteriaBuilder setExcludeCanceledAndExpired(boolean excludeCanceledAndExpired) {
 		this.excludeCanceledAndExpired = excludeCanceledAndExpired;
-		return (this);
+		return this;
 	}
 
 	public OrderSearchCriteriaBuilder setExcludeDiscontinueOrders(boolean excludeDiscontinueOrders) {
 		this.excludeDiscontinueOrders = excludeDiscontinueOrders;
-		return (this);
+		return this;
 	}
 
 	/**
@@ -215,7 +220,7 @@ public class OrderSearchCriteriaBuilder {
 	 */
 	public OrderSearchCriteriaBuilder setIncludeVoided(boolean includeVoided) {
 		this.includeVoided = includeVoided;
-		return (this);
+		return this;
 	}
 
 	/**

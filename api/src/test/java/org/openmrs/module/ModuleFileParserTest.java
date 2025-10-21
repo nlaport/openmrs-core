@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.openmrs.util.XmlUtils.createDocumentBuilder;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,7 +80,6 @@ public class ModuleFileParserTest extends BaseContextSensitiveTest {
 		File moduleFile = new File(getClass().getClassLoader().getResource(LOGIC_MODULE_PATH).getPath());
 
 		try (InputStream inputStream = new FileInputStream(moduleFile)) {
-			inputStream.close();
 			expectModuleExceptionWithTranslatedMessage(() -> new ModuleFileParser(inputStream), "Module.error.cannotCreateFile");
 		}
 	}

@@ -116,7 +116,7 @@ public class User extends BaseOpenmrsObject implements java.io.Serializable, Att
 	private Map<String, String> userProperties;
 
 	@Transient
-	private List<Locale> proficientLocales = null;
+	private List<Locale> proficientLocales;
 
 	@Transient
 	private String parsedProficientLocalesProperty = "";

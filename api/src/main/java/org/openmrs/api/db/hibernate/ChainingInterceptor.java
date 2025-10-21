@@ -20,7 +20,6 @@ import org.hibernate.CallbackException;
 import org.hibernate.Interceptor;
 import org.hibernate.Transaction;
 import org.hibernate.metamodel.spi.EntityRepresentationStrategy;
-import org.hibernate.resource.jdbc.spi.StatementInspector;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

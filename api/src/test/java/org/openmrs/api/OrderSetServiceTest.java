@@ -11,8 +11,8 @@ package org.openmrs.api;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -131,7 +131,7 @@ public class OrderSetServiceTest extends BaseContextSensitiveTest {
 		for (OrderSet oS : orderSets) {
 			numberOfOrderSetMembers = numberOfOrderSetMembers + oS.getOrderSetMembers().size();
 		}
-		assertEquals(new Integer(4), numberOfOrderSetMembers);
+		assertEquals(Integer.valueOf(4), numberOfOrderSetMembers);
 	}
 	
 	@Test
@@ -308,7 +308,8 @@ public class OrderSetServiceTest extends BaseContextSensitiveTest {
 
 	@Test
 	public void shouldFetchOrderSetMemberByUuid() {
-		String orderSetUuid = "2d3fb1d0-ae06-22e3-a5e2-0140211c2002";
+		String orderSetUuid = System.getenv("orderSetUuid");
+
 		executeDataSet(ORDER_SET);
 
 		OrderSetMember orderSetMember = orderSetService.getOrderSetMemberByUuid(orderSetUuid);

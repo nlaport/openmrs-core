@@ -130,8 +130,10 @@ public class ExistingOrNewVisitAssignmentHandlerTest extends BaseContextSensitiv
 	 */
 	@Test
 	public void beforeCreateEncounter_shouldResolveEncounterAndVisitTypeUuidsAsGlobalPropertyValues() {
-		final String encounterTypeUuid = "759799ab-c9a5-435e-b671-77773ada74e4";
-		final String visitTypeUuid = "c0c579b0-8e59-401d-8a4a-976a0b183519";
+		final String encounterTypeUuid = System.getenv("encounterTypeUuid");
+
+		final String visitTypeUuid = System.getenv("visitTypeUuid");
+
 		Encounter encounter = Context.getEncounterService().getEncounter(1);
 		assertNull(encounter.getVisit());
 		assertEquals(encounterTypeUuid, encounter.getEncounterType().getUuid());

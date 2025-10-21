@@ -56,7 +56,7 @@ public class Database1_9_7UpgradeIT extends BaseContextSensitiveTest {
 	
 	public static final String STANDARD_TEST_1_9_7_DATASET = TEST_DATA_DIR + "standardTest-1.9.7-dataSet.xml";
 	
-	public final static String DATABASE_PATH = TEST_DATA_DIR + "openmrs-1.9.7.h2.db";
+	public static final String DATABASE_PATH = TEST_DATA_DIR + "openmrs-1.9.7.h2.db";
 	
 	public static final String LIQUIBASE_UPDATE_TO_LATEST_XML = "liquibase-update-to-latest-from-1.9.x.xml";
 	
@@ -219,7 +219,7 @@ public class Database1_9_7UpgradeIT extends BaseContextSensitiveTest {
 		upgradeTestUtil.executeDataset(STANDARD_TEST_1_9_7_DATASET);
 		Set<String> uniqueUnits = DatabaseUtil.getUniqueNonNullColumnValues("units", "drug_order", String.class,
 		    upgradeTestUtil.getConnection());
-		assertTrue(uniqueUnits.size() > 0);
+		assertTrue(!uniqueUnits.isEmpty());
 		
 		//map the frequencies only
 		createOrderEntryUpgradeFileWithTestData("1/day\\ x\\ 7\\ days/week=113\n2/day\\ x\\ 7\\ days/week=114");
@@ -235,7 +235,7 @@ public class Database1_9_7UpgradeIT extends BaseContextSensitiveTest {
 		upgradeTestUtil.executeDataset(STANDARD_TEST_1_9_7_DATASET);
 		Set<String> uniqueFrequencies = DatabaseUtil.getUniqueNonNullColumnValues("frequency", "drug_order", String.class,
 		    upgradeTestUtil.getConnection());
-		assertTrue(uniqueFrequencies.size() > 0);
+		assertTrue(!uniqueFrequencies.isEmpty());
 		
 		//map the dose units only
 		createOrderEntryUpgradeFileWithTestData("mg=111\ntab(s)=112");
@@ -252,11 +252,11 @@ public class Database1_9_7UpgradeIT extends BaseContextSensitiveTest {
 		upgradeTestUtil.executeDataset(STANDARD_TEST_1_9_7_DATASET);
 		Set<String> uniqueUnits = DatabaseUtil.getUniqueNonNullColumnValues("units", "drug_order", String.class,
 		    upgradeTestUtil.getConnection());
-		assertTrue(uniqueUnits.size() > 0);
+		assertTrue(!uniqueUnits.isEmpty());
 		
 		Set<String> uniqueFrequencies = DatabaseUtil.getUniqueNonNullColumnValues("frequency", "drug_order", String.class,
 		    upgradeTestUtil.getConnection());
-		assertTrue(uniqueFrequencies.size() > 0);
+		assertTrue(!uniqueFrequencies.isEmpty());
 		
 		upgradeTestUtil.executeDataset(UPGRADE_TEST_1_9_7_TO_1_10_DATASET);
 		
@@ -443,53 +443,53 @@ public class Database1_9_7UpgradeIT extends BaseContextSensitiveTest {
 		
 		upgradeTestUtil.upgrade();
 		
-		List<Map<String, String>> drug_orders = upgradeTestUtil.select("drug_order", "order_id = 6 or order_id = 7",
+		List<Map<String, String>> drugOrders = upgradeTestUtil.select("drug_order", "order_id = 6 or order_id = 7",
 		    "order_id", "dose_units", "frequency");
 		
-		assertThat(drug_orders, containsInAnyOrder(row("order_id", "6", "dose_units", null, "frequency", null),
+		assertThat(drugOrders, containsInAnyOrder(row("order_id", "6", "dose_units", null, "frequency", null),
 		    row("order_id", "7", "dose_units", null, "frequency", null)));
 	}
 	
 	@Test
 	public void shouldAddTheNecessaryPrivilegesAndAssignThemToSpecificRoles() throws Exception {
-		final String GET_ENCOUNTERS = "Get Encounters";
-		final String ADD_VISITS = "Add Visits";
-		final String ADD_ENCOUNTERS = "Add Encounters";
-		final String EDIT_ENCOUNTERS = "Edit Encounters";
-		final String GET_VISITS = "Get Visits";
-		final String GET_PROVIDERS = "Get Providers";
-		final String PROVIDER_ROLE = "Provider";
-		final String AUTHENTICATED_ROLE = "Authenticated";
+		final String getEncounters = "Get Encounters";
+		final String addVisits = "Add Visits";
+		final String addEncounters = "Add Encounters";
+		final String editEncounters = "Edit Encounters";
+		final String getVisits = "Get Visits";
+		final String getProviders = "Get Providers";
+		final String providerRole = "Provider";
+		final String authenticatedRole = "Authenticated";
 		Connection connection = upgradeTestUtil.getConnection();
 		//Insert Get encounters privilege for testing purposes
-		final String insertPrivilegeQuery = "insert into privilege (privilege,uuid) values ('" + GET_ENCOUNTERS
+		final String insertPrivilegeQuery = "insert into privilege (privilege,uuid) values ('" + getEncounters
 		        + "','a6a521de-3992-11e6-899a-a4d646d86a8a')";
 		DatabaseUtil.executeSQL(connection, insertPrivilegeQuery, false);
 		//Assign some privileges to some roles for testing purposes
 		DatabaseUtil.executeSQL(connection,
-		    "insert into role_privilege (role,privilege) values ('" + PROVIDER_ROLE + "', '" + GET_ENCOUNTERS + "'), ('"
-		            + PROVIDER_ROLE + "', '" + EDIT_ENCOUNTERS + "'), ('" + AUTHENTICATED_ROLE + "', '" + ADD_ENCOUNTERS
+		    "insert into role_privilege (role,privilege) values ('" + providerRole + "', '" + getEncounters + "'), ('"
+		            + providerRole + "', '" + editEncounters + "'), ('" + authenticatedRole + "', '" + addEncounters
 		            + "')",
 		    false);
 		connection.commit();
 		
-		String query = "select privilege from privilege where privilege = '" + GET_VISITS + "' or " + "privilege = '"
-		        + GET_PROVIDERS + "'";
+		String query = "select privilege from privilege where privilege = '" + getVisits + "' or " + "privilege = '"
+		        + getProviders + "'";
 		assertEquals(0, DatabaseUtil.executeSQL(connection, query, true).size());
-		assertTrue(roleHasPrivilege(PROVIDER_ROLE, GET_ENCOUNTERS));
-		assertTrue(roleHasPrivilege(PROVIDER_ROLE, EDIT_ENCOUNTERS));
-		assertFalse(roleHasPrivilege(PROVIDER_ROLE, GET_VISITS));
-		assertFalse(roleHasPrivilege(PROVIDER_ROLE, GET_PROVIDERS));
-		assertFalse(roleHasPrivilege(PROVIDER_ROLE, ADD_VISITS));
-		assertTrue(roleHasPrivilege(AUTHENTICATED_ROLE, ADD_ENCOUNTERS));
+		assertTrue(roleHasPrivilege(providerRole, getEncounters));
+		assertTrue(roleHasPrivilege(providerRole, editEncounters));
+		assertFalse(roleHasPrivilege(providerRole, getVisits));
+		assertFalse(roleHasPrivilege(providerRole, getProviders));
+		assertFalse(roleHasPrivilege(providerRole, addVisits));
+		assertTrue(roleHasPrivilege(authenticatedRole, addEncounters));
 		
 		upgradeTestUtil.upgrade();
 		connection = upgradeTestUtil.getConnection();
 		assertEquals(2, DatabaseUtil.executeSQL(connection, query, true).size());
-		assertTrue(roleHasPrivilege(PROVIDER_ROLE, GET_VISITS));
-		assertTrue(roleHasPrivilege(PROVIDER_ROLE, GET_PROVIDERS));
-		assertTrue(roleHasPrivilege(PROVIDER_ROLE, ADD_VISITS));
-		assertTrue(roleHasPrivilege(AUTHENTICATED_ROLE, ADD_VISITS));
+		assertTrue(roleHasPrivilege(providerRole, getVisits));
+		assertTrue(roleHasPrivilege(providerRole, getProviders));
+		assertTrue(roleHasPrivilege(providerRole, addVisits));
+		assertTrue(roleHasPrivilege(authenticatedRole, addVisits));
 	}
 	
 	private boolean roleHasPrivilege(String role, String privilege) {

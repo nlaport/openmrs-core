@@ -54,7 +54,7 @@ public class OpenmrsClassLoader extends URLClassLoader {
 	
 	private static File libCacheFolder;
 	
-	private static boolean libCacheFolderInitialized = false;
+	private static boolean libCacheFolderInitialized;
 	
 	// placeholder to hold mementos to restore
 	private static Map<String, OpenmrsMemento> mementos = new WeakHashMap<>();
@@ -98,18 +98,18 @@ public class OpenmrsClassLoader extends URLClassLoader {
 	public OpenmrsClassLoader() {
 		this(OpenmrsClassLoader.class.getClassLoader());
 	}
-	
+
 	/**
 	 * Private class to hold the one classloader used throughout openmrs. This is an alternative to
 	 * storing the instance object on {@link OpenmrsClassLoader} itself so that garbage collection
 	 * can happen correctly.
 	 */
-	private static class OpenmrsClassLoaderHolder {
+	private static final class OpenmrsClassLoaderHolder {
 
 		private OpenmrsClassLoaderHolder() {
 		}
 		
-		private static OpenmrsClassLoader INSTANCE = null;
+		private static OpenmrsClassLoader INSTANCE;
 		
 	}
 	
@@ -514,7 +514,7 @@ public class OpenmrsClassLoader extends URLClassLoader {
 								}
 								field.setAccessible(true);
 								if (Modifier.isFinal(mods)) {
-									if (!(field.getType().getName().startsWith("javax."))) {
+									if (!field.getType().getName().startsWith("javax.")) {
 										nullInstance(field.get(null));
 									}
 								} else {

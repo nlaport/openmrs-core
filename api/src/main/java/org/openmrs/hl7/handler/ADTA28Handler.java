@@ -124,7 +124,7 @@ public class ADTA28Handler implements Application {
 		Message response;
 		try {
 			ADT_A05 adt = (ADT_A05) message;
-			response = processADT_A28(adt);
+			response = processADTA28(adt);
 		}
 		catch (ClassCastException e) {
 			log.error("Error casting " + message.getClass().getName() + " to ADT_A28", e);
@@ -140,7 +140,7 @@ public class ADTA28Handler implements Application {
 		return response;
 	}
 	
-	private Message processADT_A28(ADT_A05 adt) throws HL7Exception {
+	private Message processADTA28(ADT_A05 adt) throws HL7Exception {
 		
 		// validate HL7 version
 		validate(adt);
@@ -329,11 +329,11 @@ public class ADTA28Handler implements Application {
 		// need to handle timezone
 		String dtm = ts.getTime().getValue();
 		int year = Integer.parseInt(dtm.substring(0, 4));
-		int month = (dtm.length() >= 6 ? Integer.parseInt(dtm.substring(4, 6)) - 1 : 0);
-		int day = (dtm.length() >= 8 ? Integer.parseInt(dtm.substring(6, 8)) : 1);
-		int hour = (dtm.length() >= 10 ? Integer.parseInt(dtm.substring(8, 10)) : 0);
-		int min = (dtm.length() >= 12 ? Integer.parseInt(dtm.substring(10, 12)) : 0);
-		int sec = (dtm.length() >= 14 ? Integer.parseInt(dtm.substring(12, 14)) : 0);
+		int month = dtm.length() >= 6 ? Integer.parseInt(dtm.substring(4, 6)) - 1 : 0;
+		int day = dtm.length() >= 8 ? Integer.parseInt(dtm.substring(6, 8)) : 1;
+		int hour = dtm.length() >= 10 ? Integer.parseInt(dtm.substring(8, 10)) : 0;
+		int min = dtm.length() >= 12 ? Integer.parseInt(dtm.substring(10, 12)) : 0;
+		int sec = dtm.length() >= 14 ? Integer.parseInt(dtm.substring(12, 14)) : 0;
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month, day, hour, min, sec);
 		

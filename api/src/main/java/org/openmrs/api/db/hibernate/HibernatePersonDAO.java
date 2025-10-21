@@ -40,7 +40,6 @@ import org.openmrs.person.PersonMergeLog;
 import org.openmrs.util.OpenmrsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -68,7 +67,6 @@ public class HibernatePersonDAO implements PersonDAO {
 	
 	private final SearchSessionFactory searchSessionFactory;
 	
-	@Autowired
 	public HibernatePersonDAO(SessionFactory sessionFactory, SearchSessionFactory searchSessionFactory) {
 		this.sessionFactory = sessionFactory;
 		this.searchSessionFactory = searchSessionFactory;
@@ -238,7 +236,7 @@ public class HibernatePersonDAO implements PersonDAO {
 
 		int maxResults = HibernatePersonDAO.getMaximumSearchResults();
 
-		boolean includeVoided = (voided != null) ? voided : false;
+		boolean includeVoided = voided != null ? voided : false;
 
 		if (StringUtils.isBlank(searchString)) {
 			Session session = sessionFactory.getCurrentSession();

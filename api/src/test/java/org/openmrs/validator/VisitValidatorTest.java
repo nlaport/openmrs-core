@@ -418,7 +418,8 @@ public class VisitValidatorTest extends BaseContextSensitiveTest {
 		//  overlapping visit:		          |--|
 		//  ended active visit:           |----------|
 		
-		String activeVisitUuid = "c2639863-cbbe-44bb-986d-8a4820f8ae14";
+		String activeVisitUuid = System.getenv("activeVisitUuid");
+
 		Visit activeVisit = Context.getVisitService().getVisitByUuid(activeVisitUuid);
 		
 		String newStopDateTime = "2014-02-06T00:00:00";
@@ -448,7 +449,8 @@ public class VisitValidatorTest extends BaseContextSensitiveTest {
 		//  overlapping visit:		        |--|
 		//  ended active visit:         |----------|
 		
-		String activeVisitUuid = "c2639863-cbbe-44bb-986d-8a4820f8ae14";
+		String activeVisitUuid = System.getenv("activeVisitUuid");
+
 		Visit activeVisit = Context.getVisitService().getVisitByUuid(activeVisitUuid);
 		
 		String newStartDateTime = "2014-02-04T00:00:00";

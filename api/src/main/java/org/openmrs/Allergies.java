@@ -30,8 +30,8 @@ public class Allergies implements List<Allergy> {
 	public static final String SEE_LIST = "See list";
 	
 	private String allergyStatus = UNKNOWN;
-	
-	private List<Allergy> allergies = new ArrayList<>();
+
+	private final List<Allergy> allergies = new ArrayList<>();
 
 	/**
      * @return the allergyStatus

@@ -9,6 +9,7 @@
  */
 package org.openmrs;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Cacheable;
 import jakarta.persistence.Transient;
 import java.text.ParseException;
@@ -24,7 +25,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -59,11 +59,11 @@ public class Person extends BaseChangeableOpenmrsData {
 	@DocumentId
 	protected Integer personId;
 	
-	private Set<PersonAddress> addresses = null;
+	private Set<PersonAddress> addresses;
 	
-	private Set<PersonName> names = null;
+	private Set<PersonName> names;
 	
-	private Set<PersonAttribute> attributes = null;
+	private Set<PersonAttribute> attributes;
 	
 	@GenericField
 	private String gender;
@@ -114,10 +114,10 @@ public class Person extends BaseChangeableOpenmrsData {
 	 * cleared and rebuilt on next access.
 	 */
 	@Transient
-	Map<String, PersonAttribute> attributeMap = null;
+	Map<String, PersonAttribute> attributeMap;
 	
 	@Transient
-	private Map<String, PersonAttribute> allAttributeMap = null;
+	private Map<String, PersonAttribute> allAttributeMap;
 	
 	/**
 	 * default empty constructor

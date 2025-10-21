@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cloud Patterns Summary</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 40px;
+      background-color: #f6f6f6;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    h2::before {
+      content: "☁️";
+      margin-right: 10px;
+      font-size: 28px;
+    }
+
+    table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead th {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+tbody tr {
+  border: 1px solid #eee;
+}
+
+    tbody td {
+      padding: 12px;
+      border: 1px solid #eee;
+      vertical-align: middle;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      background-color: #666;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .critical-low {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .critical-medium {
+      color: darkorange;
+      font-weight: bold;
+    }
+
+    .critical-high {
+      color: #e91e63;
+      font-weight: bold;
+    }
+	.critical-critical{
+	color: brown;
+	font-weight:bold;
+	}
+
+    .contribution {
+      background-color: #f44336;
+      color: white;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .occurrence-box {
+      background-color: #f44336;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .effort {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Cloud Pattern</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Pattern</th>
+        <th>Technology</th>
+        <th>Impact</th>
+        <th>Criticality</th>
+        <th>Contribution</th>
+        <th>Occurrences</th>
+        <th>Est. Effort</th>
+      </tr>
+    </thead>
+    <tbody id="cloudTableBody"></tbody>
+  </table>
+
+  <script src="openmrs-core.js"></script>
+  <script>
+    const jsonData = data || {};
+    const details = jsonData?.metrics?.[0]?.cloudReadyDetail?.flatMap(d => d.cloudReadyDetails.map(item => ({ ...item, technology: d.technology }))) || [];
+    const tbody = document.getElementById("cloudTableBody");
+
+    details.forEach(item => {
+      if (item.triggered) {
+        const row = document.createElement("tr");
+
+        const pattern = item.cloudRequirement.display || "-";
+		const patternLink = item.cloudRequirement.hrefDoc || "#";
+        const tech = item.technology || "-";
+        const impactFull = item.cloudRequirement.impacts?.[0] || "-";
+        const criticality = item.cloudRequirement.criticality || "-";
+        const contribution = item.cloudRequirement.contribution || "-";
+        const occurrences = item.roadblocks || 0;
+        const cloudEffortInDay = item.cloudEffort/480 ; //1 day = 8 Hours * 60 mins
+        const effort = cloudEffortInDay.toFixed(2) || 0;
+// <td><a href="${patternLink}" target="_blank" style="color: #0074cc; text-decoration: none;">${pattern}</a></td>
+        row.innerHTML = `
+         
+		<td>
+			<a href="${patternLink}" target="_blank" style="color: #0074cc; text-decoration: none;">
+			${pattern}
+			</a>
+			<a href="${patternLink}" target="_blank" title="${patternLink}" style="margin-left: 8px; text-decoration: none;">ℹ️</a>
+		</td>
+          <td>${tech}</td>
+          <td><span class="pill">${item.cloudRequirement.impacts.map(i => i[0]).join('')}</span></td>
+          <td class="critical-${criticality.toLowerCase()}">${criticality}</td>
+          <td><span class="contribution">⚠ - ${contribution}</span></td>
+          <td><span class="occurrence-box">${occurrences}</span></td>
+          <td class="effort">${effort} person-day</td>
+        `;
+        tbody.appendChild(row);
+      }
+    });
+  </script>
+</body>
+</html>

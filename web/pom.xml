@@ -21,6 +21,9 @@
    <packaging>jar</packaging>
    <name>openmrs-web</name>
    <description>The web layer of open mrs</description>
+ <properties>
+  <maven.compiler.release>17</maven.compiler.release>
+ </properties>
    <dependencies>
       <dependency>
          <groupId>org.openmrs.api</groupId>
@@ -31,6 +34,16 @@
          <artifactId>openmrs-test</artifactId>
          <type>pom</type>
          <scope>test</scope>
+   <exclusions>
+    <exclusion>
+     <groupId>junit</groupId>
+     <artifactId>junit</artifactId>
+    </exclusion>
+    <exclusion>
+     <groupId>org.junit.vintage</groupId>
+     <artifactId>junit-vintage-engine</artifactId>
+    </exclusion>
+   </exclusions>
       </dependency>
       <!-- Test-jar for sharing api test resources in web tests -->
       <dependency>

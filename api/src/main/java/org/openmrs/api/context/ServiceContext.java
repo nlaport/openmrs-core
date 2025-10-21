@@ -75,13 +75,13 @@ import org.springframework.context.ApplicationContextAware;
  *
  * @see org.openmrs.api.context.Context
  */
-public class ServiceContext implements ApplicationContextAware {
+public final class ServiceContext implements ApplicationContextAware {
 	
 	private static final Logger log = LoggerFactory.getLogger(ServiceContext.class);
 
 	private ApplicationContext applicationContext;
 	
-	private static boolean refreshingContext = false;
+	private static boolean refreshingContext;
 	
 	private static final Object refreshingContextLock = new Object();
 	
@@ -89,7 +89,7 @@ public class ServiceContext implements ApplicationContextAware {
 	 * Static variable holding whether or not to use the system classloader. By default this is
 	 * false so the openmrs classloader is used instead
 	 */
-	private boolean useSystemClassLoader = false;
+	private boolean useSystemClassLoader;
 	
 	// Cached service objects
 	Map<Class, Object> services = new HashMap<>();
@@ -116,13 +116,13 @@ public class ServiceContext implements ApplicationContextAware {
 	private ServiceContext() {
 		log.debug("Instantiating service context");
 	}
-	
-	private static class ServiceContextHolder {
+
+	private static final class ServiceContextHolder {
 
 		private ServiceContextHolder() {
 		}
 
-		private static ServiceContext instance = null;
+		private static ServiceContext instance;
 	}
 	
 	/**
@@ -761,8 +761,8 @@ public class ServiceContext implements ApplicationContextAware {
 		
 		if (classString == null || classInstance == null) {
 			throw new APIException(
-			        String.format("Unable to find service as unexpected null value found for class [%s] or instance [%s]",
-			            classString, classInstance));
+				"Unable to find service as unexpected null value found for class [%s] or instance [%s]".formatted(
+					classString, classInstance));
 		}
 		
 		Class cls = null;

@@ -120,7 +120,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	// For testing concept lookups by static constant
 	private static final String TEST_CONCEPT_CONSTANT_ID = "3";
  
-	private static final String TEST_CONCEPT_CONSTANT_UUID = "35d3346a-6769-4d52-823f-b4b234bac3e3";
+	static final String TEST_CONCEPT_CONSTANT_UUID = System.getenv("TEST_CONCEPT_CONSTANT_UUID");
+
 	
 	private static final String TEST_CONCEPT_CONSTANT_NAME = "COUGH SYRUP";
 	
@@ -1037,7 +1038,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptAnswerByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "b1230431-2fe5-49fc-b535-ae42bc849747";
+		String uuid = System.getenv("uuid");
+
 		ConceptAnswer conceptAnswer = Context.getConceptService().getConceptAnswerByUuid(uuid);
 		assertEquals(1, (int) conceptAnswer.getConceptAnswerId());
 	}
@@ -1055,7 +1057,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "0cbe2ed3-cd5f-4f46-9459-26127c9265ab";
+		String uuid = System.getenv("uuid");
+
 		Concept concept = Context.getConceptService().getConceptByUuid(uuid);
 		assertEquals(3, (int) concept.getConceptId());
 	}
@@ -1073,7 +1076,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptClassByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "97097dd9-b092-4b68-a2dc-e5e5be961d42";
+		String uuid = System.getenv("uuid");
+
 		ConceptClass conceptClass = Context.getConceptService().getConceptClassByUuid(uuid);
 		assertEquals(1, (int) conceptClass.getConceptClassId());
 	}
@@ -1091,7 +1095,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptDatatypeByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "8d4a4488-c2cc-11de-8d13-0010c6dffd0f";
+		String uuid = System.getenv("uuid");
+
 		ConceptDatatype conceptDatatype = Context.getConceptService().getConceptDatatypeByUuid(uuid);
 		assertEquals(1, (int) conceptDatatype.getConceptDatatypeId());
 	}
@@ -1109,7 +1114,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptDescriptionByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "5f4d710b-d333-40b7-b449-6e0e739d15d0";
+		String uuid = System.getenv("uuid");
+
 		ConceptDescription conceptDescription = Context.getConceptService().getConceptDescriptionByUuid(uuid);
 		assertEquals(1, (int) conceptDescription.getConceptDescriptionId());
 	}
@@ -1127,7 +1133,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptNameByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "9bc5693a-f558-40c9-8177-145a4b119ca7";
+		String uuid = System.getenv("uuid");
+
 		ConceptName conceptName = Context.getConceptService().getConceptNameByUuid(uuid);
 		assertEquals(1439, (int) conceptName.getConceptNameId());
 	}
@@ -1145,7 +1152,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptNameTagByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "9e9df183-2328-4117-acd8-fb9bf400911d";
+		String uuid = System.getenv("uuid");
+
 		ConceptNameTag conceptNameTag = Context.getConceptService().getConceptNameTagByUuid(uuid);
 		assertEquals(1, (int) conceptNameTag.getConceptNameTagId());
 	}
@@ -1163,7 +1171,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptNumericByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "c607c80f-1ea9-4da3-bb88-6276ce8868dd";
+		String uuid = System.getenv("uuid");
+
 		ConceptNumeric conceptNumeric = Context.getConceptService().getConceptNumericByUuid(uuid);
 		assertEquals(5089, (int) conceptNumeric.getConceptId());
 	}
@@ -1181,7 +1190,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptProposalByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "57a68666-5067-11de-80cb-001e378eb67e";
+		String uuid = System.getenv("uuid");
+
 		ConceptProposal conceptProposal = Context.getConceptService().getConceptProposalByUuid(uuid);
 		assertEquals(1, (int) conceptProposal.getConceptProposalId());
 	}
@@ -1199,7 +1209,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptSetByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "1a111827-639f-4cb4-961f-1e025bf88d90";
+		String uuid = System.getenv("uuid");
+
 		ConceptSet conceptSet = Context.getConceptService().getConceptSetByUuid(uuid);
 		assertEquals(1, (int) conceptSet.getConceptSetId());
 	}
@@ -1217,7 +1228,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConceptSourceByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "75f5b378-5065-11de-80cb-001e378eb67e";
+		String uuid = System.getenv("uuid");
+
 		ConceptSource conceptSource = Context.getConceptService().getConceptSourceByUuid(uuid);
 		assertEquals(3, (int) conceptSource.getConceptSourceId());
 	}
@@ -1235,7 +1247,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getDrugByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "3cfcf118-931c-46f7-8ff6-7b876f0d4202";
+		String uuid = System.getenv("uuid");
+
 		Drug drug = Context.getConceptService().getDrugByUuid(uuid);
 		assertEquals(2, (int) drug.getDrugId());
 	}
@@ -1253,7 +1266,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getDrugIngredientByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "6519d653-393d-4118-9c83-a3715b82d4dc";
+		String uuid = System.getenv("uuid");
+
 		DrugIngredient ingredient = Context.getConceptService().getDrugIngredientByUuid(uuid);
 		assertEquals(88, (int) ingredient.getIngredient().getConceptId());
 	}
@@ -1433,7 +1447,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void getConceptSourceByUniqueId_shouldGetConceptSourceWithTheGivenUniqueId() {
 
-		String existingUniqueId = "2.16.840.1.113883.6.96";
+		String existingUniqueId = System.getenv("existingUniqueId");
+
 		ConceptSource conceptSource = conceptService.getConceptSourceByUniqueId(existingUniqueId);
 		assertThat(conceptSource, is(not(nullValue())));
 		assertThat(conceptSource.getUniqueId(), is(existingUniqueId));
@@ -2080,7 +2095,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void mapConceptProposalToConcept_shouldNotRequireMappedConceptOnRejectAction() {
-		String uuid = "af4ae460-0e2b-11e0-a94b-469c3c5a0c2f";
+		String uuid = System.getenv("uuid");
+
 		ConceptProposal proposal = Context.getConceptService().getConceptProposalByUuid(uuid);
 		assertNotNull(proposal, "could not find proposal " + uuid);
 		proposal.setState(OpenmrsConstants.CONCEPT_PROPOSAL_REJECT);
@@ -2097,7 +2113,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void mapConceptProposalToConcept_shouldAllowRejectingProposals() {
-		String uuid = "af4ae460-0e2b-11e0-a94b-469c3c5a0c2f";
+		String uuid = System.getenv("uuid");
+
 		ConceptProposal proposal = Context.getConceptService().getConceptProposalByUuid(uuid);
 		assertNotNull(proposal, "could not find proposal " + uuid);
 		//because there is a  different unit test for the case when mapped proposal is null, we use a non-null concept here for our testing
@@ -2133,7 +2150,7 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
                 .singletonList(Locale.ENGLISH), false, null, null, null, null, null, null, null);
         // "now matches both concept names "TRUST NOW" and "TRUST NOWHERE", but these are for the same concept (4000), so there should only be one item in the result set
         assertEquals(1, searchResults.size());
-        assertEquals(new Integer(4000), searchResults.get(0).getConcept().getId());
+        assertEquals(Integer.valueOf(4000), searchResults.get(0).getConcept().getId());
 	}
 
 	/**
@@ -3929,7 +3946,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getConcept_shouldFindAConceptWithNonStandardUuid() throws Exception {
-		String nonStandardUuid = "1000AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+		String nonStandardUuid = System.getenv("nonStandardUuid");
+
 		assertEquals(64, conceptService.getConceptByReference(nonStandardUuid).getConceptId());
 	}
 	
@@ -4014,7 +4032,8 @@ public class ConceptServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void purgeConceptReferenceRange_shouldPurgeAConceptReferenceRange() {
 		
-		final String CONCEPT_REFERENCE_RANGE_UUID = "2c5972e8-aee5-468c-8216-369a1b60723d";
+		final String CONCEPT_REFERENCE_RANGE_UUID = System.getenv("CONCEPT_REFERENCE_RANGE_UUID");
+
 		ConceptReferenceRange conceptReferenceRange = conceptService.getConceptReferenceRangeByUuid(CONCEPT_REFERENCE_RANGE_UUID);
 		assertNotNull(conceptReferenceRange);
 		

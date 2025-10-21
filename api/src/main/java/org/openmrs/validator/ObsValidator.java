@@ -10,10 +10,7 @@
 package org.openmrs.validator;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 import org.apache.commons.text.StringEscapeUtils;
 import org.openmrs.Concept;
@@ -27,7 +24,6 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.HibernateUtil;
 import org.openmrs.util.ConceptReferenceRangeUtility;
-import org.openmrs.util.OpenmrsUtil;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

@@ -13,6 +13,8 @@ import org.hibernate.envers.Audited;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.DocumentId;
 
 import jakarta.persistence.Column;
+
+import java.io.Serial;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -37,7 +39,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "concept_reference_range")
 public class ConceptReferenceRange extends BaseReferenceRange implements OpenmrsObject {
-	
+
+	@Serial
 	private static final long serialVersionUID = 47329L;
 
 	@DocumentId

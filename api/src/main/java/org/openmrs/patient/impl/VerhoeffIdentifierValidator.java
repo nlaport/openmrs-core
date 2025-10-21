@@ -109,24 +109,24 @@ public class VerhoeffIdentifierValidator extends BaseHyphenatedIdentifierValidat
 	private int insertCheck(int[] a) {
 		int check = 0;
 		for (int i = 1; i < a.length; i++) {
-			check = op[check][F[i % 8][a[i]]];
+			check = op[check][f[i % 8][a[i]]];
 		}
 		a[0] = inv[check];
 		return a[0];
 	}
 	
 	public VerhoeffIdentifierValidator() {
-		F[0] = F0;
-		F[1] = F1;
+		f[0] = F0;
+		f[1] = F1;
 		for (int i = 2; i < 8; i++) {
-			F[i] = new int[10];
+			f[i] = new int[10];
 			for (int j = 0; j < 10; j++) {
-				F[i][j] = F[i - 1][F[1][j]];
+				f[i][j] = f[i - 1][f[1][j]];
 			}
 		}
 	}
 	
-	private int[][] F = new int[8][];
+	private int[][] f = new int[8][];
 	
 	private static final int[] F0 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	

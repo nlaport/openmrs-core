@@ -32,7 +32,6 @@ import org.openmrs.VisitType;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.VisitDAO;
 import org.openmrs.parameter.VisitSearchCriteria;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +46,6 @@ public class HibernateVisitDAO implements VisitDAO {
 	
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateVisitDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -379,7 +377,7 @@ public class HibernateVisitDAO implements VisitDAO {
 		List<Predicate> predicates = new ArrayList<>();
 
 		predicates.add(cb.isFalse(root.get("voided")));
-		predicates.add(cb.greaterThan(root.get("visitId"), (previousVisit != null) ? previousVisit.getVisitId() : 0));
+		predicates.add(cb.greaterThan(root.get("visitId"), previousVisit != null ? previousVisit.getVisitId() : 0));
 		predicates.add(cb.isNull(root.get("stopDatetime")));
 
 		if (maximumStartDate != null) {

@@ -46,7 +46,7 @@ import org.openmrs.util.Reflect;
 public class OrderTest extends BaseContextSensitiveTest {
 	
 	
-	private final static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	private DateFormat ymd;
 
@@ -86,7 +86,7 @@ public class OrderTest extends BaseContextSensitiveTest {
 				} else if (field.getType().equals(Double.class)) {
 					fieldValue = 5.0;
 				} else {
-					fieldValue = field.getType().newInstance();
+					fieldValue = field.getType().getDeclaredConstructor().newInstance();
 				}
 				field.set(original, fieldValue);
 			}

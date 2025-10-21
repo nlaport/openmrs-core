@@ -34,9 +34,9 @@ public class GZIPFilter extends OncePerRequestFilter {
 	
 	private static final Logger log = LoggerFactory.getLogger(GZIPFilter.class);
 	
-	private Boolean cachedGZipEnabledFlag = null;
+	private Boolean cachedGZipEnabledFlag;
 	
-	private String cachedGZipCompressedRequestForPathAccepted = null;
+	private String cachedGZipCompressedRequestForPathAccepted;
 	
 	/**
 	 * @see org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(jakarta.servlet.http.HttpServletRequest,
@@ -103,7 +103,7 @@ public class GZIPFilter extends OncePerRequestFilter {
 	 */
 	private boolean isGZIPSupported(HttpServletRequest req) {
 		String browserEncodings = req.getHeader("accept-encoding");
-		boolean supported = ((browserEncodings != null) && (browserEncodings.contains("gzip")));
+		boolean supported = (browserEncodings != null) && (browserEncodings.contains("gzip"));
 		
 		String userAgent = req.getHeader("user-agent");
 		

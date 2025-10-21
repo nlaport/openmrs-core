@@ -26,7 +26,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -41,10 +40,10 @@ import org.openmrs.util.OpenmrsUtil;
  * screen
  */
 public class OpenmrsTestsTest {
+
+	private final ClassLoader classLoader = this.getClass().getClassLoader();
 	
-	private ClassLoader classLoader = this.getClass().getClassLoader();
-	
-	private List<Class<?>> testClasses = null;
+	private List<Class<?>> testClasses;
 	
 	/**
 	 * Make sure there is at least one _other_ test case out there
@@ -73,7 +72,7 @@ public class OpenmrsTestsTest {
 				
 				// make sure every "test" method (determined by having 
 				// the @Test annotation) starts with "testShould"
-				if (method.getAnnotation(Test.class) != null || method.getAnnotation(org.junit.Test.class) != null) {
+				if (method.getAnnotation(Test.class) != null || method.getAnnotation(org.junit.jupiter.api.Test.class) != null) {
 					String methodName = method.getName();
 					
 					boolean passes = methodName.startsWith("should") || methodName.contains("_should");
@@ -99,7 +98,7 @@ public class OpenmrsTestsTest {
 				
 				// make sure every should___ method has an @Test annotation
 				if (methodName.startsWith("should") || methodName.contains("_should")) {
-					assertTrue(method.getAnnotation(Test.class) != null || method.getAnnotation(org.junit.Test.class) != null || method.getAnnotation(ParameterizedTest.class) != null, currentClass.getName() + "#" + methodName + " does not have the @Test annotation on it even though the method name starts with 'should'");
+					assertTrue(method.getAnnotation(Test.class) != null || method.getAnnotation(org.junit.jupiter.api.Test.class) != null || method.getAnnotation(ParameterizedTest.class) != null, currentClass.getName() + "#" + methodName + " does not have the @Test annotation on it even though the method name starts with 'should'");
 				}
 			}
 		}
@@ -120,11 +119,11 @@ public class OpenmrsTestsTest {
 		for (Class<?> currentClass : getClasses("^.*(?<!Test|IT|PT)\\.class$")) {
 			
 			// skip over classes that are @Ignore'd
-			if (currentClass.getAnnotation(Ignore.class) == null && currentClass.getAnnotation(Disabled.class) == null) {
+			if (currentClass.getAnnotation(Disabled.class) == null && currentClass.getAnnotation(Disabled.class) == null) {
 				boolean foundATestMethod = false;
 				
 				for (Method method : currentClass.getMethods()) {
-					if (method.getAnnotation(org.junit.Test.class) != null || method.getAnnotation(Test.class) != null) {
+					if (method.getAnnotation(org.junit.jupiter.api.Test.class) != null || method.getAnnotation(Test.class) != null) {
 						foundATestMethod = true;
 					}
 				}
@@ -149,9 +148,9 @@ public class OpenmrsTestsTest {
 		List<Method> testMethodsUsingJUnit4 = getClasses(".*\\.class$")
 			.stream()
 			.filter(c -> !allowedJunit4TestClasses.contains(c))
-			.map(c -> c.getMethods())
+			.map(Class::getMethods)
 			.flatMap(x -> Arrays.stream(x))
-			.filter(m -> m.getAnnotation(org.junit.Test.class) != null)
+			.filter(m -> m.getAnnotation(org.junit.jupiter.api.Test.class) != null)
 			.collect(Collectors.toList());
 		
 		assertThat("openmrs-api has migrated to JUnit 5. The JUnit 4 dependency is only available so we can " +
@@ -176,8 +175,9 @@ public class OpenmrsTestsTest {
 	 * @return list of TestCase classes in org.openmrs.test
 	 */
 	private List<Class<?>> getClasses(String classNameRegex) {
-		if (testClasses != null)
+		if (testClasses != null) {
 			return testClasses;
+		}
 		
 		Pattern pattern = Pattern.compile(classNameRegex);
 		

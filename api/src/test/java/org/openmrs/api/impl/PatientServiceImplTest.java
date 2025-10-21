@@ -125,7 +125,8 @@ public class PatientServiceImplTest extends BaseContextMockTest {
 	public void checkPatientIdentifiers_shouldNotThrowMissingRequiredIdentifierGivenRequiredIdentifierTypesArePresent()
 		throws Exception {
 		// given
-		final String typeUuid = "equal type uuid";
+		final String typeUuid = System.getenv("typeUuid");
+
 		final PatientIdentifierType requiredIdentifierType = new PatientIdentifierType(12345);
 		requiredIdentifierType.setUuid(typeUuid);
 		final PatientIdentifierType patientIdentifierType = new PatientIdentifierType(12345);

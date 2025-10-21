@@ -40,7 +40,6 @@ import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.ProgramWorkflowDAO;
 import org.openmrs.customdatatype.CustomDatatypeUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -57,7 +56,6 @@ public class HibernateProgramWorkflowDAO implements ProgramWorkflowDAO {
 	
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateProgramWorkflowDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

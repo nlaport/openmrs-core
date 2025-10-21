@@ -52,13 +52,13 @@ public class ConceptTest extends BaseContextSensitiveTest {
 		// concept should only have US and generic english names.
 		// add an incompatible name -- en_UK
 		int initialNameCollectionSize = testConcept.getNames().size();
-		ConceptName name_en_UK = createConceptName(initialNameCollectionSize + 1, "Labour", Locale.UK,
+		ConceptName nameEnUK = createConceptName(initialNameCollectionSize + 1, "Labour", Locale.UK,
 		    ConceptNameType.FULLY_SPECIFIED, false);
-		testConcept.addName(name_en_UK);
+		testConcept.addName(nameEnUK);
 		
 		Collection<ConceptName> compatibleNames = testConcept.getCompatibleNames(primaryLocale);
 		
-		assertFalse(compatibleNames.contains(name_en_UK));
+		assertFalse(compatibleNames.contains(nameEnUK));
 	}
 	
 	/**
@@ -395,9 +395,9 @@ public class ConceptTest extends BaseContextSensitiveTest {
 	public void getFullySpecifiedName_shouldReturnTheNameMarkedAsFullySpecifiedForTheGivenLocale() {
 		Locale primaryLocale = Locale.US;
 		Concept testConcept = createConcept(1, primaryLocale);
-		ConceptName fullySpecifiedName_FR = createConceptName(3, "Docteur", new Locale("fr"),
+		ConceptName fullySpecifiedNameFR = createConceptName(3, "Docteur", new Locale("fr"),
 		    ConceptNameType.FULLY_SPECIFIED, true);
-		testConcept.addName(fullySpecifiedName_FR);
+		testConcept.addName(fullySpecifiedNameFR);
 		assertEquals(primaryLocale, testConcept.getFullySpecifiedName(primaryLocale).getLocale());
 		assertEquals(ConceptNameType.FULLY_SPECIFIED,
 		    testConcept.getFullySpecifiedName(primaryLocale).getConceptNameType());
@@ -728,8 +728,8 @@ public class ConceptTest extends BaseContextSensitiveTest {
 	public void getPreferredName_shouldReturnTheFullySpecifiedNameIfNoNameIsExplicitlyMarkedAsLocalePreferred() {
 		Concept testConcept = createConcept(1, Locale.US);
 		//preferred name in en_US
-		ConceptName preferredNameEN_US = createConceptName(3, "Aspirin", Locale.US, null, false);
-		testConcept.addName(preferredNameEN_US);
+		ConceptName preferredNameENUS = createConceptName(3, "Aspirin", Locale.US, null, false);
+		testConcept.addName(preferredNameENUS);
 		String fullySpecName = testConcept.getFullySpecifiedName(Locale.US).getName();
 		//preferred name in en
 		ConceptName preferredNameEN = createConceptName(4, "Doctor", new Locale("en"), null, false);
@@ -744,12 +744,12 @@ public class ConceptTest extends BaseContextSensitiveTest {
 	public void getPreferredName_shouldReturnTheConceptNameExplicitlyMarkedAsLocalePreferred() {
 		Concept testConcept = createConcept(1, Locale.US);
 		//preferred name in en_US
-		ConceptName preferredNameEN_US = createConceptName(3, "Aspirin", Locale.US, null, true);
-		testConcept.addName(preferredNameEN_US);
+		ConceptName preferredNameENUS = createConceptName(3, "Aspirin", Locale.US, null, true);
+		testConcept.addName(preferredNameENUS);
 		//preferred name in en
 		ConceptName preferredNameEN = createConceptName(4, "Doctor", new Locale("en"), null, true);
 		testConcept.addName(preferredNameEN);
-		assertEquals(preferredNameEN_US, testConcept.getPreferredName(Locale.US));
+		assertEquals(preferredNameENUS, testConcept.getPreferredName(Locale.US));
 		assertEquals(preferredNameEN, testConcept.getPreferredName(new Locale("en")));
 	}
 	
@@ -760,28 +760,28 @@ public class ConceptTest extends BaseContextSensitiveTest {
 		ConceptName preferredNameEN = createConceptName(3, "Color", new Locale("en"), null, false);
 		color.addName(preferredNameEN);
 		//preferred name in en_UK
-		ConceptName preferredNameEN_UK = createConceptName(4, "Colour", Locale.UK, null, true);
-		color.addName(preferredNameEN_UK);
+		ConceptName preferredNameENUK = createConceptName(4, "Colour", Locale.UK, null, true);
+		color.addName(preferredNameENUK);
 		// we ask for preferred name in en, but since none of the en names are preferred, we should get the en_UK name
-		assertEquals(preferredNameEN_UK, color.getPreferredName(new Locale("en")));
+		assertEquals(preferredNameENUK, color.getPreferredName(new Locale("en")));
 	}
 
 	@Test
 	public void getPreferredName_shouldReturnPreferredNameInLocaleWithCountryIfNoNameInLocaleWithNoCountry() {
 		Concept color = new Concept();
 		//preferred name in en_UK
-		ConceptName preferredNameEN_UK = createConceptName(4, "Colour", Locale.UK, null, true);
-		color.addName(preferredNameEN_UK);
+		ConceptName preferredNameENUK = createConceptName(4, "Colour", Locale.UK, null, true);
+		color.addName(preferredNameENUK);
 		// we ask for preferred name in en, but since none of the en names are preferred, we should get the en_UK name
-		assertEquals(preferredNameEN_UK, color.getPreferredName(new Locale("en")));
+		assertEquals(preferredNameENUK, color.getPreferredName(new Locale("en")));
 	}
 
 	@Test
 	public void getPreferredName_shouldReturnPreferredNameInLocaleWithoutCountryBeforeLocaleWithCountry() {
 		Concept color = new Concept();
 		// preferred name in en_UK
-		ConceptName preferredNameEN_UK = createConceptName(4, "Colour", Locale.UK, null, true);
-		color.addName(preferredNameEN_UK);
+		ConceptName preferredNameENUK = createConceptName(4, "Colour", Locale.UK, null, true);
+		color.addName(preferredNameENUK);
 		// preferred name in en
 		ConceptName preferredNameEN = createConceptName(3, "Color", new Locale("en"), null, true);
 		color.addName(preferredNameEN);
@@ -883,8 +883,8 @@ public class ConceptTest extends BaseContextSensitiveTest {
 	public void setShortName_shouldSetTheConceptNameTypeOfTheSpecifiedNameToShort() {
 		Concept concept = new Concept();
 		ConceptName cn = new ConceptName("some name", Context.getLocale());
-		ConceptName FullySpecName = new ConceptName("fully spec name", Context.getLocale());
-		concept.addName(FullySpecName);
+		ConceptName fullySpecName = new ConceptName("fully spec name", Context.getLocale());
+		concept.addName(fullySpecName);
 		concept.setShortName(cn);
 		assertEquals(ConceptNameType.SHORT, cn.getConceptNameType());
 	}
@@ -893,8 +893,8 @@ public class ConceptTest extends BaseContextSensitiveTest {
 	public void setBlankShortName_shouldVoidTheOldOne() {
 		Concept concept = new Concept();
 		ConceptName cn = new ConceptName("some name", Context.getLocale());
-		ConceptName FullySpecName = new ConceptName("fully spec name", Context.getLocale());
-		concept.addName(FullySpecName);
+		ConceptName fullySpecName = new ConceptName("fully spec name", Context.getLocale());
+		concept.addName(fullySpecName);
 		concept.setShortName(cn);
 		concept.setShortName(new ConceptName(" ", Context.getLocale()));
 		assertThat(concept.getShortNameInLocale(Context.getLocale()), is(nullValue()));

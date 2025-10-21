@@ -11,7 +11,10 @@ package org.openmrs;
 
 import static org.apache.commons.lang3.StringUtils.defaultString;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Cacheable;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.Audited;
@@ -38,6 +40,7 @@ import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -155,31 +158,31 @@ public class PersonName extends BaseChangeableOpenmrsData implements java.io.Ser
 		}
 		PersonName newName = new PersonName(pn.getPersonNameId());
 		if (pn.getGivenName() != null) {
-			newName.setGivenName(String.valueOf(pn.getGivenName()));
+			newName.setGivenName(pn.getGivenName());
 		}
 		if (pn.getMiddleName() != null) {
-			newName.setMiddleName(String.valueOf(pn.getMiddleName()));
+			newName.setMiddleName(pn.getMiddleName());
 		}
 		if (pn.getFamilyName() != null) {
-			newName.setFamilyName(String.valueOf(pn.getFamilyName()));
+			newName.setFamilyName(pn.getFamilyName());
 		}
 		if (pn.getFamilyName2() != null) {
-			newName.setFamilyName2(String.valueOf(pn.getFamilyName2()));
+			newName.setFamilyName2(pn.getFamilyName2());
 		}
 		if (pn.getFamilyNamePrefix() != null) {
-			newName.setFamilyNamePrefix(String.valueOf(pn.getFamilyNamePrefix()));
+			newName.setFamilyNamePrefix(pn.getFamilyNamePrefix());
 		}
 		if (pn.getFamilyNameSuffix() != null) {
-			newName.setFamilyNameSuffix(String.valueOf(pn.getFamilyNameSuffix()));
+			newName.setFamilyNameSuffix(pn.getFamilyNameSuffix());
 		}
 		if (pn.getPrefix() != null) {
-			newName.setPrefix(String.valueOf(pn.getPrefix()));
+			newName.setPrefix(pn.getPrefix());
 		}
 		if (pn.getDegree() != null) {
-			newName.setDegree(String.valueOf(pn.getDegree()));
+			newName.setDegree(pn.getDegree());
 		}
 		if (pn.getVoidReason() != null) {
-			newName.setVoidReason(String.valueOf(pn.getVoidReason()));
+			newName.setVoidReason(pn.getVoidReason());
 		}
 		
 		if (pn.getDateChanged() != null) {
@@ -508,7 +511,7 @@ public class PersonName extends BaseChangeableOpenmrsData implements java.io.Ser
 	}
 	
 	public static void setFormat(String format) {
-		if (StringUtils.isEmpty(format)) {
+		if (ObjectUtils.isEmpty(format)) {
 			PersonName.format = OpenmrsConstants.PERSON_NAME_FORMAT_SHORT;
 		} else {
 			PersonName.format = format;
@@ -525,6 +528,7 @@ public class PersonName extends BaseChangeableOpenmrsData implements java.io.Ser
 	 **/
 	public static class DefaultComparator implements Comparator<PersonName>, Serializable {
 
+		@Serial
 		private static final long serialVersionUID = 1L;
 		
 		@Override

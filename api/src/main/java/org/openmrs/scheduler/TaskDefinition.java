@@ -57,7 +57,7 @@ public class TaskDefinition extends BaseChangeableOpenmrsMetadata {
 	private String taskClass;
 
 	@Transient
-	private Task taskInstance = null;
+	private Task taskInstance;
 	
 	// Scheduling metadata
 	@Column(name = "start_time")

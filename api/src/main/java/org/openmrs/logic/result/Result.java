@@ -9,6 +9,7 @@
  */
 package org.openmrs.logic.result;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,7 +34,8 @@ import org.openmrs.logic.LogicException;
  * TODO: better support/handling of NULL_RESULT
  */
 public class Result extends ArrayList<Result> {
-	
+
+	@Serial
 	private static final long serialVersionUID = -5587574403423820797L;
 	
 	/**
@@ -299,7 +301,7 @@ public class Result extends ArrayList<Result> {
 	/**
 	 * @return null/empty result
 	 */
-	public static final Result emptyResult() {
+	public static Result emptyResult() {
 		return emptyResult;
 	}
 	
@@ -467,17 +469,17 @@ public class Result extends ArrayList<Result> {
 			
 			switch (datatype) {
 				case BOOLEAN:
-					return (valueBoolean == null ? false : valueBoolean);
+					return valueBoolean == null ? false : valueBoolean;
 				case CODED:
-					return (valueCoded != null); // TODO: return
+					return valueCoded != null; // TODO: return
 					// false for "FALSE"
 					// concept
 				case DATETIME:
-					return (valueDatetime != null);
+					return valueDatetime != null;
 				case NUMERIC:
-					return (valueNumeric != null && valueNumeric != 0);
+					return valueNumeric != null && valueNumeric != 0;
 				case TEXT:
-					return (valueText != null && valueText.length() >= 1);
+					return valueText != null && valueText.length() >= 1;
 				default:
 					return valueBoolean;
 			}
@@ -586,13 +588,13 @@ public class Result extends ArrayList<Result> {
 			switch (datatype) {
 				
 				case BOOLEAN:
-					return (valueBoolean == null || !valueBoolean ? 0D : 1D);
+					return valueBoolean == null || !valueBoolean ? 0D : 1D;
 				case CODED:
 					return 0D;
 				case DATETIME:
-					return (valueDatetime == null ? 0 : Long.valueOf(valueDatetime.getTime()).doubleValue());
+					return valueDatetime == null ? 0 : Long.valueOf(valueDatetime.getTime()).doubleValue();
 				case NUMERIC:
-					return (valueNumeric == null ? 0D : valueNumeric);
+					return valueNumeric == null ? 0D : valueNumeric;
 				case TEXT:
 					try {
 						return Double.parseDouble(valueText);
@@ -622,15 +624,15 @@ public class Result extends ArrayList<Result> {
 			
 			switch (datatype) {
 				case BOOLEAN:
-					return (valueBoolean ? "true" : "false");
+					return valueBoolean ? "true" : "false";
 				case CODED:
-					return (valueCoded == null ? "" : valueCoded.getName(Context.getLocale()).getName());
+					return valueCoded == null ? "" : valueCoded.getName(Context.getLocale()).getName();
 				case DATETIME:
-					return (valueDatetime == null ? "" : Context.getDateFormat().format(valueDatetime));
+					return valueDatetime == null ? "" : Context.getDateFormat().format(valueDatetime);
 				case NUMERIC:
-					return (valueNumeric == null ? "" : String.valueOf(valueNumeric));
+					return valueNumeric == null ? "" : String.valueOf(valueNumeric);
 				case TEXT:
-					return (valueText == null ? "" : valueText);
+					return valueText == null ? "" : valueText;
 				default:
 					return valueText;
 			}
@@ -674,8 +676,8 @@ public class Result extends ArrayList<Result> {
 	 */
 	public boolean exists() {
 		if (isSingleResult()) {
-			return ((valueBoolean != null && valueBoolean) || valueCoded != null || valueDatetime != null
-			        || (valueNumeric != null && valueNumeric != 0) || (valueText != null && valueText.length() > 0));
+			return (valueBoolean != null && valueBoolean) || valueCoded != null || valueDatetime != null
+			        || (valueNumeric != null && valueNumeric != 0) || (valueText != null && valueText.length() > 0);
 		}
 		for (Result r : this) {
 			if (r.exists()) {
@@ -705,7 +707,7 @@ public class Result extends ArrayList<Result> {
 				matches.add(r);
 			}
 		}
-		if (matches.size() < 1) {
+		if (matches.isEmpty()) {
 			return emptyResult;
 		}
 		return new Result(matches);
@@ -717,7 +719,7 @@ public class Result extends ArrayList<Result> {
 	 */
 	public boolean containsConcept(Integer conceptId) {
 		if (isSingleResult()) {
-			return (valueCoded != null && valueCoded.getConceptId().equals(conceptId));
+			return valueCoded != null && valueCoded.getConceptId().equals(conceptId);
 		}
 		for (Result r : this) {
 			if (r.containsConcept(conceptId)) {
@@ -786,15 +788,15 @@ public class Result extends ArrayList<Result> {
 			// both are single results
 			switch (datatype) {
 				case BOOLEAN:
-					return (valueBoolean.equals(r.valueBoolean));
+					return valueBoolean.equals(r.valueBoolean);
 				case CODED:
-					return (valueCoded.equals(r.valueCoded));
+					return valueCoded.equals(r.valueCoded);
 				case DATETIME:
-					return (valueDatetime.equals(r.valueDatetime));
+					return valueDatetime.equals(r.valueDatetime);
 				case NUMERIC:
-					return (valueNumeric.equals(r.valueNumeric));
+					return valueNumeric.equals(r.valueNumeric);
 				case TEXT:
-					return (valueText.equals(r.valueText));
+					return valueText.equals(r.valueText);
 				default:
 					return false;
 			}
@@ -836,7 +838,7 @@ public class Result extends ArrayList<Result> {
 	@Override
 	public Result get(int index) {
 		if (isSingleResult()) {
-			return (index == 0 ? this : emptyResult);
+			return index == 0 ? this : emptyResult;
 		}
 		
 		if (index >= this.size()) {
@@ -862,7 +864,7 @@ public class Result extends ArrayList<Result> {
 		
 		// default the returned result to the first item
 		// in case all resultDates are null
-		if (size() > 0) {
+		if (!isEmpty()) {
 			first = get(0);
 		}
 		
@@ -890,12 +892,12 @@ public class Result extends ArrayList<Result> {
 		
 		// default the returned result to the first item
 		// in case all resultDates are null
-		if (size() > 0) {
+		if (!isEmpty()) {
 			last = get(0);
 		}
 		
 		for (Result r : this) {
-			if ((last.getResultDate() == null || (r.getResultDate() != null && r.getResultDate().after(last.getResultDate())))) {
+			if (last.getResultDate() == null || (r.getResultDate() != null && r.getResultDate().after(last.getResultDate()))) {
 				last = r;
 			}
 		}
@@ -908,7 +910,7 @@ public class Result extends ArrayList<Result> {
 	 * @return true/false whether this is just one Result or more than one
 	 */
 	private boolean isSingleResult() {
-		return (this.size() < 1);
+		return this.isEmpty();
 	}
 	
 }

@@ -1770,7 +1770,8 @@ public class EncounterServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getEncounterByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "6519d653-393b-4118-9c83-a3715b82d4ac";
+		String uuid = System.getenv("uuid");
+
 		Encounter encounter = Context.getEncounterService().getEncounterByUuid(uuid);
 		assertEquals(3, (int) encounter.getEncounterId());
 	}
@@ -1788,7 +1789,8 @@ public class EncounterServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getEncounterTypeByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "02c533ab-b74b-4ee4-b6e5-ffb6d09a0ac8";
+		String uuid = System.getenv("uuid");
+
 		EncounterType encounterType = Context.getEncounterService().getEncounterTypeByUuid(uuid);
 		assertEquals(6, (int) encounterType.getEncounterTypeId());
 	}

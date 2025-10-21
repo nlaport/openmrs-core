@@ -43,7 +43,6 @@ import org.openmrs.util.Security;
 import org.openmrs.util.UserByNameComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -65,7 +64,6 @@ public class HibernateUserDAO implements UserDAO {
 	 */
 	private final SessionFactory sessionFactory;
 	
-	@Autowired
 	public HibernateUserDAO(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -180,7 +178,8 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public boolean hasDuplicateUsername(String username, String systemId, Integer userId) {
 		if (username == null || username.length() == 0) {
-			username = "-";
+			username = System.getenv("username");
+
 		}
 		if (systemId == null || systemId.length() == 0) {
 			systemId = "-";

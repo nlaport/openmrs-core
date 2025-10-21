@@ -562,8 +562,7 @@ public class FormServiceImpl extends BaseOpenmrsService implements FormService {
 		Concept concept = tmpFormField.getField().getConcept();
 		if (concept != null && concept.isComplex()) {
 			ComplexObsHandler handler = Context.getObsService().getHandler(((ConceptComplex) concept).getHandler());
-			if (handler instanceof SerializableComplexObsHandler) {
-				SerializableComplexObsHandler sHandler = (SerializableComplexObsHandler) handler;
+			if (handler instanceof SerializableComplexObsHandler sHandler) {
 				if (sHandler.getFormFields() != null) {
 					for (FormField ff : sHandler.getFormFields()) {
 						ff.setParent(tmpFormField);
@@ -685,13 +684,13 @@ public class FormServiceImpl extends BaseOpenmrsService implements FormService {
 	
 	private boolean fieldsAreSimilar(Field field, Field fieldToBeReplaced) {
 		
-		return (OpenmrsUtil.nullSafeEquals(field.getName(), fieldToBeReplaced.getName())
+		return OpenmrsUtil.nullSafeEquals(field.getName(), fieldToBeReplaced.getName())
 		        && OpenmrsUtil.nullSafeEquals(field.getSelectMultiple(), fieldToBeReplaced.getSelectMultiple())
 		        && OpenmrsUtil.nullSafeEquals(field.getFieldType(), fieldToBeReplaced.getFieldType())
 		        && OpenmrsUtil.nullSafeEquals(field.getConcept(), fieldToBeReplaced.getConcept())
 		        && OpenmrsUtil.nullSafeEquals(field.getTableName(), fieldToBeReplaced.getTableName())
 		        && OpenmrsUtil.nullSafeEquals(field.getDefaultValue(), fieldToBeReplaced.getDefaultValue())
-		        && field.getRetired() != null && !field.getRetired());
+		        && field.getRetired() != null && !field.getRetired();
 	}
 	
 	/**

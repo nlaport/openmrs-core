@@ -15,19 +15,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.StorageService;
 import org.openmrs.api.stream.StreamDataService;
 import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Conditional;
@@ -52,10 +47,10 @@ public class LocalStorageService extends BaseStorageService implements StorageSe
 	
 	private final MimetypesFileTypeMap mimetypes = new MimetypesFileTypeMap();
 	
-	public LocalStorageService(@Value("${storage.local.dir:}") String storageDir, @Autowired StreamDataService streamService) {
+	public LocalStorageService(@Value("${storage.local.dir:}") String storageDir, StreamDataService streamService) {
 		super(streamService);
-		this.storageDir = StringUtils.isBlank(storageDir) ? Paths.get(OpenmrsUtil.getApplicationDataDirectory(), 
-			"storage").toAbsolutePath() : Paths.get(storageDir).toAbsolutePath();
+		this.storageDir = StringUtils.isBlank(storageDir) ? Path.of(OpenmrsUtil.getApplicationDataDirectory(), 
+			"storage").toAbsolutePath() : Path.of(storageDir).toAbsolutePath();
 	}
 	
 	@Override
@@ -71,7 +66,7 @@ public class LocalStorageService extends BaseStorageService implements StorageSe
 	 * @return the legacy storage dir
 	 */
 	private Path getLegacyStorageDir() {
-		return Paths.get(OpenmrsUtil.getApplicationDataDirectory());
+		return Path.of(OpenmrsUtil.getApplicationDataDirectory());
 	}
 
 	@Override
@@ -127,7 +122,7 @@ public class LocalStorageService extends BaseStorageService implements StorageSe
 		        .map(path -> {
 					String foundKey = storageDir.relativize(path).toString();
 					foundKey = decodeKey(foundKey);
-					foundKey += (Files.isDirectory(path)) ? File.separator : "";
+					foundKey += Files.isDirectory(path) ? File.separator : "";
 					foundKey = foundKey.replace(File.separatorChar, '/'); //MS Windows support
 					return foundKey;
 				}).filter(foundKey -> foundKey.startsWith(key));
@@ -165,7 +160,9 @@ public class LocalStorageService extends BaseStorageService implements StorageSe
 	
 	@Override
 	public boolean purgeData(String key) throws IOException {
-		if (key == null) return false;
+		if (key == null) {
+			return false;
+		}
 		
 		try {
 			return Files.deleteIfExists(getPath(key));

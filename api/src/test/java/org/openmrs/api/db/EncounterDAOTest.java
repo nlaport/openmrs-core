@@ -33,7 +33,7 @@ import org.openmrs.test.jupiter.BaseContextSensitiveTest;
  */
 public class EncounterDAOTest extends BaseContextSensitiveTest {
 	
-	private EncounterDAO dao = null;
+	private EncounterDAO dao;
 	
 	/**
 	 * Run this before each unit test in this class. The "@Before" method in
@@ -44,11 +44,12 @@ public class EncounterDAOTest extends BaseContextSensitiveTest {
 	@BeforeEach
 	public void runBeforeEachTest() {
 		executeDataSet("org/openmrs/api/db/include/EncounterDAOTest-initialData.xml");
-		
-		if (dao == null)
+
+		if (dao == null) {
 			// fetch the dao from the spring application context
 			// this bean name matches the name in /metadata/spring/applicationContext-service.xml
 			dao = (EncounterDAO) applicationContext.getBean("encounterDAO");
+		}
 		
 	}
 	

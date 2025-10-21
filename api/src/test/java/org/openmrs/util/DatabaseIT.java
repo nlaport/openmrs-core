@@ -41,7 +41,8 @@ public class DatabaseIT implements LiquibaseProvider {
 	
 	protected static final String USER_NAME = "test";
 	
-	protected static final String PASSWORD = "test";
+	protected static final String password = System.getenv("password");
+
 	
 	@BeforeEach
 	public void setup() throws SQLException, ClassNotFoundException {

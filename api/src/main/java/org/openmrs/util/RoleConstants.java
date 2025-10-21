@@ -18,7 +18,7 @@ import org.openmrs.annotation.AddOnStartup;
  * @see org.openmrs.annotation.AddOnStartup
  * @since 1.8
  */
-public class RoleConstants {
+public final class RoleConstants {
 
 	private RoleConstants() {
 	}

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.CaseUtils;
 import org.infinispan.commons.configuration.io.ConfigurationResourceResolver;
 import org.infinispan.commons.dataconversion.MediaType;
@@ -60,7 +60,7 @@ import org.yaml.snakeyaml.Yaml;
  */
 @Configuration
 public class CacheConfig {
-	private final static Logger log = LoggerFactory.getLogger(CacheConfig.class);
+	private static final Logger log = LoggerFactory.getLogger(CacheConfig.class);
 	
 	@Value("${cache.type:local}")
 	private String cacheType;
@@ -77,7 +77,7 @@ public class CacheConfig {
 	private String jChannelConfig;
 
 	@Bean(name = "apiCacheManager", destroyMethod = "stop")
-	public SpringEmbeddedCacheManager apiCacheManager() throws Exception {
+	SpringEmbeddedCacheManager apiCacheManager() throws Exception {
 		if (StringUtils.isBlank(cacheConfig)) {
 			String local = "local".equalsIgnoreCase(cacheType.trim()) ? "-local" : "";
 			cacheConfig = "infinispan-api" + local + ".xml";
@@ -85,13 +85,13 @@ public class CacheConfig {
 
 		ParserRegistry parser = new ParserRegistry();
 		ConfigurationBuilderHolder baseConfigBuilder = parser.parseFile(cacheConfig);
-		if(cacheType.trim().equals("cluster")) {
+		if("cluster".equals(cacheType.trim())) {
 			jChannelConfig = getJChannelConfig(cacheStack);
 			JChannel jchannel = new JChannel(jChannelConfig);
 			Class<? extends TP> protocolClass = TCP.class;
-			if (cacheStack.trim().isEmpty() || cacheStack.trim().equals("udp")) {
+			if (cacheStack.trim().isEmpty() || "udp".equals(cacheStack.trim())) {
 				protocolClass = UDP.class;
-			} else if(cacheStack.trim().equals("tunnel")) {
+			} else if("tunnel".equals(cacheStack.trim())) {
 				protocolClass = TUNNEL.class;
 			}
 			TP protocol = jchannel.getProtocolStack().findProtocol(protocolClass);

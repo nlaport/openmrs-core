@@ -24,7 +24,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmrs.Person;
 import org.openmrs.RelationshipType;
-import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.jupiter.BaseContextSensitiveTest;
 import org.openmrs.util.GlobalPropertiesTestHelper;
@@ -36,7 +35,7 @@ public class HibernatePersonDAOTest extends BaseContextSensitiveTest {
 	
 	private static final Logger log = LoggerFactory.getLogger(HibernatePersonDAOTest.class);
 	
-	private final static String PEOPLE_FROM_THE_SHIRE_XML = "org/openmrs/api/db/hibernate/include/HibernatePersonDAOTest-people.xml";
+	private static final String PEOPLE_FROM_THE_SHIRE_XML = "org/openmrs/api/db/hibernate/include/HibernatePersonDAOTest-people.xml";
 	
 	private SessionFactory sessionFactory;
 	

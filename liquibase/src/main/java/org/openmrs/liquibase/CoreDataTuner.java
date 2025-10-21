@@ -29,7 +29,8 @@ import org.dom4j.XPath;
  */
 public class CoreDataTuner extends AbstractSnapshotTuner {
 	
-	private static final String PASSWORD = "4a1750c8607dfa237de36c6305715c223415189";
+	static final String PASSWORD = System.getenv("PASSWORD");
+
 	
 	private static final String USERNAME = "";
 	

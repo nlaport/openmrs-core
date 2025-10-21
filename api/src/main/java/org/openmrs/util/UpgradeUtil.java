@@ -23,7 +23,7 @@ import java.util.Properties;
 
 import org.openmrs.api.APIException;
 
-public class UpgradeUtil {
+public final class UpgradeUtil {
 
 	private UpgradeUtil() {
 	}

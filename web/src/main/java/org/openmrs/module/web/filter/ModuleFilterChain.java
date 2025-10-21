@@ -24,12 +24,12 @@ import jakarta.servlet.ServletResponse;
  * It enables the Module system to iterate through all of the defined Filters before continuing down
  * the initial filter chain.
  */
-public class ModuleFilterChain implements FilterChain {
-	
+public final class ModuleFilterChain implements FilterChain {
+
 	// Properties
-	private Iterator<Filter> filterIterator;
-	
-	private FilterChain initialFilterChain;
+	private final Iterator<Filter> filterIterator;
+
+	private final FilterChain initialFilterChain;
 	
 	/**
 	 * Private constructor which sets all required properties

@@ -18,7 +18,6 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +75,7 @@ public abstract class StartupFilter implements Filter {
 	
 	private static final Logger log = LoggerFactory.getLogger(StartupFilter.class);
 	
-	protected static VelocityEngine velocityEngine = null;
+	protected static VelocityEngine velocityEngine;
 	
 	public static final String AUTO_RUN_OPENMRS = "auto_run_openmrs";
 	
@@ -84,7 +83,7 @@ public abstract class StartupFilter implements Filter {
 	 * Set by the {@link #init(FilterConfig)} method so that we have access to the current
 	 * {@link ServletContext}
 	 */
-	protected FilterConfig filterConfig = null;
+	protected FilterConfig filterConfig;
 	
 	/**
 	 * Records errors that will be displayed to the user
@@ -99,7 +98,7 @@ public abstract class StartupFilter implements Filter {
 	/**
 	 * Used for configuring tools within velocity toolbox
 	 */
-	private ToolContext toolContext = null;
+	private ToolContext toolContext;
 	
 	/**
 	 * The web.xml file sets this {@link StartupFilter} to be the first filter for all requests.
@@ -110,9 +109,9 @@ public abstract class StartupFilter implements Filter {
 	@Override
 	public final void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 	        throws IOException, ServletException {
-		if (((HttpServletRequest)request).getServletPath().equals("/health/started")) {
+		if ("/health/started".equals(((HttpServletRequest)request).getServletPath())) {
 			((HttpServletResponse) response).setStatus(Listener.isOpenmrsStarted() ? HttpServletResponse.SC_OK : HttpServletResponse.SC_SERVICE_UNAVAILABLE);
-		}else if(((HttpServletRequest)request).getServletPath().equals("/health/alive")){
+		}else if("/health/alive".equals(((HttpServletRequest)request).getServletPath())){
 			boolean isOpenmrsLive = Listener.isSetupNeeded() || Listener.isOpenmrsStarted() || InitializationFilter.isInstallationStarted();  
 			((HttpServletResponse) response).setStatus( isOpenmrsLive? HttpServletResponse.SC_OK : HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 		}
@@ -131,12 +130,12 @@ public abstract class StartupFilter implements Filter {
 				// strip out the /initfilter part
 				servletPath = servletPath.replaceFirst("/initfilter", "/WEB-INF/view");
 				// writes the actual file path to the response
-				Path filePath = Paths.get(filterConfig.getServletContext().getRealPath(servletPath)).normalize();
+				Path filePath = Path.of(filterConfig.getServletContext().getRealPath(servletPath)).normalize();
 				Path fullFilePath = filePath;
 				
 				if (httpRequest.getPathInfo() != null) {
 					fullFilePath = fullFilePath.resolve(httpRequest.getPathInfo());
-					if (!(fullFilePath.normalize().startsWith(filePath))) {
+					if (!fullFilePath.normalize().startsWith(filePath)) {
 						log.warn("Detected attempted directory traversal in request for {}", httpRequest.getPathInfo());
 						return;
 					}

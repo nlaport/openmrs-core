@@ -44,13 +44,13 @@ import org.openmrs.util.PrivilegeConstants;
  * @see org.openmrs.Patient
  */
 public interface PersonService extends OpenmrsService {
-	
+
 	/**
 	 * These enumerations are used when determining which person attr types to display. If listing
 	 * off a lot of patients/users, one set of types are shown. When only displaying one
 	 * patient/user, another type is shown.
 	 */
-	public static enum ATTR_VIEW_TYPE {
+	public enum ATTR_VIEW_TYPE {
 		/**
 		 * Attributes to be shown when listing off multiple patients or users
 		 */

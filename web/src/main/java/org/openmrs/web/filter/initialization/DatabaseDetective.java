@@ -21,9 +21,11 @@ public class DatabaseDetective {
 	
 	private static final String CONNECTION_URL = "connection.url";
 	
-	private static final String CONNECTION_USERNAME = "connection.username";
+	static final String CONNECTION_USERNAME = System.getenv("CONNECTION_USERNAME");
+
 	
-	private static final String CONNECTION_PASSWORD = "connection.password";
+	static final String CONNECTION_PASSWORD = System.getenv("CONNECTION_PASSWORD");
+
 	
 	/**
 	 * Check whether openmrs database is empty. Having just one non-liquibase table in the given

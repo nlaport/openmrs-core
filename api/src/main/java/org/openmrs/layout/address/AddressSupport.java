@@ -12,7 +12,7 @@ package org.openmrs.layout.address;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.GlobalPropertyListener;
 import org.openmrs.api.context.Context;
@@ -25,11 +25,11 @@ import org.slf4j.LoggerFactory;
 /**
  * @since 1.12
  */
-public class AddressSupport extends LayoutSupport<AddressTemplate> implements GlobalPropertyListener {
+public final class AddressSupport extends LayoutSupport<AddressTemplate> implements GlobalPropertyListener {
 	
 	private static AddressSupport singleton;
 	
-	private boolean initialized = false;
+	private boolean initialized;
 	
 	private static final Logger log = LoggerFactory.getLogger(AddressSupport.class);
 	

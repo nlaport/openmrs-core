@@ -48,10 +48,10 @@ import org.springframework.context.ApplicationEventPublisher;
 public class EventPublisherDelegatingSearchSession implements SearchSession {
 	
 	private static final Logger log = LoggerFactory.getLogger(EventPublisherDelegatingSearchSession.class);
-	
-	private SearchSession delegate;
-	
-	private ApplicationEventPublisher eventPublisher;
+
+	private final SearchSession delegate;
+
+	private final ApplicationEventPublisher eventPublisher;
 	
 	public EventPublisherDelegatingSearchSession(SearchSession delegate, ApplicationEventPublisher eventPublisher) {
 		this.delegate = delegate;

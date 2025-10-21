@@ -204,6 +204,7 @@
    <properties>
       <WEBAPP.DISPLAY.NAME>OpenMRS</WEBAPP.DISPLAY.NAME>
       <WEBAPP.DESCRIPTION>An Open-Source EMR System</WEBAPP.DESCRIPTION>
+  <maven.compiler.release>17</maven.compiler.release>
       <webapp.name>openmrs</webapp.name>
       <tomcat.version>11.0.7</tomcat.version>
    </properties>

@@ -46,6 +46,7 @@ import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import ca.uhn.hl7v2.HL7Exception;
@@ -99,7 +100,7 @@ public class ORUR01Handler implements Application {
 	
 	private static final Logger log = LoggerFactory.getLogger(ORUR01Handler.class);
 	
-	private static EncounterRole unknownRole = null;
+	private static EncounterRole unknownRole;
 	
 	/**
 	 * Always returns true, assuming that the router calling this handler will only call this
@@ -154,7 +155,7 @@ public class ORUR01Handler implements Application {
 		Message response;
 		try {
 			ORU_R01 oru = (ORU_R01) message;
-			response = processORU_R01(oru);
+			response = processORUR01(oru);
 		}
 		catch (ClassCastException e) {
 			log.warn("Error casting " + message.getClass().getName() + " to ORU_R01", e);
@@ -179,7 +180,7 @@ public class ORUR01Handler implements Application {
 	 * @throws HL7Exception
 	 * <strong>Should</strong> process multiple NK1 segments
 	 */
-	private Message processORU_R01(ORU_R01 oru) throws HL7Exception {
+	private Message processORUR01(ORU_R01 oru) throws HL7Exception {
 		
 		// TODO: ideally, we would branch or alter our behavior based on the
 		// sending application.
@@ -336,7 +337,7 @@ public class ORUR01Handler implements Application {
 					Concept questionConcept = proposingException.getConcept();
 					String value = proposingException.getValueName();
 					//if the sender never specified any text for the proposed concept
-					if (!StringUtils.isEmpty(value)) {
+					if (!ObjectUtils.isEmpty(value)) {
 						conceptProposals.add(createConceptProposal(encounter, questionConcept, value));
 					} else {
 						errorInHL7Queue = new HL7Exception(Context.getMessageSourceService().getMessage(
@@ -1185,11 +1186,11 @@ public class ORUR01Handler implements Application {
 		// need to handle timezone
 		String dtm = ts.getTime().getValue();
 		int year = Integer.parseInt(dtm.substring(0, 4));
-		int month = (dtm.length() >= 6 ? Integer.parseInt(dtm.substring(4, 6)) - 1 : 0);
-		int day = (dtm.length() >= 8 ? Integer.parseInt(dtm.substring(6, 8)) : 1);
-		int hour = (dtm.length() >= 10 ? Integer.parseInt(dtm.substring(8, 10)) : 0);
-		int min = (dtm.length() >= 12 ? Integer.parseInt(dtm.substring(10, 12)) : 0);
-		int sec = (dtm.length() >= 14 ? Integer.parseInt(dtm.substring(12, 14)) : 0);
+		int month = dtm.length() >= 6 ? Integer.parseInt(dtm.substring(4, 6)) - 1 : 0;
+		int day = dtm.length() >= 8 ? Integer.parseInt(dtm.substring(6, 8)) : 1;
+		int hour = dtm.length() >= 10 ? Integer.parseInt(dtm.substring(8, 10)) : 0;
+		int min = dtm.length() >= 12 ? Integer.parseInt(dtm.substring(10, 12)) : 0;
+		int sec = dtm.length() >= 14 ? Integer.parseInt(dtm.substring(12, 14)) : 0;
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month, day, hour, min, sec);
 		

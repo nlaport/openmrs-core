@@ -18,7 +18,6 @@ import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.DiagnosisService;
-import org.openmrs.api.OpenmrsService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DiagnosisDAO;
 import org.springframework.beans.factory.annotation.Autowired;

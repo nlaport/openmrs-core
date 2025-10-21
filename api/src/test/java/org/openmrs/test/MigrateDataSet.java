@@ -173,7 +173,7 @@ public class MigrateDataSet {
 		
 		String[] cmds = new String[] { "/bin/sh", "-c", shellCommand };
 		
-		File wd = new File("/tmp");
+		InputStream wd = getClass().getClassLoader().getResourceAsStream("/tmp");
 		
 		StringBuilder out = new StringBuilder();
 		

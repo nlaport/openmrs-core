@@ -62,7 +62,7 @@ public class OpenmrsConfigurationFactory extends ConfigurationFactory {
 
 	// Extensions are all SUFFIXES except wildcard, with leading "." removed
 	public static final String[] EXTENSIONS = Arrays.stream(SUFFIXES)
-		.filter(s -> !s.equals("*")).map(s -> s.substring(1)).toArray(String[]::new);
+		.filter(s -> !"*".equals(s)).map(s -> s.substring(1)).toArray(String[]::new);
 
 	@Override
 	public Configuration getConfiguration(LoggerContext loggerContext, String name, URI configLocation) {
@@ -82,9 +82,9 @@ public class OpenmrsConfigurationFactory extends ConfigurationFactory {
 					List<AbstractConfiguration> abstractConfigurations = new ArrayList<>();
 					for (File configFile : configurationFiles) {
 						Configuration configuration = super.getConfiguration(loggerContext, name, configFile.toURI());
-						if (configuration instanceof AbstractConfiguration) {
+						if (configuration instanceof AbstractConfiguration abstractConfiguration) {
 							System.out.println("Adding log4j2 configuration file: " + configFile.getPath());
-							abstractConfigurations.add((AbstractConfiguration) configuration);
+							abstractConfigurations.add(abstractConfiguration);
 						}
 						else {
 							System.err.println("Unable to add log4j2 configuration file: " + configFile.getPath());

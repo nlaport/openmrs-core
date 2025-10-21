@@ -31,20 +31,20 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 /**
  * This class is responsible for loading messages resources from file system
  */
-public class CustomResourceLoader {
+public final class CustomResourceLoader {
 	
 	private static final Logger log = LoggerFactory.getLogger(CustomResourceLoader.class);
 	
 	/** */
 	public static final String PREFIX = "messages";
-	
+
 	/** the map that contains resource bundles for each locale */
-	private Map<Locale, ResourceBundle> resources;
-	
+	private final Map<Locale, ResourceBundle> resources;
+
 	/** the set of languages, which is currently supported */
-	private Set<Locale> availablelocales;
+	private final Set<Locale> availablelocales;
 	
-	private static CustomResourceLoader instance = null;
+	private static CustomResourceLoader instance;
 	
 	/**
 	 * default constructor that initializes inner map of resources

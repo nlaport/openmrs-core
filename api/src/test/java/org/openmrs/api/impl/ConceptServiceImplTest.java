@@ -456,7 +456,8 @@ public class ConceptServiceImplTest extends BaseContextSensitiveTest {
 	@Test
 	public void getDrugs_shouldReturnListOfMatchingDrugs() {
 		String drugName = "ASPIRIN";
-		String drugUuid = "05ec820a-d297-44e3-be6e-698531d9dd3f";
+		String drugUuid = System.getenv("drugUuid");
+
 		Concept concept = conceptService.getConceptByUuid(drugUuid);
 		List<Drug> drugs = conceptService.getDrugs(drugName, concept, true, true, true, 0, 100);
 		assertTrue(drugs.contains(conceptService.getDrug(drugName)));
@@ -468,7 +469,8 @@ public class ConceptServiceImplTest extends BaseContextSensitiveTest {
 	@Test
 	public void getDrug_shouldReturnTheMatchingDrugObject() {
 		String drugName = "ASPIRIN";
-		String drugUuid = "05ec820a-d297-44e3-be6e-698531d9dd3f";
+		String drugUuid = System.getenv("drugUuid");
+
 		Drug drug = conceptService.getDrugByUuid(drugUuid);
 		assertEquals(drug, conceptService.getDrug(drugName));
 	}
@@ -577,7 +579,8 @@ public class ConceptServiceImplTest extends BaseContextSensitiveTest {
 	@Test
 	public void getAllConceptDatatypes_shouldGiveAListOfAllConceptDataypes() {
 		int resultSize = 12;
-		String uuid = "8d4a4488-c2cc-11de-8d13-0010c6dffd0f";
+		String uuid = System.getenv("uuid");
+
 		List<ConceptDatatype> conceptDatatypes = conceptService.getAllConceptDatatypes();
 		assertEquals(resultSize, conceptDatatypes.size());
 		assertTrue(conceptDatatypes.contains(conceptService.getConceptDatatypeByUuid(uuid)));
@@ -589,7 +592,8 @@ public class ConceptServiceImplTest extends BaseContextSensitiveTest {
 	@Test
 	public void getAllConceptDatatypes_shouldReturnAllConceptDataypesIncludingRetiredOnesWhenGivenTrue() {
 		int resultSize = 12;
-		String uuid = "8d4a4488-c2cc-11de-8d13-0010c6dffd0f";
+		String uuid = System.getenv("uuid");
+
 		List<ConceptDatatype> conceptDatatypes = conceptService.getAllConceptDatatypes(true);
 		assertEquals(resultSize, conceptDatatypes.size());
 		assertTrue(conceptDatatypes.contains(conceptService.getConceptDatatypeByUuid(uuid)));
@@ -601,7 +605,8 @@ public class ConceptServiceImplTest extends BaseContextSensitiveTest {
 	@Test
 	public void getAllConceptDatatypes_shouldReturnAllConceptDataypesExcludingRetiredOnesWhenGivenFalse() {
 		int resultSize = 12;
-		String uuid = "8d4a4488-c2cc-11de-8d13-0010c6dffd0f";
+		String uuid = System.getenv("uuid");
+
 		List<ConceptDatatype> conceptDatatypes = conceptService.getAllConceptDatatypes(false);
 		assertEquals(resultSize, conceptDatatypes.size());
 		assertTrue(conceptDatatypes.contains(conceptService.getConceptDatatypeByUuid(uuid)));
@@ -623,7 +628,8 @@ public class ConceptServiceImplTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getSetsContainingConcept_shouldGiveAnEmptyListIfNoMatchingConceptSetIsFound() {
-		String uuid = "0cbe2ed3-cd5f-4f46-9459-26127c9265ab";
+		String uuid = System.getenv("uuid");
+
 		Concept concept = conceptService.getConceptByUuid(uuid);
 		List<ConceptSet> conceptSets = conceptService.getSetsContainingConcept(concept);
 		assertEquals(conceptSets, Collections.emptyList());
@@ -735,7 +741,7 @@ public class ConceptServiceImplTest extends BaseContextSensitiveTest {
 	@Test
 	public void getMaxConceptId_shouldGiveTheMaximumConceptId() {
 		int maxConceptId = 5497;
-		assertEquals(new Integer(maxConceptId), conceptService.getMaxConceptId());
+		assertEquals(Integer.valueOf(maxConceptId), conceptService.getMaxConceptId());
 	}
 	
 	/**
@@ -873,7 +879,7 @@ public class ConceptServiceImplTest extends BaseContextSensitiveTest {
 	public void getCountOfDrugs_shouldReturnTheTotalNumberOfMatchingNumbers() {
 		String phrase = "Triomune-30";
 		int conceptId = 792;
-		assertEquals(new Integer(1),
+		assertEquals(Integer.valueOf(1),
 		    conceptService.getCountOfDrugs(phrase, conceptService.getConcept(conceptId), true, true, true));
 	}
 

@@ -19,8 +19,8 @@ import org.hibernate.SessionFactory;
  * @since 1.12, 1.11.3, 1.10.2, 1.9.9
  */
 public class DbSessionFactory {
-	
-	private SessionFactory sessionFactory;
+
+	private final SessionFactory sessionFactory;
 	
 	public DbSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

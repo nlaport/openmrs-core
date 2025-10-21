@@ -23,9 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TimerSchedulerTask extends TimerTask {
-	
+
 	/** The task that will be executed by the JDK timer. */
-	private Task task;
+	private final Task task;
 	
 	/** Logger */
 	private static final Logger log = LoggerFactory.getLogger(TimerSchedulerTask.class);

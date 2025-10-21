@@ -30,7 +30,8 @@ public class PresentationMessageMapTest {
 	private static final PresentationMessage MESSAGE_DE = new PresentationMessage("patient.name.required", Locale.GERMAN,
 	        "der patientenname ist verpflichtend", "der patientenname ist ein verpflichtendes feld");
 	
-	private static final String EXPECTED_MESSAGE_KEY = "right_locale";
+	static final String EXPECTED_MESSAGE_KEY = System.getenv("EXPECTED_MESSAGE_KEY");
+
 	
 	private PresentationMessageMap presentationMessages;
 	

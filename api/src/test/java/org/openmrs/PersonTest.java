@@ -714,7 +714,7 @@ public class PersonTest extends BaseContextSensitiveTest {
 	@Test
 	public void getAttribute_shouldreturnPersonAttributeBasedOnAttributeTypeId() {
 		Person person = personHelper(false, 1, 2, 3, "name1", "name2", "name3", "value1", "value2", "value3");
-		assertEquals(new Integer(3), person.getAttribute(3).getAttributeType().getId());
+		assertEquals(Integer.valueOf(3), person.getAttribute(3).getAttributeType().getId());
 	}
 
 	/**
@@ -869,9 +869,9 @@ public class PersonTest extends BaseContextSensitiveTest {
 		person.setDeathDate(Date.from(LocalDate.of(2024, Month.AUGUST, 5).atStartOfDay().toInstant(ZoneOffset.UTC)));
 		assertEquals(4, person.getAgeInDays());
 	}
-	
+
 	// helper class
-	private static class PersonNameBuilder {
+	private static final class PersonNameBuilder {
 		
 		private PersonName personName;
 		
@@ -897,9 +897,9 @@ public class PersonTest extends BaseContextSensitiveTest {
 			return personName;
 		}
 	}
-	
+
 	// helper class
-	private static class PersonAddressBuilder {
+	private static final class PersonAddressBuilder {
 		
 		private PersonAddress personAddress;
 		

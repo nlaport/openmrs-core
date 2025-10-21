@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Utility functions to clean up causes of memory leakages.
  */
-public class MemoryLeakUtil {
+public final class MemoryLeakUtil {
 	
 	private MemoryLeakUtil() {
 	}
@@ -31,7 +31,7 @@ public class MemoryLeakUtil {
 			ClassLoader myClassLoader = MemoryLeakUtil.class.getClassLoader();
 			Class<?> clazz = Class.forName("com.mysql.jdbc.ConnectionImpl", false, myClassLoader);
 			
-			if (!(clazz.getClassLoader() == myClassLoader)) {
+			if (clazz.getClassLoader() != myClassLoader) {
 				log.info("MySQL ConnectionImpl was loaded with another ClassLoader: (" + clazz.getClassLoader()
 				        + "): cancelling anyway");
 			} else {

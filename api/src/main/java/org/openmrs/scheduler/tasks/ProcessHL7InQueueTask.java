@@ -29,7 +29,7 @@ public class ProcessHL7InQueueTask extends AbstractTask {
 	private static final Logger log = LoggerFactory.getLogger(ProcessHL7InQueueTask.class);
 	
 	// Instance of hl7 processor
-	private static HL7InQueueProcessor processor = null;
+	private static HL7InQueueProcessor processor;
 	
 	/**
 	 * Default Constructor (Uses SchedulerConstants.username and SchedulerConstants.password

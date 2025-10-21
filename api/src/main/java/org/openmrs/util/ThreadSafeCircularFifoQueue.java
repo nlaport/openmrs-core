@@ -11,6 +11,7 @@ package org.openmrs.util;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Array;
@@ -38,6 +39,7 @@ import java.util.function.Predicate;
  */
 public class ThreadSafeCircularFifoQueue<E> extends AbstractQueue<E> implements Queue<E>, Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -89162358098721L;
 
 	// queue capacity
@@ -49,16 +51,16 @@ public class ThreadSafeCircularFifoQueue<E> extends AbstractQueue<E> implements 
 	private transient ReentrantLock lock = new ReentrantLock();
 
 	// index of the "start" of the queue, i.e., where data is read from
-	private int read = 0;
+	private int read;
 
 	// index of the "end" of the queue, i.e., where data is written to
-	private int write = 0;
+	private int write;
 
 	// number of elements in the queue
 	private int size;
 
 	// tracks the state of any iterators
-	private transient Iterators iterators = null;
+	private transient Iterators iterators;
 
 	@SuppressWarnings("unused")
 	public ThreadSafeCircularFifoQueue() {
@@ -400,7 +402,7 @@ public class ThreadSafeCircularFifoQueue<E> extends AbstractQueue<E> implements 
 	}
 
 	private int decrement(int i) {
-		return ((i == 0) ? maxElements : i) - 1;
+		return (i == 0 ? maxElements : i) - 1;
 	}
 
 	private void internalAdd(E e) {
@@ -494,9 +496,9 @@ public class ThreadSafeCircularFifoQueue<E> extends AbstractQueue<E> implements 
 
 		private Node head;
 
-		private Node sweeper = null;
+		private Node sweeper;
 
-		int cycles = 0;
+		int cycles;
 
 		Iterators(Iterator iterator) {
 			register(iterator);
@@ -538,7 +540,8 @@ public class ThreadSafeCircularFifoQueue<E> extends AbstractQueue<E> implements 
 
 		void sweep(boolean tryHarder) {
 			int probes = tryHarder ? LONG_SWEEP_PROBES : SHORT_SWEEP_PROBES;
-			Node o, p;
+			Node o;
+			Node p;
 			final Node sweeper = this.sweeper;
 			boolean completeCycle;   // to limit search to one full sweep
 
@@ -587,7 +590,7 @@ public class ThreadSafeCircularFifoQueue<E> extends AbstractQueue<E> implements 
 				p = next;
 			}
 
-			this.sweeper = (p == null) ? null : o;
+			this.sweeper = p == null ? null : o;
 		}
 
 		private void prune(Predicate<Iterator> shouldRemove) {

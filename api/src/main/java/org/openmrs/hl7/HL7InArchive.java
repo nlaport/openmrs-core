@@ -44,7 +44,7 @@ public class HL7InArchive extends HL7QueueItem {
 	private Integer messageState;
 
 	@Transient
-	private boolean loaded = false;
+	private boolean loaded;
 	
 	/**
 	 * Default constructor

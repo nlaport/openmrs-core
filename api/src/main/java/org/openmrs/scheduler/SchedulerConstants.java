@@ -17,9 +17,11 @@ public class SchedulerConstants {
 	// 0 second delay added before the initial start of a task
 	public static final long SCHEDULER_DEFAULT_DELAY = 0;
 	
-	public static String SCHEDULER_DEFAULT_USERNAME = "admin";
+	public static String SCHEDULER_DEFAULT_USERNAME = System.getenv("SCHEDULER_DEFAULT_USERNAME");
+
 	
-	public static String SCHEDULER_DEFAULT_PASSWORD = "test";
+	public static String SCHEDULER_DEFAULT_PASSWORD = System.getenv("SCHEDULER_DEFAULT_PASSWORD");
+
 	
 	/** The default 'from' address for emails send by the schedule */
 	public static final String SCHEDULER_DEFAULT_FROM = "scheduler@openmrs.org";

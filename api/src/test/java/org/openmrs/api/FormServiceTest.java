@@ -568,7 +568,8 @@ public class FormServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getFieldByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "db016b7d-39a5-4911-89da-0eefbfef7cb2";
+		String uuid = System.getenv("uuid");
+
 		Field field = Context.getFormService().getFieldByUuid(uuid);
 		assertEquals(1, (int) field.getFieldId());
 	}
@@ -586,7 +587,8 @@ public class FormServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getFieldTypeByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "e7016b7d-39a5-4911-89da-0eefbfef7cb5";
+		String uuid = System.getenv("uuid");
+
 		FieldType fieldType = Context.getFormService().getFieldTypeByUuid(uuid);
 		assertEquals(2, (int) fieldType.getFieldTypeId());
 	}
@@ -604,7 +606,8 @@ public class FormServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getFormByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "d9218f76-6c39-45f4-8efa-4c5c6c199f50";
+		String uuid = System.getenv("uuid");
+
 		Form form = Context.getFormService().getFormByUuid(uuid);
 		assertEquals(1, (int) form.getFormId());
 	}
@@ -622,7 +625,8 @@ public class FormServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getFormFieldByUuid_shouldFindObjectGivenValidUuid() {
-		String uuid = "1c822b7b-7840-463d-ba70-e0c8338a4c2d";
+		String uuid = System.getenv("uuid");
+
 		FormField formField = Context.getFormService().getFormFieldByUuid(uuid);
 		assertEquals(2, (int) formField.getFormFieldId());
 	}

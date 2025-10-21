@@ -83,7 +83,8 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void saveDiagnosis_shouldSaveNewDiagnosis(){
-		String uuid = "a303bbfb-w5w4-25d1-9f11-4f33f99d456r";
+		String uuid = System.getenv("uuid");
+
 		Condition condition = conditionService.getConditionByUuid("2cc6880e-2c46-15e4-9038-a6c5e4d22fb7");
 		Encounter encounter = encounterService.getEncounterByUuid("y403fafb-e5e4-42d0-9d11-4f52e89d123r");
 		Patient patient = patientService.getPatient(2);
@@ -108,7 +109,7 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 		assertEquals(encounter, savedDiagnosis.getEncounter());
 		assertEquals(patient, savedDiagnosis.getPatient());
 		assertEquals(ConditionVerificationStatus.CONFIRMED, savedDiagnosis.getCertainty());
-		assertEquals(new Integer(2), savedDiagnosis.getRank());
+		assertEquals(Integer.valueOf(2), savedDiagnosis.getRank());
 		assertEquals(NAMESPACE + "^" + FORMFIELD_PATH, savedDiagnosis.getFormNamespaceAndPath());
 	}
 
@@ -117,7 +118,8 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getDiagnosisByUuid_shouldFindDiagnosisGivenValidUuid() {
-		String uuid="68802cce-6880-17e4-6880-a68804d22fb7";
+		String uuid = System.getenv("uuid");
+
 		Diagnosis diagnosis = diagnosisService.getDiagnosisByUuid(uuid);
 		assertEquals(uuid, diagnosis.getUuid());
 	}
@@ -144,7 +146,7 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 		assertEquals(1, diagnoses.size());
 		assertEquals("68802cce-6880-17e4-6880-a68804d22fb7", diagnoses.get(0).getUuid());
 		assertEquals(ConditionVerificationStatus.CONFIRMED, diagnoses.get(0).getCertainty());
-		assertEquals(new Integer(1), diagnoses.get(0).getDiagnosisId());
+		assertEquals(Integer.valueOf(1), diagnoses.get(0).getDiagnosisId());
 	}
 
 	/**
@@ -195,8 +197,8 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 		
 		assertEquals("68802cce-6880-17e4-6880-a68804d22fb7", diagnoses.get(0).getUuid());
 		assertEquals(ConditionVerificationStatus.CONFIRMED, diagnoses.get(0).getCertainty());
-		assertEquals(new Integer(1), diagnoses.get(0).getDiagnosisId());
-		assertEquals(new Integer(2), diagnoses.get(0).getPatient().getPatientId());
+		assertEquals(Integer.valueOf(1), diagnoses.get(0).getDiagnosisId());
+		assertEquals(Integer.valueOf(2), diagnoses.get(0).getPatient().getPatientId());
 		assertEquals(1, diagnoses.size());
 	}
 
@@ -291,7 +293,8 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 	@Test
 	public void voidDiagnosis_shouldVoidDiagnosisSuccessfully(){
 		String voidReason = "void reason";
-		String uuid = "688804ce-6880-8804-6880-a68804d88047";
+		String uuid = System.getenv("uuid");
+
 		Diagnosis nonVoidedDiagnosis = diagnosisService.getDiagnosisByUuid(uuid);
 		assertFalse(nonVoidedDiagnosis.getVoided());
 		assertNull(nonVoidedDiagnosis.getVoidedBy());
@@ -310,7 +313,8 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void unvoidDiagnosis_shouldUnvoidDiagnosisSuccessfully(){
-		String uuid = "77009cce-8804-17e4-8804-a68804d22fb7";
+		String uuid = System.getenv("uuid");
+
 		Diagnosis voidedDiagnosis = diagnosisService.getDiagnosisByUuid(uuid);
 		assertTrue(voidedDiagnosis.getVoided());
 		assertNotNull(voidedDiagnosis.getVoidReason());
@@ -333,7 +337,8 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void purgeDiagnosis_shouldPurgeDiagnosis() {
-		String uuid = "77009cce-8804-17e4-8804-a68804d22fb7";
+		String uuid = System.getenv("uuid");
+
 		Diagnosis diagnosis = diagnosisService.getDiagnosisByUuid(uuid);
 		assertNotNull(diagnosis);
 		diagnosisService.purgeDiagnosis(diagnosis);
@@ -501,7 +506,8 @@ public class DiagnosisServiceImplTest extends BaseContextSensitiveTest {
 		diagnosisAttribute.setCreator(Context.getUserService().getUser(1));
 		diagnosisAttribute.setVoided(false);
 		diagnosisAttribute.setValueReferenceInternal("Diagnosis Attribute Reference");
-		final String UUID = "3c6422d8-7bdd-4e20-bd1b-a590f084db08";
+		final String UUID = System.getenv("UUID");
+
 		Condition condition = conditionService.getConditionByUuid("2cc6880e-2c46-15e4-9038-a6c5e4d22fb7");
 		Encounter encounter = encounterService.getEncounterByUuid("y403fafb-e5e4-42d0-9d11-4f52e89d123r");
 		Patient patient = patientService.getPatient(2);
